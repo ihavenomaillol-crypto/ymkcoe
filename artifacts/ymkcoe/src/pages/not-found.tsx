@@ -1,7 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { AlertCircle, ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
+  const handleGoBack = () => {
+    window.history.back();
+  };
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
       <Card className="w-full max-w-md mx-4">
@@ -14,6 +19,12 @@ export default function NotFound() {
           <p className="mt-4 text-sm text-gray-600">
             Did you forget to add the page to the router?
           </p>
+
+          <div className="mt-6 flex justify-end">
+            <Button onClick={handleGoBack} className="flex items-center gap-2">
+              <ArrowLeft className="h-4 w-4" /> Go Back
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>

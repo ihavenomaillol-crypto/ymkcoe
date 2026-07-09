@@ -1,9 +1,10 @@
-import { Link, useLocation } from "wouter";
+import { Link, useLocation, useSearch } from "wouter";
 import { GraduationCap, Users, Megaphone, Briefcase, FileText, Image, LogOut, LayoutDashboard } from "lucide-react";
 import { useAdminLogout } from "@workspace/api-client-react";
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
+  const searchString = useSearch();
   const logout = useAdminLogout();
 
   const handleLogout = () => {
@@ -16,7 +17,6 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
 
   const navItems = [
     { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/admin/dashboard?tab=courses", label: "Courses", icon: GraduationCap },
     { href: "/admin/dashboard?tab=faculty", label: "Faculty", icon: Users },
     { href: "/admin/dashboard?tab=news", label: "News & Events", icon: Megaphone },
     { href: "/admin/dashboard?tab=placements", label: "Placements", icon: Briefcase },
@@ -25,7 +25,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   ];
 
   return (
-    <div className="min-h-[100dvh] flex flex-col md:flex-row bg-muted/30">
+    <div className="h-[100dvh] flex flex-col md:flex-row bg-muted/30">
       {/* Sidebar */}
       <aside className="w-full md:w-64 bg-sidebar text-sidebar-foreground border-r border-sidebar-border shrink-0 flex flex-col">
         <div className="h-16 flex items-center px-6 border-b border-sidebar-border">
@@ -33,12 +33,18 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         </div>
         <nav className="flex-1 py-6 px-4 space-y-1">
           {navItems.map((item) => {
-            const isActive = location === item.href || (location === "/admin/dashboard" && item.href === "/admin/dashboard" && !window.location.search);
-            const searchMatches = window.location.search.includes(item.href.split('?')[1] || 'no-match');
-            const reallyActive = isActive || searchMatches;
+            const hasQuery = item.href.includes('?');
+            let reallyActive = false;
+            
+            if (!hasQuery) {
+              reallyActive = location === item.href && !searchString;
+            } else {
+              const query = item.href.split('?')[1];
+              reallyActive = location === "/admin/dashboard" && searchString.includes(query);
+            }
 
             return (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
@@ -49,7 +55,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
               >
                 <item.icon className="h-5 w-5" />
                 {item.label}
-              </a>
+              </Link>
             );
           })}
         </nav>

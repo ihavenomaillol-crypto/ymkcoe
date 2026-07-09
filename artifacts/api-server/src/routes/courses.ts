@@ -14,14 +14,16 @@ const router = Router();
 
 router.get("/courses", async (req, res) => {
   const query = GetCoursesQueryParams.safeParse(req.query);
-  let courses = await db.select().from(coursesTable).orderBy(coursesTable.department);
-  if (query.success && query.data.department) {
-    courses = courses.filter((c) => c.department === query.data.department);
+  const { department, type, limit, offset } = query.success ? query.data : { department: undefined, type: undefined, limit: 12, offset: 0 };
+  let courses = db.select().from(coursesTable).orderBy(coursesTable.department);
+  if (department) {
+    courses = courses.where(eq(coursesTable.department, department));
   }
-  if (query.success && query.data.type) {
-    courses = courses.filter((c) => c.type === query.data.type);
+  if (type) {
+    courses = courses.where(eq(coursesTable.type, type));
   }
-  res.json(courses.map((c) => ({ ...c, createdAt: c.createdAt.toISOString() })));
+  const results = await courses.limit(limit).offset(offset);
+  res.json(results.map((c) => ({ ...c, createdAt: c.createdAt.toISOString() })));
 });
 
 router.post("/courses", async (req, res) => {

@@ -19,13 +19,15 @@ const DEPARTMENTS = [
 export default function Courses() {
   const [selectedDept, setSelectedDept] = useState<string>("All");
   
-  const { data: courses, isLoading } = useGetCourses(
+  const { data: coursesData, isLoading } = useGetCourses(
     selectedDept !== "All" ? { department: selectedDept } : undefined
   );
+  
+  const courses = Array.isArray(coursesData) ? coursesData : [];
 
   return (
     <AppLayout>
-      <section className="bg-primary text-white py-16">
+      <section data-scroll-reveal className="bg-primary text-white py-16">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Academic Programs</h1>
           <p className="text-lg text-primary-foreground/80 max-w-2xl">
@@ -34,7 +36,7 @@ export default function Courses() {
         </div>
       </section>
 
-      <section className="py-12 bg-background border-b border-border sticky top-[64px] md:top-[80px] z-40 shadow-sm">
+      <section data-scroll-reveal className="py-12 bg-background border-b border-border sticky top-0 z-40 shadow-sm">
         <div className="container mx-auto px-4 overflow-x-auto pb-2 -mb-2">
           <div className="flex gap-2 min-w-max">
             {DEPARTMENTS.map((dept) => (
@@ -51,7 +53,7 @@ export default function Courses() {
         </div>
       </section>
 
-      <section className="py-16 bg-muted/20">
+      <section data-scroll-reveal className="py-16 bg-muted/20">
         <div className="container mx-auto px-4">
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -71,7 +73,7 @@ export default function Courses() {
                 </Card>
               ))}
             </div>
-          ) : courses && courses.length > 0 ? (
+          ) : courses.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {courses.map((course) => (
                 <Card key={course.id} className="overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full border-border">
@@ -114,7 +116,7 @@ export default function Courses() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 bg-white rounded-xl border border-border">
+            <div className="text-center py-20 bg-card rounded-xl border border-border">
               <BookOpen className="h-16 w-16 text-muted-foreground/30 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-primary mb-2">No courses found</h3>
               <p className="text-muted-foreground">We couldn't find any courses matching your criteria.</p>

@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { MapPin, Phone, Mail, MessageSquare } from "lucide-react";
+import { Phone, Mail, MessageSquare, MapPin } from "lucide-react";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -58,7 +58,7 @@ export default function Contact() {
 
   return (
     <AppLayout>
-      <section className="bg-primary text-white py-16">
+      <section data-scroll-reveal className="bg-primary text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
           <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
@@ -67,7 +67,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="py-20 bg-background">
+      <section data-scroll-reveal className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             
@@ -83,16 +83,16 @@ export default function Contact() {
                     <div>
                       <h3 className="font-semibold text-foreground text-lg mb-1">Campus Address</h3>
                       <p className="text-muted-foreground leading-relaxed">
-                        Talegaon-Chakan Road,<br />
-                        Talegaon Dabhade,<br />
-                        Pune, Maharashtra 410507
+                        Talegaon - Chakan Hwy, near Manohar Nagar,<br />
+                        Yashwant Nagar, Talegaon Dabhade,<br />
+                        Talegaon Dabhade R, Maharashtra 410507
                       </p>
                     </div>
                   </div>
                   
                   <div className="flex gap-4">
-                    <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
-                      <Phone className="h-6 w-6 text-secondary" />
+                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                      <Phone className="h-6 w-6 text-accent" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground text-lg mb-1">Phone Number</h3>
@@ -104,8 +104,8 @@ export default function Contact() {
                   </div>
 
                   <div className="flex gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                      <Mail className="h-6 w-6 text-primary" />
+                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                      <Mail className="h-6 w-6 text-accent" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground text-lg mb-1">Email Address</h3>
@@ -220,15 +220,19 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Map Placeholder */}
-      <section className="h-[400px] w-full bg-muted border-t border-border relative">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-muted-foreground p-6 bg-white/80 backdrop-blur-sm rounded-lg border border-border shadow-sm">
-            <MapPin className="h-10 w-10 mx-auto mb-2 opacity-50" />
-            <h3 className="font-semibold text-lg text-foreground">Interactive Map Integration</h3>
-            <p className="text-sm">Google Maps embed will be placed here.</p>
-          </div>
-        </div>
+      {/* Map Embed */}
+      <section data-scroll-reveal className="w-full border-t border-border">
+        <iframe
+          title="YMKCOE Campus Location"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3778.418!2d73.6804231!3d18.734559!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b1eff0444e9b%3A0xd474350f9bfa5f73!2sIndrayani%20Vidya%20Mandir's%20Yashoda%20Mahadeo%20Kakade%20College%20of%20Engineering!5e0!3m2!1sen!2sin!4v1719295800000!5m2!1sen!2sin"
+          width="100%"
+          height="450"
+          style={{ border: 0, display: "block" }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="w-full"
+        />
       </section>
     </AppLayout>
   );

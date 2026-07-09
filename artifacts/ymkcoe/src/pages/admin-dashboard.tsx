@@ -1,13 +1,12 @@
 import { AdminLayout } from "@/components/layout/AdminLayout";
 import { useGetAdminMe, useGetDashboardStats } from "@workspace/api-client-react";
-import { useLocation } from "wouter";
+import { useLocation, useSearch } from "wouter";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GraduationCap, Users, Megaphone, Briefcase, FileText } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
-import { CoursesManager } from "@/components/admin/CoursesManager";
 import { FacultyManager } from "@/components/admin/FacultyManager";
 import { NewsManager } from "@/components/admin/NewsManager";
 import { PlacementsManager } from "@/components/admin/PlacementsManager";
@@ -19,7 +18,8 @@ export default function AdminDashboard() {
   const { data: admin, isLoading: adminLoading, isError } = useGetAdminMe();
   const { data: stats, isLoading: statsLoading } = useGetDashboardStats();
   
-  const searchParams = new URLSearchParams(window.location.search);
+  const searchString = useSearch();
+  const searchParams = new URLSearchParams(searchString);
   const tabParam = searchParams.get('tab') || 'overview';
   
   const [activeTab, setActiveTab] = useState(tabParam);
@@ -37,7 +37,7 @@ export default function AdminDashboard() {
   const handleTabChange = (val: string) => {
     setActiveTab(val);
     const newUrl = val === 'overview' ? '/admin/dashboard' : `/admin/dashboard?tab=${val}`;
-    window.history.pushState({}, '', newUrl);
+    setLocation(newUrl);
   };
 
   if (adminLoading) {
@@ -52,7 +52,6 @@ export default function AdminDashboard() {
         <div className="hidden">
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="courses">Courses</TabsTrigger>
             <TabsTrigger value="faculty">Faculty</TabsTrigger>
             <TabsTrigger value="news">News</TabsTrigger>
             <TabsTrigger value="placements">Placements</TabsTrigger>
@@ -64,18 +63,7 @@ export default function AdminDashboard() {
         <TabsContent value="overview" className="m-0 space-y-6">
           <h2 className="text-2xl font-bold tracking-tight text-primary">Dashboard Overview</h2>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Total Courses</CardTitle>
-                <GraduationCap className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                {statsLoading ? <Skeleton className="h-8 w-16" /> : (
-                  <div className="text-3xl font-bold text-primary">{stats?.totalCourses}</div>
-                )}
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Faculty Members</CardTitle>
@@ -123,22 +111,19 @@ export default function AdminDashboard() {
           </div>
         </TabsContent>
 
-        <TabsContent value="courses" className="m-0 bg-white p-6 rounded-lg border border-border shadow-sm">
-          <CoursesManager />
-        </TabsContent>
-        <TabsContent value="faculty" className="m-0 bg-white p-6 rounded-lg border border-border shadow-sm">
+        <TabsContent value="faculty" className="m-0 bg-card p-6 rounded-lg border border-border shadow-sm">
           <FacultyManager />
         </TabsContent>
-        <TabsContent value="news" className="m-0 bg-white p-6 rounded-lg border border-border shadow-sm">
+        <TabsContent value="news" className="m-0 bg-card p-6 rounded-lg border border-border shadow-sm">
           <NewsManager />
         </TabsContent>
-        <TabsContent value="placements" className="m-0 bg-white p-6 rounded-lg border border-border shadow-sm">
+        <TabsContent value="placements" className="m-0 bg-card p-6 rounded-lg border border-border shadow-sm">
           <PlacementsManager />
         </TabsContent>
-        <TabsContent value="leads" className="m-0 bg-white p-6 rounded-lg border border-border shadow-sm">
+        <TabsContent value="leads" className="m-0 bg-card p-6 rounded-lg border border-border shadow-sm">
           <LeadsManager />
         </TabsContent>
-        <TabsContent value="media" className="m-0 bg-white p-6 rounded-lg border border-border shadow-sm">
+        <TabsContent value="media" className="m-0 bg-card p-6 rounded-lg border border-border shadow-sm">
           <MediaManager />
         </TabsContent>
 

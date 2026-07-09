@@ -8,6 +8,7 @@ export const newsTable = pgTable("news", {
   content: text("content").notNull(),
   category: text("category").notNull().default("news"),
   imageUrl: text("image_url"),
+  status: text("status").notNull().default("moderate"),
   publishedAt: timestamp("published_at").notNull().defaultNow(),
   isPinned: boolean("is_pinned").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),

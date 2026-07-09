@@ -57,6 +57,18 @@ paths:
           in: query
           schema:
             type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 12
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
       responses:
         "200":
           description: List of courses
@@ -152,6 +164,18 @@ paths:
           in: query
           schema:
             type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 12
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
       responses:
         "200":
           description: List of faculty
@@ -310,6 +334,18 @@ paths:
           in: query
           schema:
             type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 10
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
       responses:
         "200":
           description: List of news items
@@ -403,6 +439,18 @@ paths:
           in: query
           schema:
             type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 12
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
       responses:
         "200":
           description: List of media
@@ -460,6 +508,18 @@ paths:
           in: query
           schema:
             type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 12
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
       responses:
         "200":
           description: List of placements
@@ -695,15 +755,21 @@ components:
       required: [id, name, department, designation, createdAt]
       properties:
         id: { type: integer }
+        title: { type: ["string", "null"] }
         name: { type: string }
         department: { type: string }
         designation: { type: string }
         qualification: { type: ["string", "null"] }
         specialization: { type: ["string", "null"] }
-        experience: { type: ["integer", "null"] }
+        experience: { type: ["string", "null"] }
+        researchGuideStatus: { type: ["string", "null"] }
         email: { type: ["string", "null"] }
         phone: { type: ["string", "null"] }
         photoUrl: { type: ["string", "null"] }
+        adminRoles: { type: ["string", "null"] }
+        coreSkills: { type: ["string", "null"] }
+        publications: { type: ["string", "null"] }
+        professionalMemberships: { type: ["string", "null"] }
         bio: { type: ["string", "null"] }
         isHOD: { type: boolean }
         createdAt: { type: string }
@@ -712,30 +778,42 @@ components:
       type: object
       required: [name, department, designation]
       properties:
+        title: { type: string }
         name: { type: string }
         department: { type: string }
         designation: { type: string }
         qualification: { type: string }
         specialization: { type: string }
-        experience: { type: integer }
+        experience: { type: string }
+        researchGuideStatus: { type: string }
         email: { type: string }
         phone: { type: string }
         photoUrl: { type: string }
+        adminRoles: { type: string }
+        coreSkills: { type: string }
+        publications: { type: string }
+        professionalMemberships: { type: string }
         bio: { type: string }
         isHOD: { type: boolean }
 
     FacultyUpdate:
       type: object
       properties:
+        title: { type: string }
         name: { type: string }
         department: { type: string }
         designation: { type: string }
         qualification: { type: string }
         specialization: { type: string }
-        experience: { type: integer }
+        experience: { type: string }
+        researchGuideStatus: { type: string }
         email: { type: string }
         phone: { type: string }
         photoUrl: { type: string }
+        adminRoles: { type: string }
+        coreSkills: { type: string }
+        publications: { type: string }
+        professionalMemberships: { type: string }
         bio: { type: string }
         isHOD: { type: boolean }
 
@@ -781,6 +859,7 @@ components:
         content: { type: string }
         category: { type: string, description: "announcement | event | achievement | news" }
         imageUrl: { type: ["string", "null"] }
+        status: { type: string, description: "high | moderate | low" }
         publishedAt: { type: string }
         isPinned: { type: boolean }
         createdAt: { type: string }
@@ -793,6 +872,7 @@ components:
         content: { type: string }
         category: { type: string }
         imageUrl: { type: string }
+        status: { type: string }
         publishedAt: { type: string }
         isPinned: { type: boolean }
 
@@ -803,6 +883,7 @@ components:
         content: { type: string }
         category: { type: string }
         imageUrl: { type: string }
+        status: { type: string }
         publishedAt: { type: string }
         isPinned: { type: boolean }
 

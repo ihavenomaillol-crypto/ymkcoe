@@ -33,6 +33,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+import path from "path";
+import { fileURLToPath } from "url";
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "ymkcoe-secret-key",
@@ -45,6 +48,9 @@ app.use(
     },
   })
 );
+
+// Serve uploads directory statically through /api/uploads to leverage existing Vite proxy
+app.use("/api/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 app.use("/api", router);
 

@@ -18,14 +18,16 @@ const fmt = (p: typeof placementsTable.$inferSelect) => ({
 
 router.get("/placements", async (req, res) => {
   const query = GetPlacementsQueryParams.safeParse(req.query);
-  let items = await db.select().from(placementsTable).orderBy(desc(placementsTable.year));
-  if (query.success && query.data.year) {
-    items = items.filter((p) => p.year === Number(query.data.year));
+  const { year, department, limit, offset } = query.success ? query.data : { year: undefined, department: undefined, limit: 12, offset: 0 };
+  let items = db.select().from(placementsTable).orderBy(desc(placementsTable.year));
+  if (year) {
+    items = items.where(eq(placementsTable.year, year));
   }
-  if (query.success && query.data.department) {
-    items = items.filter((p) => p.department === query.data.department);
+  if (department) {
+    items = items.where(eq(placementsTable.department, department));
   }
-  res.json(items.map(fmt));
+  const results = await items.limit(limit).offset(offset);
+  res.json(results.map(fmt));
 });
 
 router.post("/placements", async (req, res) => {

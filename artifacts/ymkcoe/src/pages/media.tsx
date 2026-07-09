@@ -10,13 +10,15 @@ const CATEGORIES = ["All", "campus", "events", "labs", "sports", "cultural"];
 export default function Media() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   
-  const { data: mediaItems, isLoading } = useGetMediaItems(
+  const { data: mediaItemsData, isLoading } = useGetMediaItems(
     selectedCategory !== "All" ? { category: selectedCategory } : undefined
   );
+  
+  const mediaItems = Array.isArray(mediaItemsData) ? mediaItemsData : [];
 
   return (
     <AppLayout>
-      <section className="bg-primary text-white py-16">
+      <section data-scroll-reveal className="bg-primary text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Gallery</h1>
           <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
@@ -25,7 +27,7 @@ export default function Media() {
         </div>
       </section>
 
-      <section className="py-8 bg-background border-b border-border sticky top-[64px] md:top-[80px] z-40 shadow-sm">
+      <section data-scroll-reveal className="py-8 bg-background border-b border-border sticky top-0 z-40 shadow-sm">
         <div className="container mx-auto px-4 overflow-x-auto pb-2 -mb-2">
           <div className="flex gap-2 min-w-max justify-center">
             {CATEGORIES.map((cat) => (
@@ -42,18 +44,18 @@ export default function Media() {
         </div>
       </section>
 
-      <section className="py-12 bg-muted/20 min-h-[60vh]">
+      <section data-scroll-reveal className="py-12 bg-muted/20 min-h-[60vh]">
         <div className="container mx-auto px-4">
           {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                <Skeleton key={i} className="aspect-square rounded-xl" />
+                <Skeleton key={i} className="aspect-video w-full rounded-xl break-inside-avoid" />
               ))}
             </div>
-          ) : mediaItems && mediaItems.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          ) : mediaItems.length > 0 ? (
+            <div className="columns-2 md:columns-3 lg:columns-4 gap-4 max-w-7xl mx-auto">
               {mediaItems.map((item) => (
-                <div key={item.id} className="group relative aspect-square rounded-xl overflow-hidden bg-muted border border-border shadow-sm cursor-pointer">
+                <div key={item.id} className={`group relative rounded-xl overflow-hidden bg-muted border border-border shadow-sm cursor-pointer break-inside-avoid mb-4 ${item.type === 'video' && !item.thumbnailUrl ? 'aspect-video' : ''}`}>
                   {item.type === 'video' && !item.thumbnailUrl ? (
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground bg-primary/5">
                        <PlayCircle className="h-12 w-12 mb-2 opacity-50" />
@@ -63,7 +65,7 @@ export default function Media() {
                     <img 
                       src={item.thumbnailUrl || item.url} 
                       alt={item.title} 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                      className="w-full h-auto block transition-transform duration-500 group-hover:scale-105" 
                     />
                   )}
                   
@@ -88,7 +90,7 @@ export default function Media() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 bg-white rounded-xl border border-border">
+            <div className="text-center py-20 bg-card rounded-xl border border-border">
               <h3 className="text-xl font-semibold text-primary mb-2">No media found</h3>
               <p className="text-muted-foreground">Try selecting a different category.</p>
             </div>

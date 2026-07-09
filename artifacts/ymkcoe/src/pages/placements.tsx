@@ -6,13 +6,16 @@ import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip as RechartsTo
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Placements() {
-  const { data: stats, isLoading: statsLoading } = useGetPlacementStats();
-  const { data: placements, isLoading: placementsLoading } = useGetPlacements();
+  const { data: statsData, isLoading: statsLoading } = useGetPlacementStats();
+  const { data: placementsData, isLoading: placementsLoading } = useGetPlacements();
+  
+  const stats = (statsData as any) || {};
+  const placements = Array.isArray(placementsData) ? placementsData : [];
 
   return (
     <AppLayout>
       {/* Header */}
-      <section className="bg-primary text-white py-16 md:py-24">
+      <section data-scroll-reveal className="bg-primary text-white py-16 md:py-24">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Training & Placement Cell</h1>
           <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
@@ -22,7 +25,7 @@ export default function Placements() {
       </section>
 
       {/* High Level Stats */}
-      <section className="py-12 bg-background border-b border-border -mt-8">
+      <section data-scroll-reveal className="py-12 bg-background border-b border-border -mt-8">
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card className="shadow-lg border-accent/20">
@@ -40,8 +43,8 @@ export default function Placements() {
             </Card>
             <Card className="shadow-lg border-primary/20">
               <CardContent className="p-8 flex items-center gap-6">
-                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                  <TrendingUp className="h-8 w-8 text-primary" />
+                <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                  <Briefcase className="h-8 w-8 text-accent" />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-1">Average Package</p>
@@ -53,8 +56,8 @@ export default function Placements() {
             </Card>
             <Card className="shadow-lg border-secondary/20">
               <CardContent className="p-8 flex items-center gap-6">
-                <div className="w-16 h-16 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
-                  <Award className="h-8 w-8 text-secondary" />
+                <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                  <TrendingUp className="h-8 w-8 text-accent" />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-1">Highest Package</p>
@@ -68,7 +71,7 @@ export default function Placements() {
         </div>
       </section>
 
-      <section className="py-20 bg-muted/20">
+      <section data-scroll-reveal className="py-20 bg-muted/20">
         <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-12">
           
           {/* Charts & Graphs */}
@@ -113,7 +116,7 @@ export default function Placements() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {[1,2,3,4].map(i => <Skeleton key={i} className="h-32 w-full" />)}
                 </div>
-              ) : placements && placements.length > 0 ? (
+              ) : placements.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {placements.map(placement => (
                     <Card key={placement.id} className="border-border shadow-sm">
@@ -136,7 +139,7 @@ export default function Placements() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-12 text-muted-foreground bg-white rounded-lg border border-border border-dashed">
+                <div className="text-center py-12 text-muted-foreground bg-card rounded-lg border border-border border-dashed">
                   No recent placement records available.
                 </div>
               )}
@@ -157,10 +160,10 @@ export default function Placements() {
                   </div>
                 ) : stats?.topCompanies && stats.topCompanies.length > 0 ? (
                   <div className="space-y-4">
-                    {stats.topCompanies.map((tc, idx) => (
+                    {stats.topCompanies?.map((tc: any, idx: any) => (
                       <div key={idx} className="flex items-center justify-between p-3 rounded-lg hover:bg-muted transition-colors border border-transparent hover:border-border">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded bg-white border border-border flex items-center justify-center font-bold text-xl text-primary/30">
+                          <div className="w-10 h-10 rounded bg-card border border-border flex items-center justify-center font-bold text-xl text-primary/30">
                             {tc.company.charAt(0)}
                           </div>
                           <span className="font-semibold text-foreground">{tc.company}</span>

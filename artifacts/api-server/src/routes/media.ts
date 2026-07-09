@@ -11,11 +11,13 @@ const router = Router();
 
 router.get("/media", async (req, res) => {
   const query = GetMediaItemsQueryParams.safeParse(req.query);
-  let items = await db.select().from(mediaTable).orderBy(desc(mediaTable.createdAt));
-  if (query.success && query.data.category) {
-    items = items.filter((m) => m.category === query.data.category);
+  const { category, limit, offset } = query.success ? query.data : { category: undefined, limit: 12, offset: 0 };
+  let items = db.select().from(mediaTable).orderBy(desc(mediaTable.createdAt));
+  if (category) {
+    items = items.where(eq(mediaTable.category, category));
   }
-  res.json(items.map((m) => ({ ...m, createdAt: m.createdAt.toISOString() })));
+  const results = await items.limit(limit).offset(offset);
+  res.json(results.map((m) => ({ ...m, createdAt: m.createdAt.toISOString() })));
 });
 
 router.post("/media", async (req, res) => {

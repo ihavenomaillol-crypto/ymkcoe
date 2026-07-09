@@ -14,11 +14,13 @@ const router = Router();
 
 router.get("/faculty", async (req, res) => {
   const query = GetFacultyQueryParams.safeParse(req.query);
-  let members = await db.select().from(facultyTable).orderBy(facultyTable.department);
-  if (query.success && query.data.department) {
-    members = members.filter((f) => f.department === query.data.department);
+  const { department, limit, offset } = query.success ? query.data : { department: undefined, limit: 12, offset: 0 };
+  let members = db.select().from(facultyTable).orderBy(facultyTable.department);
+  if (department) {
+    members = members.where(eq(facultyTable.department, department));
   }
-  res.json(members.map((f) => ({ ...f, createdAt: f.createdAt.toISOString() })));
+  const results = await members.limit(limit).offset(offset);
+  res.json(results.map((f) => ({ ...f, createdAt: f.createdAt.toISOString() })));
 });
 
 router.post("/faculty", async (req, res) => {

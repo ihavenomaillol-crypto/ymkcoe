@@ -20,11 +20,13 @@ const fmt = (n: typeof newsTable.$inferSelect) => ({
 
 router.get("/news", async (req, res) => {
   const query = GetNewsQueryParams.safeParse(req.query);
-  let items = await db.select().from(newsTable).orderBy(desc(newsTable.publishedAt));
-  if (query.success && query.data.category) {
-    items = items.filter((n) => n.category === query.data.category);
+  const { category, limit, offset } = query.success ? query.data : { category: undefined, limit: 10, offset: 0 };
+  let items = db.select().from(newsTable).orderBy(desc(newsTable.publishedAt));
+  if (category) {
+    items = items.where(eq(newsTable.category, category));
   }
-  res.json(items.map(fmt));
+  const results = await items.limit(limit).offset(offset);
+  res.json(results.map(fmt));
 });
 
 router.post("/news", async (req, res) => {
