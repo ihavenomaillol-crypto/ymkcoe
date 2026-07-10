@@ -16,7 +16,8 @@ export default function Faculty() {
   const hierarchyGroups = DEPARTMENTS.map(dept => {
     // Determine a brief description based on the department
     const description = `Distinguished faculty and researchers of the ${dept.label} department.`;
-    const members = FACULTY_DATA.filter((f: any) => f.department === dept.label);
+    const targetDeptLabel = dept.id === "fe" ? "Basic Sciences & Humanities" : dept.label;
+    const members = FACULTY_DATA.filter((f: any) => f.department === targetDeptLabel);
     
     // Sort so HODs appear first
     const sortedMembers = [...members].sort((a, b) => {

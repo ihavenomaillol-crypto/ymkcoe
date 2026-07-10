@@ -401,6 +401,32 @@ export const SYLLABUS_DATA: Record<string, Record<number, SemesterData>> = {
         { code: "BTITP804", name: "Major Project Phase II", credits: 6, type: "Project" }
       ]
     }
+  },
+  fe: {
+    1: {
+      title: "Semester I",
+      description: "Foundational mathematics, physics, and basic engineering topics to build essential logical and analytical skills.",
+      subjects: [
+        { code: "BTBS101", name: "Engineering Mathematics I", credits: 4, type: "Core" },
+        { code: "BTBS102", name: "Engineering Physics", credits: 4, type: "Core" },
+        { code: "BTEST103", name: "Basic Electrical & Electronics Engineering", credits: 3, type: "Core" },
+        { code: "BTEST104", name: "Engineering Mechanics", credits: 3, type: "Core" },
+        { code: "BTHM105", name: "Communication Skills", credits: 2, type: "Audit" },
+        { code: "BTES106L", name: "Computer Programming in C Lab", credits: 2, type: "Lab" }
+      ]
+    },
+    2: {
+      title: "Semester II",
+      description: "Advanced foundational courses establishing basics in physical sciences, engineering drawing, and mechanical components.",
+      subjects: [
+        { code: "BTBS201", name: "Engineering Mathematics II", credits: 4, type: "Core" },
+        { code: "BTBS202", name: "Engineering Chemistry", credits: 4, type: "Core" },
+        { code: "BTEST203", name: "Basic Civil & Mechanical Engineering", credits: 3, type: "Core" },
+        { code: "BTEST204", name: "Engineering Graphics", credits: 3, type: "Core" },
+        { code: "BTHM205", name: "Energy & Environmental Engineering", credits: 2, type: "Audit" },
+        { code: "BTES206L", name: "Programming Lab II (Python)", credits: 2, type: "Lab" }
+      ]
+    }
   }
 };
 
@@ -473,6 +499,15 @@ export default function AcademicTree({ dept }: AcademicTreeProps) {
       glow: "shadow-[0_0_15px_rgba(249,115,22,0.5)]",
       badgeBg: "bg-orange-50 dark:bg-orange-950/40",
       badgeText: "text-orange-600 dark:text-orange-400"
+    },
+    rose: {
+      primary: "from-rose-600 to-pink-600",
+      text: "text-rose-500",
+      border: "border-rose-500",
+      bg: "bg-rose-500",
+      glow: "shadow-[0_0_15px_rgba(244,63,94,0.5)]",
+      badgeBg: "bg-rose-50 dark:bg-rose-950/40",
+      badgeText: "text-rose-600 dark:text-rose-400"
     }
   };
 
@@ -482,6 +517,8 @@ export default function AcademicTree({ dept }: AcademicTreeProps) {
   const isTrunkActive = isBtechExpanded;
   const isYearActive = (yearVal: number) => isBtechExpanded && expandedYear === yearVal;
   const isSemesterActive = (semVal: number) => isBtechExpanded && selectedSemester === semVal;
+
+  const yearsToRender = deptId === "fe" ? YEARS.slice(0, 1) : YEARS;
 
   const currentSyllabus = SYLLABUS_DATA[deptId] || SYLLABUS_DATA.cse;
   const activeSyllabus = currentSyllabus[selectedSemester] || currentSyllabus[1];
@@ -560,19 +597,20 @@ export default function AcademicTree({ dept }: AcademicTreeProps) {
                   className="overflow-hidden"
                 >
                   <div className="flex flex-col gap-6 w-max relative">
-                    {/* Left vertical wire container */}
-                    <div className="absolute top-0 bottom-0 left-0 w-8 z-0">
-                       {/* Top half of vertical line (from row 0 to center) */}
-                       <div className={`absolute top-[40px] bottom-1/2 left-4 w-0.5 transition-colors duration-500 ${
-                         isYearActive(1) || isYearActive(2) ? theme.bg : "bg-slate-300 dark:bg-slate-800"
-                       }`} />
-                       {/* Bottom half of vertical line (from center to row 3) */}
-                       <div className={`absolute top-1/2 bottom-[40px] left-4 w-0.5 transition-colors duration-500 ${
-                         isYearActive(3) || isYearActive(4) ? theme.bg : "bg-slate-300 dark:bg-slate-800"
-                       }`} />
-                    </div>
+                    {deptId !== "fe" && (
+                      <div className="absolute top-0 bottom-0 left-0 w-8 z-0">
+                         {/* Top half of vertical line (from row 0 to center) */}
+                         <div className={`absolute top-[40px] bottom-1/2 left-4 w-0.5 transition-colors duration-500 ${
+                           isYearActive(1) || isYearActive(2) ? theme.bg : "bg-slate-300 dark:bg-slate-800"
+                         }`} />
+                         {/* Bottom half of vertical line (from center to row 3) */}
+                         <div className={`absolute top-1/2 bottom-[40px] left-4 w-0.5 transition-colors duration-500 ${
+                           isYearActive(3) || isYearActive(4) ? theme.bg : "bg-slate-300 dark:bg-slate-800"
+                         }`} />
+                      </div>
+                    )}
 
-                    {YEARS.map((year, idx) => {
+                    {yearsToRender.map((year, idx) => {
                       const isActive = isYearActive(year.val);
                       return (
                         <div key={idx} className="flex flex-row items-center h-[80px] relative z-10 pl-8">

@@ -123,6 +123,29 @@ const DEPT_CONFIG: Record<
       "Align curriculum with the evolving demands of the IT industry.",
     ],
   },
+  fe: {
+    id: "fe",
+    name: "First Year Engineering",
+    short: "FE",
+    color: "rose",
+    intake: 360,
+    description:
+      "The Department of Basic Sciences & Humanities (First Year Engineering) establishes a robust foundation in mathematics, physics, chemistry, coding basics, and communication skills essential for all engineering branches.",
+    about: [
+      "Foundational department established to guide and prepare first-year students.",
+      "Curriculum aligned with DBATU syllabus, focusing on fundamentals of engineering science.",
+      "Dedicated state-of-the-art labs for Engineering Physics, Chemistry, and Programming for Problem Solving (PPS).",
+      "Comprehensive student induction and mentorship programs to ease the academic transition.",
+      "Focus on personality development, professional ethics, and basic coding competence.",
+    ],
+    vision:
+      "To build a strong foundation in fundamental sciences, technical communication, and ethical values that empowers future engineers to learn, innovate, and lead.",
+    mission: [
+      "Impart top-quality technical education in core sciences and basic engineering fields.",
+      "Nurture critical thinking, problem-solving abilities, and lifelong learning attitudes.",
+      "Facilitate standard professional ethics, communication capabilities, and soft skills.",
+    ],
+  },
 };
 
 
@@ -195,6 +218,19 @@ const deptColorTheme: Record<
     avatarText: "text-orange-600",
     avatarBg: "bg-orange-50",
   },
+  rose: {
+    themeBg: "bg-rose-50/50",
+    cardBg: "bg-white",
+    borderDefault: "border-rose-100",
+    borderGlow: "hover:border-rose-400/50",
+    glowShadow: "hover:shadow-[0_0_30px_-5px_rgba(244,63,94,0.2)]",
+    accentText: "text-rose-600",
+    badgeBg: "bg-rose-500/10",
+    badgeText: "text-rose-600",
+    avatarRing: "from-rose-500 to-pink-400",
+    avatarText: "text-rose-600",
+    avatarBg: "bg-rose-50",
+  },
 };
 
 const ACADEMICS_CONTENT = [
@@ -225,7 +261,9 @@ export default function Department() {
   const safeFaculty = Array.isArray(allFaculty) ? allFaculty : [];
   // Strictly filter for faculty belonging to this department and having valid photos
   const displayFaculty = safeFaculty.filter((f: any) => {
-    if (f.department !== officialDeptLabel) return false;
+    // FE page is called "First Year Engineering" or has ID "fe", but its faculty are stored under "Basic Sciences & Humanities" in DB
+    const targetDeptLabel = deptId === "fe" ? "Basic Sciences & Humanities" : officialDeptLabel;
+    if (f.department !== targetDeptLabel) return false;
     const url = f.photoUrl || f.photo_url || "";
     if (typeof url !== "string") return false;
     const cleanUrl = url.trim();
@@ -246,18 +284,21 @@ export default function Department() {
     violet: "bg-violet-50 text-violet-700 border-violet-200",
     emerald: "bg-emerald-50 text-emerald-700 border-emerald-200",
     orange: "bg-orange-50 text-orange-700 border-orange-200",
+    rose: "bg-rose-50 text-rose-700 border-rose-200",
   };
   const accentTextMap: Record<string, string> = {
     blue: "text-blue-600",
     violet: "text-violet-600",
     emerald: "text-emerald-600",
     orange: "text-orange-600",
+    rose: "text-rose-600",
   };
   const accentBgMap: Record<string, string> = {
     blue: "bg-blue-50 border-blue-100",
     violet: "bg-violet-50 border-violet-100",
     emerald: "bg-emerald-50 border-emerald-100",
     orange: "bg-orange-50 border-orange-100",
+    rose: "bg-rose-50 border-rose-100",
   };
 
   const theme = deptColorTheme[dept.color] || deptColorTheme.blue;

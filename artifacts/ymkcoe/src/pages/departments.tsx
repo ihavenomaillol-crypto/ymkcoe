@@ -19,6 +19,7 @@ const deptBorderMap: Record<string, string> = {
   aids: "border-l-violet-500",
   entc: "border-l-emerald-500",
   it: "border-l-orange-500",
+  fe: "border-l-rose-500",
 };
 
 export default function Departments() {
@@ -116,11 +117,9 @@ export default function Departments() {
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2 mb-1">
                           <span className={`text-xs font-bold ${dept.color}`}>{dept.short}</span>
-                          {program && (
-                            <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                              {program.intake} seats
-                            </span>
-                          )}
+                          <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                            {program ? program.intake : dept.intake} seats
+                          </span>
                         </div>
                         <p className="text-sm font-semibold text-primary dark:text-white group-hover:text-accent transition-colors">
                           {dept.label}
