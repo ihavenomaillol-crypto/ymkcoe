@@ -61,11 +61,11 @@ export default function Placements() {
               { name: "Doowon", domain: "doowon.com" },
               { name: "Komos", domain: "komos.com" }
             ].map((company, idx) => (
-              <div key={idx} className="group bg-background border rounded-md px-4 py-3 shadow-sm w-full text-center flex items-center justify-center min-h-[80px] hover:shadow-md transition-shadow relative overflow-hidden">
+              <div key={idx} className="group bg-background border rounded-md px-4 py-3 shadow-sm w-full text-center flex items-center justify-center min-h-[80px] hover:shadow-md transition-shadow relative overflow-hidden" title={company.name}>
                 <img 
                   src={`https://logo.clearbit.com/${company.domain}`} 
                   alt={company.name} 
-                  className="max-h-12 max-w-full object-contain filter grayscale opacity-70 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
+                  className="max-h-12 max-w-full object-contain filter grayscale opacity-70 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100 group-hover:-translate-y-2"
                   onError={(e) => {
                     const target = e.currentTarget;
                     if (target.src.includes('clearbit')) {
@@ -76,7 +76,12 @@ export default function Placements() {
                     }
                   }}
                 />
-                <span className="hidden font-semibold text-sm text-foreground/80">{company.name}</span>
+                <span className="hidden font-semibold text-sm text-foreground/80 relative z-10">{company.name}</span>
+                
+                {/* Sliding name banner on hover */}
+                <div className="absolute bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t text-foreground text-[11px] font-semibold py-1 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-20">
+                  {company.name}
+                </div>
               </div>
             ))}
           </div>
