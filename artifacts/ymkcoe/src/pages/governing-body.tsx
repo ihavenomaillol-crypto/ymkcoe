@@ -7,22 +7,23 @@ import { FileText, Download, Calendar, Users, Landmark, FileCheck } from "lucide
 interface GoverningBodyMember {
   name: string;
   designation: string;
+  image?: string;
 }
 
 const MEMBERS: GoverningBodyMember[] = [
-  { name: "Hon. Mr. Ramdas Kakade", designation: "President" },
-  { name: "Hon. Mr. Shailesh Shah", designation: "Vice President" },
-  { name: "Hon. Mr. Sanjay Sane", designation: "Vice President" },
-  { name: "Hon. Mr. Chandrakant Shete", designation: "Secretary" },
-  { name: "Hon. Mrs. Nirupa Kanitkar", designation: "Treasurer" },
-  { name: "Hon. Mr. Gorakhnath Kalokhe", designation: "Trustee" },
-  { name: "Hon. Mr. Sanjay Bhegade", designation: "Trustee" },
-  { name: "Hon. Mr. Ganesh Khandge", designation: "Trustee" },
-  { name: "Hon. Mr. Vilas Kalokhe", designation: "Trustee" },
-  { name: "Hon. Mr. Sandeep Kakade", designation: "Trustee" },
-  { name: "Hon. Dr. Deepak Shah", designation: "Trustee" },
-  { name: "Hon. Mr. Yuvraj Kakade", designation: "Trustee" },
-  { name: "Hon. Mr. Ranjeet Kakade", designation: "Trustee" }
+  { name: "Hon. Mr. Ramdas Kakade", designation: "President", image: "https://ymkcoe.com/upload/Gov/1.PNG" },
+  { name: "Hon. Mr. Shailesh Shah", designation: "Vice President", image: "https://ymkcoe.com/upload/Gov/2.PNG" },
+  { name: "Hon. Mr. Sanjay Sane", designation: "Vice President", image: "https://ymkcoe.com/upload/Gov/sanjaysir.jpeg" },
+  { name: "Hon. Mr. Chandrakant Shete", designation: "Secretary", image: "https://ymkcoe.com/upload/Gov/4.PNG" },
+  { name: "Hon. Mrs. Nirupa Kanitkar", designation: "Treasurer", image: "https://ymkcoe.com/upload/Gov/5.PNG" },
+  { name: "Hon. Mr. Gorakhnath Kalokhe", designation: "Trustee", image: "https://ymkcoe.com/upload/Gov/3.PNG" },
+  { name: "Hon. Mr. Sanjay Bhegade", designation: "Trustee", image: "https://ymkcoe.com/upload/Gov/7.PNG" },
+  { name: "Hon. Mr. Ganesh Khandge", designation: "Trustee", image: "https://ymkcoe.com/upload/Gov/8.PNG" },
+  { name: "Hon. Mr. Vilas Kalokhe", designation: "Trustee", image: "https://ymkcoe.com/upload/Gov/9.PNG" },
+  { name: "Hon. Mr. Sandeep Kakade", designation: "Trustee", image: "https://ymkcoe.com/upload/Gov/10.PNG" },
+  { name: "Hon. Dr. Deepak Shah", designation: "Trustee", image: "https://ymkcoe.com/upload/Gov/11.PNG" },
+  { name: "Hon. Mr. Yuvraj Kakade", designation: "Trustee", image: "https://ymkcoe.com/upload/Gov/12.PNG" },
+  { name: "Hon. Mr. Ranjeet Kakade", designation: "Trustee", image: "https://ymkcoe.com/upload/Gov/13.PNG" }
 ];
 
 const MINUTES = [
@@ -74,8 +75,12 @@ export default function GoverningBody() {
               {MEMBERS.map((member, i) => (
                 <Card key={i} className="hover:shadow-md transition-all duration-300 border-border">
                   <CardContent className="p-6 flex items-center gap-4">
-                    <div className="w-14 h-14 shrink-0 bg-primary/10 text-primary rounded-full flex items-center justify-center text-xl font-bold">
-                      {member.name.replace('Hon. ', '').replace('Mr. ', '').replace('Mrs. ', '').replace('Dr. ', '').split(' ').map(n => n[0]).slice(0, 2).join('')}
+                    <div className="w-14 h-14 shrink-0 bg-primary/10 text-primary rounded-full flex items-center justify-center text-xl font-bold overflow-hidden border-2 border-primary/20">
+                      {member.image ? (
+                        <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+                      ) : (
+                        member.name.replace('Hon. ', '').replace('Mr. ', '').replace('Mrs. ', '').replace('Dr. ', '').split(' ').map(n => n[0]).slice(0, 2).join('')
+                      )}
                     </div>
                     <div>
                       <h3 className="font-bold text-primary text-base leading-tight mb-1">{member.name}</h3>
