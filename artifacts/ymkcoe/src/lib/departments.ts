@@ -58,6 +58,17 @@ export const BTECH_PROGRAMS: BtechProgram[] = [
 
 export const DEPARTMENTS: Department[] = [
   {
+    id: "fe",
+    label: "First Year Engineering",
+    short: "FE",
+    color: "text-rose-600 dark:text-rose-400",
+    dotColor: "bg-rose-500",
+    intake: 360,
+    tagline: "Foundational sciences, engineering humanities & programming",
+    gradient: "from-rose-500/20 via-rose-500/5 to-transparent",
+    hoverBg: "hover:border-rose-300 hover:bg-rose-50/80",
+  },
+  {
     id: "cse",
     label: "Computer Science & Engineering",
     short: "CSE",
@@ -100,17 +111,6 @@ export const DEPARTMENTS: Department[] = [
     tagline: "Full-stack development, cloud & enterprise IT",
     gradient: "from-orange-500/20 via-orange-500/5 to-transparent",
     hoverBg: "hover:border-orange-300 hover:bg-orange-50/80",
-  },
-  {
-    id: "fe",
-    label: "First Year Engineering",
-    short: "FE",
-    color: "text-rose-600 dark:text-rose-400",
-    dotColor: "bg-rose-500",
-    intake: 360,
-    tagline: "Foundational sciences, engineering humanities & programming",
-    gradient: "from-rose-500/20 via-rose-500/5 to-transparent",
-    hoverBg: "hover:border-rose-300 hover:bg-rose-50/80",
   },
 ];
 
