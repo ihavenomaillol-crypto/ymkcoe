@@ -15,11 +15,11 @@ const router = Router();
 router.get("/faculty", async (req, res) => {
   const query = GetFacultyQueryParams.safeParse(req.query);
   const { department, limit, offset } = query.success ? query.data : { department: undefined, limit: 12, offset: 0 };
-  let members = db.select().from(facultyTable).orderBy(facultyTable.department, facultyTable.id);
+  let members = db.select().from(facultyTable);
   if (department) {
     members = members.where(eq(facultyTable.department, department));
   }
-  const results = await members.limit(limit).offset(offset);
+  const results = await members.orderBy(facultyTable.department, facultyTable.id).limit(limit).offset(offset);
   res.json(results.map((f) => ({ ...f, createdAt: f.createdAt.toISOString() })));
 });
 
