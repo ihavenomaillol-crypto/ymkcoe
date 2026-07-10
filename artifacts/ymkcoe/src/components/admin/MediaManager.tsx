@@ -77,7 +77,10 @@ export function MediaManager() {
           }
 
           const uploadData = await uploadRes.json();
-          const fileUrl = uploadData.url;
+          // Ensure the URL is absolute by prepending the backend URL
+          const fileUrl = uploadData.url.startsWith('http') 
+            ? uploadData.url 
+            : `${import.meta.env.VITE_API_URL || ''}${uploadData.url}`;
           
           const title = selectedFiles.length > 1 ? `${data.title} ${i + 1}` : data.title;
 

@@ -1,6 +1,8 @@
 import "dotenv/config";
 import app from "./app";
 import { logger } from "./lib/logger";
+import { db } from "@workspace/db";
+import { sql } from "drizzle-orm";
 
 const rawPort = process.env["PORT"];
 
@@ -23,4 +25,9 @@ app.listen(port, (err) => {
   }
 
   logger.info({ port }, "Server listening");
+
+  // One-time migration to fix relative image URLs stored in the remote DB
+  db.execute(sql`UPDATE media SET url = CONCAT('https://ymkcoe.onrender.com', url) WHERE url LIKE '/api/uploads/%'`)
+    .then(() => logger.info("Migrated relative media URLs successfully"))
+    .catch((err) => logger.error({ err }, "Error migrating media URLs"));
 });
