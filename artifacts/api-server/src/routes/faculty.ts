@@ -15,7 +15,7 @@ const router = Router();
 router.get("/faculty", async (req, res) => {
   const query = GetFacultyQueryParams.safeParse(req.query);
   const { department, limit, offset } = query.success ? query.data : { department: undefined, limit: 12, offset: 0 };
-  let members = db.select().from(facultyTable).orderBy(facultyTable.department);
+  let members = db.select().from(facultyTable).orderBy(facultyTable.department, facultyTable.id);
   if (department) {
     members = members.where(eq(facultyTable.department, department));
   }
