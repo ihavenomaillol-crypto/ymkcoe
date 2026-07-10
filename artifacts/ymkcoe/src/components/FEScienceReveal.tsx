@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Atom, Compass, Calculator, Library, Award, Target, Eye, GraduationCap, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export type FEDeptContent = {
   name: string;
