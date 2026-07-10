@@ -5,7 +5,7 @@ import { GraduationCap, Sparkles } from "lucide-react";
 
 export function AdmissionPopup() {
   const [open, setOpen] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(5);
+  const [timeLeft, setTimeLeft] = useState(12);
 
   useEffect(() => {
     // Check if the user has already seen the popup in this session
