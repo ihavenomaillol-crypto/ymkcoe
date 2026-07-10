@@ -229,7 +229,7 @@ export default function Department() {
 
   useEffect(() => {
     // Reset tab when department changes
-    setActiveTab("overview");
+    setActiveTab("faculty");
   }, [deptId]);
 
   if (!dept) {
