@@ -67,7 +67,7 @@ export function MediaManager() {
         formData.append("file", file);
 
         try {
-          const uploadRes = await fetch("/api/upload", {
+          const uploadRes = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/upload`, {
             method: "POST",
             body: formData,
           });
