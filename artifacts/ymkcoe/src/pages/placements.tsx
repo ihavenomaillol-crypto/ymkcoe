@@ -17,7 +17,7 @@ export default function Placements() {
       {/* Header */}
       <section data-scroll-reveal className="bg-background text-foreground py-16 md:py-20 border-b">
         <div className="container mx-auto px-4 max-w-5xl">
-          <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center text-primary">Corporate Relation</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center text-primary">Our Recruiters</h1>
           <p className="text-lg text-muted-foreground leading-relaxed text-center">
             Yashoda Mahadeo Kakade College of Engineering has built strong corporate relations with leading recruiters to enhance campus employability and provide students with excellent placement opportunities. Our collaboration with industry partners ensures that students are well-prepared to meet the demands of the professional world.
           </p>
