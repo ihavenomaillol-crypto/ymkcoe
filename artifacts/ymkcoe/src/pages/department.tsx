@@ -223,8 +223,9 @@ export default function Department() {
   const officialDeptLabel = dept?.name;
   
   const safeFaculty = Array.isArray(allFaculty) ? allFaculty : [];
-  // Strictly filter for faculty with valid photos across all departments
+  // Strictly filter for faculty belonging to this department and having valid photos
   const displayFaculty = safeFaculty.filter((f: any) => {
+    if (f.department !== officialDeptLabel) return false;
     const url = f.photoUrl || f.photo_url || "";
     if (typeof url !== "string") return false;
     const cleanUrl = url.trim();
