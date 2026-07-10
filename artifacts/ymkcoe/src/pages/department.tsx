@@ -260,15 +260,19 @@ export default function Department() {
   const officialDeptLabel = dept?.name;
   
   const safeFaculty = Array.isArray(allFaculty) ? allFaculty : [];
-  // Strictly filter for faculty belonging to this department and having valid photos
+  // Filter for faculty belonging to this department
   const displayFaculty = safeFaculty.filter((f: any) => {
     // FE page is called "First Year Engineering" or has ID "fe", but its faculty are stored under "Basic Sciences & Humanities" in DB
     const targetDeptLabel = deptId === "fe" ? "Basic Sciences & Humanities" : officialDeptLabel;
     if (f.department !== targetDeptLabel) return false;
+    
+    // Check if there is an invalid drive link, but still allow empty/null
     const url = f.photoUrl || f.photo_url || "";
-    if (typeof url !== "string") return false;
-    const cleanUrl = url.trim();
-    return cleanUrl !== "" && cleanUrl !== "null" && cleanUrl !== "undefined" && !cleanUrl.includes("drive.google.com");
+    if (typeof url === "string" && url.includes("drive.google.com")) {
+      return false; // Specifically filter out drive links if that was the intent
+    }
+    
+    return true;
   });
 
   useEffect(() => {
