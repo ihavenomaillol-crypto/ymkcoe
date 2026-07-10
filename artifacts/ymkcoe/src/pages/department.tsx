@@ -485,7 +485,7 @@ export default function Department() {
                       designation={member.designation}
                       department={member.department || officialDeptLabel}
                       email={member.email}
-                      imageSrc={member.photoUrl || `/faculty-${(i % 3) + 1}.jpg`}
+                      imageSrc={member.photoUrl || "/default-avatar.png"}
                       qualification={member.qualification}
                       experience={member.experience}
                       expertise={member.coreSkills || member.specialization}
