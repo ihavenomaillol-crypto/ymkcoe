@@ -223,9 +223,8 @@ export default function Department() {
   const officialDeptLabel = dept?.name;
   
   const safeFaculty = Array.isArray(allFaculty) ? allFaculty : [];
-  const departmentFaculty = safeFaculty.filter((f: any) => f.department === officialDeptLabel);
-
-  const displayFaculty = departmentFaculty;
+  // Filter for faculty that actually have a photo uploaded
+  const displayFaculty = safeFaculty.filter((f: any) => f.photoUrl && f.photoUrl.trim() !== "");
 
   useEffect(() => {
     // Reset tab when department changes
