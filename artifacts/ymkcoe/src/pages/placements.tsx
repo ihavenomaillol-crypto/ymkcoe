@@ -15,12 +15,30 @@ export default function Placements() {
   return (
     <AppLayout>
       {/* Header */}
-      <section data-scroll-reveal className="bg-primary text-white py-16 md:py-24">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Training & Placement Cell</h1>
-          <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
-            Connecting our brilliant students with industry leaders. We ensure our graduates are equipped to launch successful careers.
+      <section data-scroll-reveal className="bg-background text-foreground py-16 md:py-20 border-b">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center text-primary">Corporate Relation</h1>
+          <p className="text-lg text-muted-foreground leading-relaxed text-center">
+            Yashoda Mahadeo Kakade College of Engineering has built strong corporate relations with leading recruiters to enhance campus employability and provide students with excellent placement opportunities. Our collaboration with industry partners ensures that students are well-prepared to meet the demands of the professional world.
           </p>
+        </div>
+      </section>
+
+      {/* Recruiter Grid */}
+      <section data-scroll-reveal className="py-12 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 items-center justify-items-center opacity-80">
+            {[
+              "Hyundai Steel", "Hyundai Materials", "Mahindra", "Mahindra Accelo", "Tata Hendrickson", "Gestamp",
+              "Danfoss", "Unitherm", "Hicool", "Sogefi", "Abhijeet", "FM Logistic", "RMK Spaces", "ALF",
+              "Dhoot Transmissions", "Revoltech", "CIE Composites", "CIE Stampings", "CIE Gears", "CIE Castings",
+              "Yinlun TDI", "Bonfiglioli", "BVG", "Emitec", "NVH", "ADM", "PHA", "AML", "Ognibene Power", "Doowon", "Komos"
+            ].map((company, idx) => (
+              <div key={idx} className="bg-background border rounded-md px-4 py-3 shadow-sm w-full text-center flex items-center justify-center min-h-[80px] hover:shadow-md transition-shadow">
+                <span className="font-semibold text-sm text-foreground/80">{company}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
