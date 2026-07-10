@@ -77,7 +77,7 @@ export function AdmissionPopup() {
               onClick={() => setOpen(false)}
               className="w-full sm:w-auto transition-all"
             >
-              {timeLeft > 0 ? `Closing automatically in ${timeLeft}s` : "Close"}
+              Continue to Website
             </Button>
           </div>
         </div>
