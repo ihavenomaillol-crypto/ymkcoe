@@ -50,85 +50,113 @@ const TYPE_ICONS = {
 const MOCK_EVENTS: CalendarEvent[] = [
   {
     id: "1",
-    title: "Commencement of Classes (Odd Semester)",
+    title: "Commencement of Classes (First Year)",
     type: "academic",
-    startDate: new Date(2025, 7, 1), // Aug 1, 2025
-    endDate: new Date(2025, 7, 1),
-    description: "Official start of the odd semester classes for all branches (Second year onwards).",
-    metadata: [{ label: "Applicable to", value: "SE, TE, BE" }]
+    startDate: new Date(2026, 1, 16),
+    endDate: new Date(2026, 1, 16),
+    description: "Start of classes for First Year even semester.",
   },
   {
     id: "2",
-    title: "Independence Day Flag Hoisting",
-    type: "activity",
-    startDate: new Date(2025, 7, 15), // Aug 15, 2025
-    endDate: new Date(2025, 7, 15),
-    description: "Flag hoisting ceremony at the main campus ground followed by cultural programs.",
-    metadata: [{ label: "Time", value: "7:30 AM" }, { label: "Venue", value: "Main Ground" }]
+    title: "Commencement of Classes (SE/TE/BE)",
+    type: "academic",
+    startDate: new Date(2025, 11, 29),
+    endDate: new Date(2025, 11, 29),
+    description: "Start of classes for Second, Third, and Final Year even semester.",
   },
   {
     id: "3",
-    title: "Internal Assessment I",
-    type: "exam",
-    startDate: new Date(2025, 7, 25), // Aug 25, 2025
-    endDate: new Date(2025, 7, 29),
-    description: "First mid-semester examinations as per DBATU guidelines.",
-    metadata: [{ label: "Weightage", value: "20 Marks" }]
+    title: "End of Classes (SE/TE/BE)",
+    type: "academic",
+    startDate: new Date(2026, 4, 31),
+    endDate: new Date(2026, 4, 31),
+    description: "Concluding date of classes for Second, Third, and Final Year.",
   },
   {
     id: "4",
-    title: "Ganesh Chaturthi Break",
-    type: "holiday",
-    startDate: new Date(2025, 7, 27),
-    endDate: new Date(2025, 8, 2), // To Sept 2
-    description: "College will remain closed for the auspicious occasion of Ganesh Chaturthi.",
+    title: "End of Classes (First Year)",
+    type: "academic",
+    startDate: new Date(2026, 5, 11),
+    endDate: new Date(2026, 5, 11),
+    description: "Concluding date of classes for First Year.",
   },
   {
     id: "5",
-    title: "Techfest '25 - Innovate",
-    type: "activity",
-    startDate: new Date(2025, 8, 15),
-    endDate: new Date(2025, 8, 16),
-    description: "Annual national-level technical symposium featuring hackathons, paper presentations, and robotics.",
-    metadata: [{ label: "Registrations", value: "Open till Sept 10" }]
+    title: "Practical/Seminar/Mini Project Exam (SE/TE/BE)",
+    type: "exam",
+    startDate: new Date(2026, 5, 1),
+    endDate: new Date(2026, 5, 6),
+    description: "Practical and project examinations for Second, Third, and Final Year.",
   },
   {
     id: "6",
-    title: "Internal Assessment II",
+    title: "Practical/Seminar/Mini Project Exam (First Year)",
     type: "exam",
-    startDate: new Date(2025, 9, 15), // Oct 15
-    endDate: new Date(2025, 9, 19),
-    description: "Second mid-semester examinations.",
+    startDate: new Date(2026, 5, 12),
+    endDate: new Date(2026, 5, 17),
+    description: "Practical and project examinations for First Year.",
   },
   {
     id: "7",
-    title: "Diwali Vacation",
-    type: "holiday",
-    startDate: new Date(2025, 9, 20),
-    endDate: new Date(2025, 10, 5), // Nov 5
-    description: "Festival break. Hostel students must vacate within 24 hours of starting.",
+    title: "Internal Marks Uploading (First Year)",
+    type: "activity",
+    startDate: new Date(2026, 5, 1),
+    endDate: new Date(2026, 5, 8),
+    description: "Uploading internal marks on portal for First Year.",
   },
   {
     id: "8",
-    title: "End Semester Practical Exams",
-    type: "exam",
-    startDate: new Date(2025, 10, 10),
-    endDate: new Date(2025, 10, 20),
-    description: "DBATU University practical and oral examinations.",
+    title: "Internal Marks Uploading (SE/TE/BE)",
+    type: "activity",
+    startDate: new Date(2026, 5, 12),
+    endDate: new Date(2026, 5, 18),
+    description: "Uploading internal marks on portal for SE/TE/BE.",
   },
   {
     id: "9",
-    title: "DBATU Winter Examinations",
+    title: "End Semester Examination (SE/TE/BE)",
     type: "exam",
-    startDate: new Date(2025, 10, 25), // Nov 25
-    endDate: new Date(2025, 11, 20), // Dec 20
-    description: "Final written examinations for the odd semester.",
-  }
+    startDate: new Date(2026, 5, 11),
+    endDate: new Date(2026, 6, 3),
+    description: "End semester theory examinations for Second, Third, and Final Year.",
+  },
+  {
+    id: "10",
+    title: "End Semester Examination (First Year)",
+    type: "exam",
+    startDate: new Date(2026, 5, 19),
+    endDate: new Date(2026, 6, 3),
+    description: "End semester theory examinations for First Year.",
+  },
+  {
+    id: "11",
+    title: "Vacations to Faculty and Technical Staff",
+    type: "holiday",
+    startDate: new Date(2026, 4, 22),
+    endDate: new Date(2026, 5, 30),
+    description: "Summer vacations for faculty and technical staff.",
+  },
+  {
+    id: "12",
+    title: "Result Declaration",
+    type: "academic",
+    startDate: new Date(2026, 6, 27),
+    endDate: new Date(2026, 6, 27),
+    description: "Declaration of even semester results.",
+  },
+  {
+    id: "13",
+    title: "Commencement of Classes for Next Semester",
+    type: "academic",
+    startDate: new Date(2026, 7, 1),
+    endDate: new Date(2026, 7, 1),
+    description: "Start of the new academic session.",
+  },
 ];
 
 export default function GridCalendar() {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date(2025, 7, 25)); // Default to Aug 25, 2025
-  const [currentMonth, setCurrentMonth] = useState<Date>(new Date(2025, 7, 1)); // Default month to Aug 2025
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date(2025, 11, 29));
+  const [currentMonth, setCurrentMonth] = useState<Date>(new Date(2025, 11, 1));
 
   // Memoized helper to get events for a specific date
   const getEventsForDate = (date: Date) => {
