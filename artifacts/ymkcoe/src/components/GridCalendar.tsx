@@ -53,36 +53,36 @@ const MOCK_EVENTS: CalendarEvent[] = [
     title: "Commencement of Classes (First Year)",
     type: "academic",
     startDate: new Date(2026, 1, 16),
-    endDate: new Date(2026, 1, 16),
+    endDate: new Date(2026, 5, 11),
     description: "Start of classes for First Year even semester.",
   },
   {
     id: "2",
-    title: "Commencement of Classes (SE/TE/BE)",
+    title: "End of Classes (First Year)",
     type: "academic",
-    startDate: new Date(2025, 11, 29),
-    endDate: new Date(2025, 11, 29),
-    description: "Start of classes for Second, Third, and Final Year even semester.",
+    startDate: new Date(2026, 4, 29),
+    endDate: new Date(2026, 4, 31),
+    description: "Concluding date of classes for First Year.",
   },
   {
     id: "3",
-    title: "End of Classes (SE/TE/BE)",
+    title: "End of Classes (Second/Third/Final Year)",
     type: "academic",
-    startDate: new Date(2026, 4, 31),
-    endDate: new Date(2026, 4, 31),
+    startDate: new Date(2026, 5, 11),
+    endDate: new Date(2026, 5, 11),
     description: "Concluding date of classes for Second, Third, and Final Year.",
   },
   {
     id: "4",
-    title: "End of Classes (First Year)",
-    type: "academic",
-    startDate: new Date(2026, 5, 11),
-    endDate: new Date(2026, 5, 11),
-    description: "Concluding date of classes for First Year.",
+    title: "Practical/Seminar/Mini Project Examination (First Year)",
+    type: "exam",
+    startDate: new Date(2026, 5, 12),
+    endDate: new Date(2026, 5, 17),
+    description: "Practical and project examinations for First Year.",
   },
   {
     id: "5",
-    title: "Practical/Seminar/Mini Project Exam (SE/TE/BE)",
+    title: "Practical/Seminar/Mini Project Examination (SE/TE/BE)",
     type: "exam",
     startDate: new Date(2026, 5, 1),
     endDate: new Date(2026, 5, 6),
@@ -90,11 +90,11 @@ const MOCK_EVENTS: CalendarEvent[] = [
   },
   {
     id: "6",
-    title: "Practical/Seminar/Mini Project Exam (First Year)",
-    type: "exam",
+    title: "Internal Marks Uploading (SE/TE/BE)",
+    type: "activity",
     startDate: new Date(2026, 5, 12),
-    endDate: new Date(2026, 5, 17),
-    description: "Practical and project examinations for First Year.",
+    endDate: new Date(2026, 5, 18),
+    description: "Uploading internal marks on portal for SE/TE/BE.",
   },
   {
     id: "7",
@@ -106,11 +106,11 @@ const MOCK_EVENTS: CalendarEvent[] = [
   },
   {
     id: "8",
-    title: "Internal Marks Uploading (SE/TE/BE)",
-    type: "activity",
-    startDate: new Date(2026, 5, 12),
-    endDate: new Date(2026, 5, 18),
-    description: "Uploading internal marks on portal for SE/TE/BE.",
+    title: "End Semester Examination (First Year)",
+    type: "exam",
+    startDate: new Date(2026, 5, 19),
+    endDate: new Date(2026, 6, 3),
+    description: "End semester theory examinations for First Year.",
   },
   {
     id: "9",
@@ -122,14 +122,6 @@ const MOCK_EVENTS: CalendarEvent[] = [
   },
   {
     id: "10",
-    title: "End Semester Examination (First Year)",
-    type: "exam",
-    startDate: new Date(2026, 5, 19),
-    endDate: new Date(2026, 6, 3),
-    description: "End semester theory examinations for First Year.",
-  },
-  {
-    id: "11",
     title: "Vacations to Faculty and Technical Staff",
     type: "holiday",
     startDate: new Date(2026, 4, 22),
@@ -137,7 +129,7 @@ const MOCK_EVENTS: CalendarEvent[] = [
     description: "Summer vacations for faculty and technical staff.",
   },
   {
-    id: "12",
+    id: "11",
     title: "Result Declaration",
     type: "academic",
     startDate: new Date(2026, 6, 27),
@@ -145,7 +137,7 @@ const MOCK_EVENTS: CalendarEvent[] = [
     description: "Declaration of even semester results.",
   },
   {
-    id: "13",
+    id: "12",
     title: "Commencement of Classes for Next Semester",
     type: "academic",
     startDate: new Date(2026, 7, 1),
@@ -155,8 +147,8 @@ const MOCK_EVENTS: CalendarEvent[] = [
 ];
 
 export default function GridCalendar() {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date(2025, 11, 29));
-  const [currentMonth, setCurrentMonth] = useState<Date>(new Date(2025, 11, 1));
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date(2026, 1, 16));
+  const [currentMonth, setCurrentMonth] = useState<Date>(new Date(2026, 1, 1));
 
   // Memoized helper to get events for a specific date
   const getEventsForDate = (date: Date) => {
