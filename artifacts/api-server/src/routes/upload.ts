@@ -2,6 +2,13 @@ import { Router, Request, Response } from "express";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'dtaz2gslv',
+  api_key: process.env.CLOUDINARY_API_KEY || '449854915956636',
+  api_secret: process.env.CLOUDINARY_API_SECRET || 'ErvG7DwUvq-21lCRps93YxRn3ms'
+});
 
 // Ensure the uploads directory exists
 const uploadDir = path.join(process.cwd(), "uploads");
@@ -35,14 +42,30 @@ const upload = multer({
 const router = Router();
 
 // Handle file upload
-router.post("/", upload.single("file"), (req: Request, res: Response): void => {
+router.post("/", upload.single("file"), async (req: Request, res: Response) => {
   if (!req.file) {
     res.status(400).json({ error: "No file uploaded or file exceeded size limit" });
     return;
   }
   
-  // Return the public URL for the uploaded file
-  return res.status(201).json({ url: `/api/uploads/${req.file.filename}` });
+  try {
+    // Upload the file to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      resource_type: "auto",
+      folder: "ymkcoe_media"
+    });
+
+    // Delete the local temporary file
+    fs.unlink(req.file.path, (err) => {
+      if (err) console.error("Error deleting temp file:", err);
+    });
+
+    // Return the permanent Cloudinary URL
+    return res.status(201).json({ url: result.secure_url });
+  } catch (err) {
+    console.error("Cloudinary upload error:", err);
+    return res.status(500).json({ error: "Failed to upload media to cloud storage" });
+  }
 });
 
 export default router;
