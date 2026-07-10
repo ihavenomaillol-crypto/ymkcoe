@@ -27,15 +27,51 @@ export default function Placements() {
       {/* Recruiter Grid */}
       <section data-scroll-reveal className="py-12 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 items-center justify-items-center opacity-80">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 items-center justify-items-center">
             {[
-              "Hyundai Steel", "Hyundai Materials", "Mahindra", "Mahindra Accelo", "Tata Hendrickson", "Gestamp",
-              "Danfoss", "Unitherm", "Hicool", "Sogefi", "Abhijeet", "FM Logistic", "RMK Spaces", "ALF",
-              "Dhoot Transmissions", "Revoltech", "CIE Composites", "CIE Stampings", "CIE Gears", "CIE Castings",
-              "Yinlun TDI", "Bonfiglioli", "BVG", "Emitec", "NVH", "ADM", "PHA", "AML", "Ognibene Power", "Doowon", "Komos"
+              { name: "Hyundai Steel", domain: "hyundaisteel.com" },
+              { name: "Hyundai Materials", domain: "hyundaimaterials.com" },
+              { name: "Mahindra", domain: "mahindra.com" },
+              { name: "Mahindra Accelo", domain: "mahindraaccelo.com" },
+              { name: "Tata Hendrickson", domain: "tata.com" },
+              { name: "Gestamp", domain: "gestamp.com" },
+              { name: "Danfoss", domain: "danfoss.com" },
+              { name: "Unitherm", domain: "unitherm.com" },
+              { name: "Hicool", domain: "hicool.com" },
+              { name: "Sogefi", domain: "sogefigroup.com" },
+              { name: "Abhijeet", domain: "abhijeet.in" },
+              { name: "FM Logistic", domain: "fmlogistic.com" },
+              { name: "RMK Spaces", domain: "rmkspaces.com" },
+              { name: "ALF", domain: "alfengineering.com" },
+              { name: "Dhoot Transmissions", domain: "dhoottransmission.com" },
+              { name: "Revoltech", domain: "revoltech.com" },
+              { name: "CIE Composites", domain: "cieautomotive.com" },
+              { name: "CIE Stampings", domain: "cieautomotive.com" },
+              { name: "CIE Gears", domain: "cieautomotive.com" },
+              { name: "CIE Castings", domain: "cieautomotive.com" },
+              { name: "Yinlun TDI", domain: "yinlun.com" },
+              { name: "Bonfiglioli", domain: "bonfiglioli.com" },
+              { name: "BVG", domain: "bvgindia.com" },
+              { name: "Emitec", domain: "emitec.com" },
+              { name: "NVH", domain: "nvh.com" },
+              { name: "ADM", domain: "adm.com" },
+              { name: "PHA", domain: "pha.com" },
+              { name: "AML", domain: "aml.com" },
+              { name: "Ognibene Power", domain: "ognibene.com" },
+              { name: "Doowon", domain: "doowon.com" },
+              { name: "Komos", domain: "komos.com" }
             ].map((company, idx) => (
-              <div key={idx} className="bg-background border rounded-md px-4 py-3 shadow-sm w-full text-center flex items-center justify-center min-h-[80px] hover:shadow-md transition-shadow">
-                <span className="font-semibold text-sm text-foreground/80">{company}</span>
+              <div key={idx} className="group bg-background border rounded-md px-4 py-3 shadow-sm w-full text-center flex items-center justify-center min-h-[80px] hover:shadow-md transition-shadow relative overflow-hidden">
+                <img 
+                  src={`https://logo.clearbit.com/${company.domain}`} 
+                  alt={company.name} 
+                  className="max-h-12 max-w-full object-contain filter grayscale opacity-70 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+                <span className="hidden font-semibold text-sm text-foreground/80">{company.name}</span>
               </div>
             ))}
           </div>
