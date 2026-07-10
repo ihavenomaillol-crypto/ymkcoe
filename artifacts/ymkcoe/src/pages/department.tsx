@@ -365,12 +365,12 @@ export default function Department() {
         <section data-scroll-reveal className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)]">
           <div className="container mx-auto px-4 py-3 flex justify-center">
             <div className="flex justify-center w-full overflow-x-auto no-scrollbar pb-1">
-              <TabsList className="h-auto bg-slate-100/80 p-1.5 rounded-2xl inline-flex gap-2">
+              <TabsList className="h-auto bg-slate-100 p-1.5 rounded-[22px] inline-flex gap-2 border border-slate-200/50">
                 {TABS.map((tab) => (
                   <TabsTrigger
                     key={tab.value}
                     value={tab.value}
-                    className="px-6 py-2.5 rounded-xl border-0 data-[state=active]:bg-white data-[state=active]:text-accent data-[state=active]:shadow-sm bg-transparent text-sm font-bold text-slate-500 hover:text-slate-800 transition-all whitespace-nowrap"
+                    className="px-6 py-2.5 rounded-xl border-0 data-[state=active]:bg-[#0B5ED7] data-[state=active]:text-white data-[state=active]:shadow-md bg-transparent text-sm font-bold text-slate-600 hover:text-slate-900 transition-all whitespace-nowrap"
                   >
                     {tab.label}
                   </TabsTrigger>
@@ -381,61 +381,78 @@ export default function Department() {
         </section>
 
         {/* Tab Contents */}
-        <div className="container mx-auto px-4">
-          <TabsContent value="faculty" className="py-10 outline-none">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="relative bg-card border border-border rounded-3xl p-6 md:p-10 overflow-hidden shadow-xl space-y-8 text-left"
-              >
-                {/* Tech Grid Pattern */}
-                <div 
-                  className="absolute inset-0 opacity-[0.03] pointer-events-none"
-                  style={{ 
-                    backgroundImage: "linear-gradient(rgba(0,0,0,0.1) 1px,transparent 1px), linear-gradient(90deg,rgba(0,0,0,0.1) 1px,transparent 1px)", 
-                    backgroundSize: "32px 32px" 
-                  }}
-                />
-                
-                {/* Removed Glowing Aura Effect */}
+        <div className="w-full">
+          <TabsContent value="faculty" className="py-0 outline-none m-0">
+            <div className="relative bg-[#F7F9FC] py-16 md:py-24 overflow-hidden border-t border-slate-100">
+              {/* Soft Radial Glows */}
+              <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-100/30 rounded-full blur-[120px] pointer-events-none" />
+              <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-indigo-50/40 rounded-full blur-[150px] pointer-events-none" />
+              
+              {/* Tiny Dotted Pattern */}
+              <div 
+                className="absolute inset-0 opacity-[0.04] pointer-events-none"
+                style={{ 
+                  backgroundImage: "radial-gradient(#0B5ED7 1.5px, transparent 1.5px)", 
+                  backgroundSize: "24px 24px" 
+                }}
+              />
 
-                <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between border-b border-border pb-6 gap-4">
-                  <div>
-                    <span className={`inline-flex rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest ${theme.badgeBg} ${theme.badgeText} border ${theme.badgeText.replace('text', 'border')}/20 mb-2`}>
-                      Faculty Roster
-                    </span>
-                    <h2 className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">
-                      Department Faculty Members
-                    </h2>
+              {/* Subtle abstract mesh/grid using CSS */}
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000003_1px,transparent_1px),linear-gradient(to_bottom,#00000003_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+              
+              {/* Light Wave Shape */}
+              <div className="absolute top-0 left-0 right-0 h-40 opacity-[0.02] pointer-events-none overflow-hidden">
+                <svg className="w-full h-full" viewBox="0 0 1440 100" fill="none" preserveAspectRatio="none">
+                  <path d="M0,32L120,42.7C240,53,480,75,720,74.7C960,75,1200,53,1320,42.7L1440,32L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z" fill="#0B5ED7" />
+                </svg>
+              </div>
+
+              <div className="container mx-auto px-4 relative z-10 max-w-7xl">
+                {/* Heading Section */}
+                <div className="text-center max-w-3xl mx-auto mb-16">
+                  <span className="inline-flex rounded-full bg-[#0B5ED7]/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#0B5ED7] mb-4">
+                    Our Experts
+                  </span>
+                  <h2 className="text-3xl md:text-5xl font-extrabold text-[#16213E] tracking-tight">
+                    Our Dedicated Faculty
+                  </h2>
+                  {/* Small gold decorative divider beneath */}
+                  <div className="flex items-center justify-center gap-2 my-4">
+                    <div className="w-12 h-[2px] bg-[#F4B400]" />
+                    <div className="w-2 h-2 rounded-full bg-[#F4B400]" />
+                    <div className="w-12 h-[2px] bg-[#F4B400]" />
                   </div>
-                </div>
-
-                {/* Faculty Tab Content */}
-                <div className="m-0 mt-8 outline-none">
-                  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {displayFaculty.map((member, i) => (
-                      <FacultyCard
-                        key={member.id || i}
-                        name={member.name}
-                        designation={member.designation}
-                        imageSrc={member.photoUrl || `/faculty-${(i % 3) + 1}.jpg`}
-                        qualification={member.qualification}
-                        experience={member.experience}
-                        expertise={member.coreSkills}
-                        publications={member.publications}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                <div className="relative z-10 pt-4 flex flex-col items-center justify-center gap-2 border-t border-border">
-                  <p className="text-xs text-muted-foreground text-center italic tracking-wide">
-                    Detailed faculty profiles will be updated shortly with comprehensive research work &amp; academic publications.
+                  <p className="text-base md:text-lg text-[#64748B] font-medium max-w-2xl mx-auto leading-relaxed">
+                    Learn from experienced educators, researchers, innovators and industry professionals.
                   </p>
                 </div>
-              </motion.div>
-            </TabsContent>
+
+                {/* Faculty Card Grid (32px gutter = gap-8) */}
+                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
+                  {displayFaculty.map((member, i) => (
+                    <FacultyCard
+                      key={member.id || i}
+                      name={member.name}
+                      designation={member.designation}
+                      department={member.department || officialDeptLabel}
+                      email={member.email}
+                      imageSrc={member.photoUrl || `/faculty-${(i % 3) + 1}.jpg`}
+                      qualification={member.qualification}
+                      experience={member.experience}
+                      expertise={member.coreSkills || member.specialization}
+                      publications={member.publications}
+                    />
+                  ))}
+                </div>
+
+                <div className="pt-16 mt-16 border-t border-slate-200/60 text-center">
+                  <p className="text-sm text-slate-400 italic max-w-lg mx-auto">
+                    Detailed faculty profiles are updated dynamically from our university administration system.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
 
             <TabsContent value="academics" className="py-10">
               <div className="container mx-auto px-0 max-w-7xl space-y-6">
