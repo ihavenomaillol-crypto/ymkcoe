@@ -25,6 +25,8 @@ export function AdmissionPopup() {
     if (open && timeLeft > 0) {
       const timer = setTimeout(() => setTimeLeft(prev => prev - 1), 1000);
       return () => clearTimeout(timer);
+    } else if (open && timeLeft === 0) {
+      setOpen(false);
     }
   }, [open, timeLeft]);
 
@@ -72,11 +74,10 @@ export function AdmissionPopup() {
 
           <div className="flex justify-end pt-4 border-t">
             <Button 
-              disabled={timeLeft > 0} 
               onClick={() => setOpen(false)}
               className="w-full sm:w-auto transition-all"
             >
-              {timeLeft > 0 ? `Continue to site in ${timeLeft}s` : "Continue to Website"}
+              {timeLeft > 0 ? `Closing automatically in ${timeLeft}s` : "Close"}
             </Button>
           </div>
         </div>
