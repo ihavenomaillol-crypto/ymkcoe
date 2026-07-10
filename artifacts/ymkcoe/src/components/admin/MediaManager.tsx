@@ -50,9 +50,9 @@ export function MediaManager() {
       return;
     }
 
-    const oversizedFiles = selectedFiles.filter(file => file.size > 5 * 1024 * 1024);
+    const oversizedFiles = selectedFiles.filter(file => file.size > 50 * 1024 * 1024);
     if (oversizedFiles.length > 0) {
-      toast({ variant: "destructive", title: "One or more files exceed the 5MB limit" });
+      toast({ variant: "destructive", title: "One or more files exceed the 50MB limit" });
       return;
     }
 
@@ -168,7 +168,7 @@ export function MediaManager() {
                   )} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Media File(s) (Max 5MB each)</Label>
+                  <Label>Media File(s) (Max 50MB each)</Label>
                   <Input 
                     type="file" 
                     accept="image/*,video/*"
