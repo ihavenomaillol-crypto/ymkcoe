@@ -7,6 +7,7 @@ import { ArrowRight, GraduationCap, Users, Building, Trophy, CheckCircle2, Messa
 import { useGetNews } from "@workspace/api-client-react";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { AdmissionPopup } from "@/components/AdmissionPopup";
 
 const LEADERS = [
   {
@@ -95,10 +96,9 @@ export default function Home() {
 
   const activeLeader = LEADERS[activeIndex];
 
-  const recentNews = Array.isArray(news) ? news.slice(0, 5) : [];
-
   return (
     <AppLayout>
+      <AdmissionPopup />
       {/* Hero Section */}
       <section data-scroll-reveal className="relative w-full min-h-[480px] h-[calc(100svh-64px)] md:h-[calc(100svh-80px)] max-h-[800px] flex items-center bg-primary overflow-hidden">
         {/* Left Side Building Image with Responsive Fade Gradients */}
