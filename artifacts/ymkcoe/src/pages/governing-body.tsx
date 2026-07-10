@@ -7,21 +7,22 @@ import { FileText, Download, Calendar, Users, Landmark, FileCheck } from "lucide
 interface GoverningBodyMember {
   name: string;
   designation: string;
-  role: string;
-  organization: string;
 }
 
 const MEMBERS: GoverningBodyMember[] = [
-  { name: "Shri. Ramdas Kakade", designation: "President", role: "Chairman", organization: "Indrayani Vidya Mandir" },
-  { name: "Shri. Chandrakant Shete", designation: "Secretary", role: "Member Secretary", organization: "Indrayani Vidya Mandir" },
-  { name: "Dr. Sanjay B. Zope", designation: "Director", role: "Member", organization: "Yashoda Mahadeo Kakade College of Engineering" },
-  { name: "Shri. Sandeep Kakade", designation: "Trustee Member", role: "Member", organization: "Indrayani Vidya Mandir" },
-  { name: "Shri. Nilesh Shah", designation: "Trustee Member", role: "Member", organization: "Indrayani Vidya Mandir" },
-  { name: "Nominee of AICTE", designation: "Regional Officer (Ex-officio)", role: "Member", organization: "AICTE, Western Regional Office" },
-  { name: "Nominee of DTE", designation: "Director of Technical Education (Ex-officio)", role: "Member", organization: "DTE, Maharashtra State" },
-  { name: "Nominee of DBATU", designation: "University Representative", role: "Member", organization: "Dr. Babasaheb Ambedkar Technological University" },
-  { name: "Dr. A. R. Kulkarni", designation: "Professor", role: "Member (Faculty Representative)", organization: "Yashoda Mahadeo Kakade College of Engineering" },
-  { name: "Prof. S. M. Patel", designation: "Assistant Professor", role: "Member (Faculty Representative)", organization: "Yashoda Mahadeo Kakade College of Engineering" },
+  { name: "Hon. Mr. Ramdas Kakade", designation: "President" },
+  { name: "Hon. Mr. Shailesh Shah", designation: "Vice President" },
+  { name: "Hon. Mr. Sanjay Sane", designation: "Vice President" },
+  { name: "Hon. Mr. Chandrakant Shete", designation: "Secretary" },
+  { name: "Hon. Mrs. Nirupa Kanitkar", designation: "Treasurer" },
+  { name: "Hon. Mr. Gorakhnath Kalokhe", designation: "Trustee" },
+  { name: "Hon. Mr. Sanjay Bhegade", designation: "Trustee" },
+  { name: "Hon. Mr. Ganesh Khandge", designation: "Trustee" },
+  { name: "Hon. Mr. Vilas Kalokhe", designation: "Trustee" },
+  { name: "Hon. Mr. Sandeep Kakade", designation: "Trustee" },
+  { name: "Hon. Dr. Deepak Shah", designation: "Trustee" },
+  { name: "Hon. Mr. Yuvraj Kakade", designation: "Trustee" },
+  { name: "Hon. Mr. Ranjeet Kakade", designation: "Trustee" }
 ];
 
 const MINUTES = [
@@ -72,14 +73,13 @@ export default function GoverningBody() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {MEMBERS.map((member, i) => (
                 <Card key={i} className="hover:shadow-md transition-all duration-300 border-border">
-                  <CardContent className="p-6 space-y-3">
-                    <div>
-                      <h3 className="font-bold text-primary text-base">{member.name}</h3>
-                      <p className="text-xs text-accent font-semibold uppercase tracking-wider">{member.role}</p>
+                  <CardContent className="p-6 flex items-center gap-4">
+                    <div className="w-14 h-14 shrink-0 bg-primary/10 text-primary rounded-full flex items-center justify-center text-xl font-bold">
+                      {member.name.replace('Hon. ', '').replace('Mr. ', '').replace('Mrs. ', '').replace('Dr. ', '').split(' ').map(n => n[0]).slice(0, 2).join('')}
                     </div>
-                    <div className="text-xs text-muted-foreground border-t pt-2">
-                      <p className="font-medium text-foreground">{member.designation}</p>
-                      <p>{member.organization}</p>
+                    <div>
+                      <h3 className="font-bold text-primary text-base leading-tight mb-1">{member.name}</h3>
+                      <p className="text-xs text-accent font-semibold uppercase tracking-wider">{member.designation}</p>
                     </div>
                   </CardContent>
                 </Card>
