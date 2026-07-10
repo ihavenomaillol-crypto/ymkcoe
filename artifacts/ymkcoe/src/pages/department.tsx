@@ -420,8 +420,10 @@ export default function Department() {
                         name={member.name}
                         designation={member.designation}
                         imageSrc={member.photoUrl || `/faculty-${(i % 3) + 1}.jpg`}
-                        themeRing={theme.avatarRing}
-                        badgeText={theme.badgeText}
+                        qualification={member.qualification}
+                        experience={member.experience}
+                        expertise={member.coreSkills}
+                        publications={member.publications}
                       />
                     ))}
                   </div>

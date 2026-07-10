@@ -4,36 +4,69 @@ type FacultyCardProps = {
   name: string;
   designation: string;
   imageSrc: string;
-  themeRing: string;
-  badgeText: string;
+  qualification?: string | null;
+  experience?: string | null;
+  expertise?: string | null;
+  publications?: string | null;
+  badgeText?: string;
+  themeRing?: string;
 };
 
-export function FacultyCard({ name, designation, imageSrc, badgeText }: FacultyCardProps) {
+export function FacultyCard({ 
+  name, 
+  designation, 
+  imageSrc, 
+  qualification,
+  experience,
+  expertise,
+  publications
+}: FacultyCardProps) {
   return (
-    <div 
-      className="group cursor-pointer relative rounded-[24px] bg-[#0A0F1A] border border-white/5 shadow-2xl overflow-hidden flex flex-col items-center justify-end p-6 transition-all duration-300 hover:border-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.05)] w-full min-h-[380px]"
-    >
-      {/* Background Image Layer */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src={imageSrc} 
-          alt={name} 
-          onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = "0"; }}
-          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110 bg-[#0A0F1A]"
-        />
-        {/* Gradient Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0F1A] via-[#0A0F1A]/80 to-transparent/10" />
+    <div className="flex flex-col bg-card border border-border/50 rounded-2xl p-6 md:p-8 hover:shadow-lg transition-shadow duration-300 gap-6 h-full">
+      {/* Circular Image Container */}
+      <div className="flex justify-center w-full">
+        <div className="relative w-48 h-48 rounded-full overflow-hidden bg-muted border-4 border-muted">
+          <img 
+            src={imageSrc} 
+            alt={name} 
+            onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = "0"; }}
+            className="w-full h-full object-cover object-top"
+          />
+        </div>
       </div>
 
-      <div className="relative z-10 w-full text-center pb-4 transition-transform duration-300 group-hover:-translate-y-2 px-1 overflow-hidden">
-        {/* Bottom: Name and Designation */}
-        <div className="space-y-1.5 w-full text-center">
-          <h3 className="font-extrabold text-white text-base md:text-lg tracking-tight leading-tight drop-shadow-lg whitespace-nowrap overflow-hidden text-ellipsis w-full">
-            {name}
-          </h3>
-          <p className={`text-[9px] md:text-[10px] font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase ${badgeText} drop-shadow-md whitespace-nowrap overflow-hidden text-ellipsis`}>
-            {designation}
+      <div className="flex flex-col text-left w-full">
+        <h3 className="text-xl md:text-2xl font-bold text-blue-600 mb-4">{name}</h3>
+        
+        <div className="text-[13px] md:text-sm text-foreground space-y-2.5 leading-relaxed">
+          <p>
+            <span className="font-extrabold text-foreground">Designation: </span>
+            <span className="text-muted-foreground">{designation}</span>
           </p>
+          {qualification && (
+            <p>
+              <span className="font-extrabold text-foreground">Qualification: </span>
+              <span className="text-muted-foreground">{qualification}</span>
+            </p>
+          )}
+          {experience && (
+            <p>
+              <span className="font-extrabold text-foreground">Experience: </span>
+              <span className="text-muted-foreground">{experience}</span>
+            </p>
+          )}
+          {expertise && (
+            <p>
+              <span className="font-extrabold text-foreground">Expertise: </span>
+              <span className="text-muted-foreground">{expertise}</span>
+            </p>
+          )}
+          {publications && (
+            <p>
+              <span className="font-extrabold text-foreground">Publications: </span>
+              <span className="text-muted-foreground">{publications}</span>
+            </p>
+          )}
         </div>
       </div>
     </div>
