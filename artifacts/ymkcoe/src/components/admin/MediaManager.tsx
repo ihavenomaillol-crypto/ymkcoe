@@ -30,7 +30,7 @@ export function MediaManager() {
   const deleteMedia = useDeleteMediaItem();
   const createMedia = useCreateMediaItem();
   const [open, setOpen] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -45,49 +45,62 @@ export function MediaManager() {
   });
 
   const onSubmit = async (data: z.infer<typeof mediaSchema>) => {
-    if (!selectedFile) {
-      toast({ variant: "destructive", title: "Please select a file to upload" });
+    if (selectedFiles.length === 0) {
+      toast({ variant: "destructive", title: "Please select at least one file to upload" });
       return;
     }
 
-    if (selectedFile.size > 5 * 1024 * 1024) {
-      toast({ variant: "destructive", title: "File size exceeds 5MB limit" });
+    const oversizedFiles = selectedFiles.filter(file => file.size > 5 * 1024 * 1024);
+    if (oversizedFiles.length > 0) {
+      toast({ variant: "destructive", title: "One or more files exceed the 5MB limit" });
       return;
     }
 
     setIsUploading(true);
+    let successCount = 0;
+    let failCount = 0;
 
     try {
-      const formData = new FormData();
-      formData.append("file", selectedFile);
+      for (let i = 0; i < selectedFiles.length; i++) {
+        const file = selectedFiles[i];
+        const formData = new FormData();
+        formData.append("file", file);
 
-      const uploadRes = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+        try {
+          const uploadRes = await fetch("/api/upload", {
+            method: "POST",
+            body: formData,
+          });
 
-      if (!uploadRes.ok) {
-        throw new Error("File upload failed");
+          if (!uploadRes.ok) {
+            throw new Error("File upload failed");
+          }
+
+          const uploadData = await uploadRes.json();
+          const fileUrl = uploadData.url;
+          
+          const title = selectedFiles.length > 1 ? `${data.title} ${i + 1}` : data.title;
+
+          await createMedia.mutateAsync({ data: { ...data, title, url: fileUrl } });
+          successCount++;
+        } catch (err) {
+          console.error("Upload error for file", file.name, err);
+          failCount++;
+        }
       }
 
-      const uploadData = await uploadRes.json();
-      const fileUrl = uploadData.url;
-
-      createMedia.mutate({ data: { ...data, url: fileUrl } }, {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: getGetMediaItemsQueryKey() });
-          toast({ title: "Media item added" });
-          setOpen(false);
-          form.reset();
-          setSelectedFile(null);
-          if (fileInputRef.current) fileInputRef.current.value = '';
-        },
-        onError: () => {
-          toast({ variant: "destructive", title: "Failed to add media item" });
-        }
-      });
-    } catch (err) {
-      toast({ variant: "destructive", title: "Failed to upload file" });
+      if (successCount > 0) {
+        queryClient.invalidateQueries({ queryKey: getGetMediaItemsQueryKey() });
+        toast({ title: `Successfully added ${successCount} media item(s)` });
+        setOpen(false);
+        form.reset();
+        setSelectedFiles([]);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+      }
+      
+      if (failCount > 0) {
+        toast({ variant: "destructive", title: `Failed to upload ${failCount} file(s)` });
+      }
     } finally {
       setIsUploading(false);
     }
@@ -155,13 +168,19 @@ export function MediaManager() {
                   )} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Media File (Max 5MB)</Label>
+                  <Label>Media File(s) (Max 5MB each)</Label>
                   <Input 
                     type="file" 
                     accept="image/*,video/*"
+                    multiple
                     ref={fileInputRef}
-                    onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
+                    onChange={(e) => setSelectedFiles(Array.from(e.target.files || []))}
                   />
+                  {selectedFiles.length > 0 && (
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {selectedFiles.length} file(s) selected
+                    </p>
+                  )}
                 </div>
                 <FormField control={form.control} name="thumbnailUrl" render={({ field }) => (
                   <FormItem><FormLabel>Thumbnail URL (Optional for Video)</FormLabel><FormControl><Input {...field} placeholder="https://..." /></FormControl><FormMessage/></FormItem>
