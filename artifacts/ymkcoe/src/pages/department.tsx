@@ -223,12 +223,16 @@ export default function Department() {
   const officialDeptLabel = dept?.name;
   
   const safeFaculty = Array.isArray(allFaculty) ? allFaculty : [];
-  // Strictly filter for faculty with valid photos (exclude empty, nulls, and broken Google Drive links)
-  const displayFaculty = safeFaculty.filter((f: any) => {
+  const departmentFaculty = safeFaculty.filter((f: any) => f.department === officialDeptLabel);
+
+  const displayFaculty = departmentFaculty.map((f: any) => {
     const url = f.photoUrl || f.photo_url || "";
-    if (typeof url !== "string") return false;
-    const cleanUrl = url.trim();
-    return cleanUrl !== "" && cleanUrl !== "null" && cleanUrl !== "undefined" && !cleanUrl.includes("drive.google.com");
+    const cleanUrl = typeof url === "string" ? url.trim() : "";
+    const isValid = cleanUrl !== "" && cleanUrl !== "null" && cleanUrl !== "undefined" && !cleanUrl.includes("drive.google.com");
+    return {
+      ...f,
+      finalPhotoUrl: isValid ? cleanUrl : "/default-avatar.png"
+    };
   });
 
   useEffect(() => {
@@ -419,7 +423,7 @@ export default function Department() {
                         key={member.id || i}
                         name={member.name}
                         designation={member.designation}
-                        imageSrc={member.photoUrl || `/faculty-${(i % 3) + 1}.jpg`}
+                        imageSrc={member.finalPhotoUrl}
                         themeRing={theme.avatarRing}
                         badgeText={theme.badgeText}
                       />
