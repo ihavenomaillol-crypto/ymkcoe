@@ -7,6 +7,7 @@ import { AIDSRoboReveal } from "@/components/AIDSRoboReveal";
 import { CSELaptopReveal } from "@/components/CSELaptopReveal";
 import { ENTCCircuitReveal } from "@/components/ENTCCircuitReveal";
 import { ITVaultReveal } from "@/components/ITVaultReveal";
+import { FEScienceReveal } from "@/components/FEScienceReveal";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import AcademicTree from "@/components/AcademicTree";
@@ -310,7 +311,7 @@ export default function Department() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-secondary/30 via-primary/50 to-primary pointer-events-none z-0" />
         
         {/* Department Specific Hero Background Image */}
-        {(deptId === "cse" || deptId === "aids" || deptId === "entc" || deptId === "it") && (
+        {(deptId === "cse" || deptId === "aids" || deptId === "entc" || deptId === "it" || deptId === "fe") && (
           <div className="absolute inset-y-0 right-0 w-full md:w-2/3 z-0 opacity-50 md:opacity-80 mix-blend-lighten overflow-hidden pointer-events-none">
             <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/60 to-transparent z-10" />
             <div className="absolute inset-0 bg-gradient-to-b from-primary/50 via-transparent to-primary z-10" />
@@ -346,12 +347,14 @@ export default function Department() {
         <ENTCCircuitReveal dept={dept} />
       ) : deptId === "it" ? (
         <ITVaultReveal dept={dept} />
+      ) : deptId === "fe" ? (
+        <FEScienceReveal dept={dept} />
       ) : (
         <DepartmentLaptopReveal dept={dept} />
       )}
 
       {/* About Department + Vision & Mission — only for depts without custom reveals */}
-      {deptId !== "cse" && deptId !== "aids" && deptId !== "entc" && deptId !== "it" && (
+      {deptId !== "cse" && deptId !== "aids" && deptId !== "entc" && deptId !== "it" && deptId !== "fe" && (
         <section data-scroll-reveal className="py-16 md:py-20 bg-background border-b border-border">
           <div className="container mx-auto px-4 max-w-5xl space-y-10">
             <div className="text-center">
