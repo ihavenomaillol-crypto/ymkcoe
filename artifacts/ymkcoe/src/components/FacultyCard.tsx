@@ -117,8 +117,8 @@ export function FacultyCard({
         </svg>
       </div>
 
-      {/* Floating Portrait (Centered, 100px) */}
-      <div className="absolute top-8 left-1/2 -translate-x-1/2 w-[100px] h-[100px] rounded-full border-4 border-white shadow-[0_8px_18px_rgba(0,0,0,0.05)] overflow-hidden bg-slate-50 z-10 transition-transform duration-500 group-hover:scale-105">
+      {/* Floating Portrait (Centered, 115px) */}
+      <div className="absolute top-7 left-1/2 -translate-x-1/2 w-[115px] h-[115px] rounded-full border-[5px] border-white shadow-[0_8px_18px_rgba(0,0,0,0.05)] overflow-hidden bg-slate-50 z-10 transition-transform duration-500 group-hover:scale-105">
         <img 
           src={imageSrc} 
           alt={name} 
@@ -128,7 +128,7 @@ export function FacultyCard({
       </div>
 
       {/* Content Section */}
-      <div className="pt-12 px-5 md:px-6 pb-4 flex flex-col flex-grow text-center">
+      <div className="pt-14 px-5 md:px-6 pb-4 flex flex-col flex-grow text-center">
         {/* Identity */}
         <div className="space-y-0.5 mb-3">
           <h3 className="font-extrabold text-[17px] md:text-[19px] text-[#16213E] tracking-tight leading-tight group-hover:text-[#0B5ED7] transition-colors duration-300">
