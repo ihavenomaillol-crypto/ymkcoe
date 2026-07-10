@@ -47,7 +47,7 @@ Secretary
 Indrayani Vidya Mandir.`,
   },
   {
-    name: "Dr. Narendra Narve",
+    name: "Prof. Dr. N. G. Narve",
     role: "Administrative Officer (IVM) | Principal",
     organization: "YMKCOE",
     image: "/director.jpg",

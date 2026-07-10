@@ -59,7 +59,7 @@ const LEADERS: Leader[] = [
   },
   {
     id: "principal",
-    name: "Dr. Narendra Narve",
+    name: "Prof. Dr. N. G. Narve",
     title: "Principal, YMKCOE",
     image: "/director.jpg",
     message: "Academic excellence, scientific research, and disciplined leadership form the core pillars of YMKCOE. We emphasize hands-on project experience, hackathons, and creative student societies to prepare DBATU graduates who are both technically skilled and socially responsible.",
