@@ -225,58 +225,6 @@ export function Navbar() {
           {/* Home */}
           <Link href="/"><span className={linkCls(location === "/")}>Home</span></Link>
 
-          {/* Departments mega-menu */}
-          <div
-            className="relative"
-            onMouseEnter={() => openMenu('dept')}
-            onMouseLeave={closeMenu}
-          >
-            <Link href="/departments">
-              <span className={linkCls(location.startsWith("/department") || location === "/departments")}>
-                Departments <ChevronDown className="h-3 w-3 md:h-3.5 md:w-3.5" />
-              </span>
-            </Link>
-
-            {activeDropdown === 'dept' && (
-              <div
-                onMouseEnter={() => openMenu('dept')}
-                onMouseLeave={closeMenu}
-                className="absolute top-full left-1/2 -translate-x-1/2 w-[300px] z-50"
-              >
-                <div className="h-2 w-full" />
-                <div className="w-full bg-background border border-border rounded-xl shadow-xl p-2 flex flex-col gap-1 animate-in fade-in zoom-in-95 duration-200">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground px-3 pt-2 pb-1">Departments</p>
-                  
-                  <Link href="/faculty" onClick={() => setActiveDropdown(null)}>
-                    <div className="flex items-center gap-2 px-3 py-2.5 mb-2 rounded-lg text-sm font-semibold text-accent bg-accent/10 hover:bg-accent hover:text-white transition-all cursor-pointer group">
-                      <div className="bg-accent/20 group-hover:bg-white/20 p-1.5 rounded-md transition-colors">
-                        <Users className="h-4 w-4" />
-                      </div>
-                      Our Faculty
-                    </div>
-                  </Link>
-
-                  <div className="h-px bg-border/50 mx-2 mb-2" />
-                  {DEPARTMENTS.map((dept) => (
-                    <Link
-                      key={dept.id}
-                      href={getDepartmentHref(dept.id)}
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <span className="w-full text-left px-3 py-2.5 rounded-lg transition-all flex items-center gap-2.5 hover:bg-muted group">
-                        <span className={`w-2 h-2 rounded-full shrink-0 ${dept.dotColor}`} />
-                        <div>
-                          <span className={`text-xs font-bold block ${dept.color}`}>{dept.short}</span>
-                          <span className="text-[10px] text-muted-foreground leading-tight block">{dept.label}</span>
-                        </div>
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
           {/* About Us */}
           <div
             className="relative"
@@ -336,6 +284,126 @@ export function Navbar() {
                       </Link>
                     );
                   })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Admission Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => openMenu('admission')}
+            onMouseLeave={closeMenu}
+          >
+            <Link href="/admissions">
+              <span className={linkCls(location.startsWith("/admissions"))}>
+                Admission <ChevronDown className="h-3 w-3 md:h-3.5 md:w-3.5" />
+              </span>
+            </Link>
+            {activeDropdown === 'admission' && (
+              <div
+                onMouseEnter={() => openMenu('admission')}
+                onMouseLeave={closeMenu}
+                className="absolute top-full left-1/2 -translate-x-1/2 w-[240px] z-50"
+              >
+                <div className="h-2 w-full" />
+                <div className="w-full bg-background border border-border rounded-lg shadow-lg p-2 flex flex-col gap-1 animate-in fade-in zoom-in-95 duration-200">
+                  {[
+                    { href: "/admissions?tab=eligibility",     label: "Eligibility Criteria" },
+                    { href: "/admissions?tab=documents",       label: "Documents Required" },
+                    { href: "/admissions?tab=process",         label: "Admission Process" },
+                    { href: "/admissions?tab=institute-level", label: "Admission at Institute Level" },
+                    { href: "/admissions?tab=tfw-code",        label: "TFW Code" },
+                    { href: "/admissions?tab=fee-structure",   label: "Fee Structure" },
+                    { href: "/admissions?tab=fra",             label: "FRA" },
+                  ].map((item) => (
+                    <Link key={item.href} href={item.href} onClick={() => setActiveDropdown(null)}>
+                      <span className="block px-3 py-2 rounded-md text-sm hover:bg-muted hover:text-accent transition-colors text-foreground">
+                        {item.label}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Departments mega-menu */}
+          <div
+            className="relative"
+            onMouseEnter={() => openMenu('dept')}
+            onMouseLeave={closeMenu}
+          >
+            <Link href="/departments">
+              <span className={linkCls(location.startsWith("/department") || location === "/departments")}>
+                Departments <ChevronDown className="h-3 w-3 md:h-3.5 md:w-3.5" />
+              </span>
+            </Link>
+
+            {activeDropdown === 'dept' && (
+              <div
+                onMouseEnter={() => openMenu('dept')}
+                onMouseLeave={closeMenu}
+                className="absolute top-full left-1/2 -translate-x-1/2 w-[300px] z-50"
+              >
+                <div className="h-2 w-full" />
+                <div className="w-full bg-background border border-border rounded-xl shadow-xl p-2 flex flex-col gap-1 animate-in fade-in zoom-in-95 duration-200">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground px-3 pt-2 pb-1">Departments</p>
+                  
+                  <Link href="/faculty" onClick={() => setActiveDropdown(null)}>
+                    <div className="flex items-center gap-2 px-3 py-2.5 mb-2 rounded-lg text-sm font-semibold text-accent bg-accent/10 hover:bg-accent hover:text-white transition-all cursor-pointer group">
+                      <div className="bg-accent/20 group-hover:bg-white/20 p-1.5 rounded-md transition-colors">
+                        <Users className="h-4 w-4" />
+                      </div>
+                      Our Faculty
+                    </div>
+                  </Link>
+
+                  <div className="h-px bg-border/50 mx-2 mb-2" />
+                  {DEPARTMENTS.map((dept) => (
+                    <Link
+                      key={dept.id}
+                      href={getDepartmentHref(dept.id)}
+                      onClick={() => setActiveDropdown(null)}
+                    >
+                      <span className="w-full text-left px-3 py-2.5 rounded-lg transition-all flex items-center gap-2.5 hover:bg-muted group">
+                        <span className={`w-2 h-2 rounded-full shrink-0 ${dept.dotColor}`} />
+                        <div>
+                          <span className={`text-xs font-bold block ${dept.color}`}>{dept.short}</span>
+                          <span className="text-[10px] text-muted-foreground leading-tight block">{dept.label}</span>
+                        </div>
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Approvals Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => openMenu('approvals')}
+            onMouseLeave={closeMenu}
+          >
+            <span className={linkCls(location.startsWith("/approvals"))}>
+              Approvals <ChevronDown className="h-3 w-3 md:h-3.5 md:w-3.5" />
+            </span>
+            {activeDropdown === 'approvals' && (
+              <div
+                onMouseEnter={() => openMenu('approvals')}
+                onMouseLeave={closeMenu}
+                className="absolute top-full left-1/2 -translate-x-1/2 w-[260px] z-50"
+              >
+                <div className="h-2 w-full" />
+                <div className="w-full bg-background border border-border rounded-lg shadow-lg p-2 flex flex-col gap-1 animate-in fade-in zoom-in-95 duration-200">
+                  {APPROVALS.map((item) => (
+                    <Link key={item.href} href={item.href} onClick={() => setActiveDropdown(null)}>
+                      <span className="block px-3 py-2 rounded-md text-sm hover:bg-muted hover:text-accent transition-colors text-foreground">
+                        {item.label}
+                      </span>
+                    </Link>
+                  ))}
                 </div>
               </div>
             )}
@@ -405,74 +473,6 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Admission Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => openMenu('admission')}
-            onMouseLeave={closeMenu}
-          >
-            <Link href="/admissions">
-              <span className={linkCls(location.startsWith("/admissions"))}>
-                Admission <ChevronDown className="h-3 w-3 md:h-3.5 md:w-3.5" />
-              </span>
-            </Link>
-            {activeDropdown === 'admission' && (
-              <div
-                onMouseEnter={() => openMenu('admission')}
-                onMouseLeave={closeMenu}
-                className="absolute top-full left-1/2 -translate-x-1/2 w-[240px] z-50"
-              >
-                <div className="h-2 w-full" />
-                <div className="w-full bg-background border border-border rounded-lg shadow-lg p-2 flex flex-col gap-1 animate-in fade-in zoom-in-95 duration-200">
-                  {[
-                    { href: "/admissions?tab=eligibility",     label: "Eligibility Criteria" },
-                    { href: "/admissions?tab=documents",       label: "Documents Required" },
-                    { href: "/admissions?tab=process",         label: "Admission Process" },
-                    { href: "/admissions?tab=institute-level", label: "Admission at Institute Level" },
-                    { href: "/admissions?tab=tfw-code",        label: "TFW Code" },
-                    { href: "/admissions?tab=fee-structure",   label: "Fee Structure" },
-                    { href: "/admissions?tab=fra",             label: "FRA" },
-                  ].map((item) => (
-                    <Link key={item.href} href={item.href} onClick={() => setActiveDropdown(null)}>
-                      <span className="block px-3 py-2 rounded-md text-sm hover:bg-muted hover:text-accent transition-colors text-foreground">
-                        {item.label}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Approvals Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => openMenu('approvals')}
-            onMouseLeave={closeMenu}
-          >
-            <span className={linkCls(location.startsWith("/approvals"))}>
-              Approvals <ChevronDown className="h-3 w-3 md:h-3.5 md:w-3.5" />
-            </span>
-            {activeDropdown === 'approvals' && (
-              <div
-                onMouseEnter={() => openMenu('approvals')}
-                onMouseLeave={closeMenu}
-                className="absolute top-full left-1/2 -translate-x-1/2 w-[260px] z-50"
-              >
-                <div className="h-2 w-full" />
-                <div className="w-full bg-background border border-border rounded-lg shadow-lg p-2 flex flex-col gap-1 animate-in fade-in zoom-in-95 duration-200">
-                  {APPROVALS.map((item) => (
-                    <Link key={item.href} href={item.href} onClick={() => setActiveDropdown(null)}>
-                      <span className="block px-3 py-2 rounded-md text-sm hover:bg-muted hover:text-accent transition-colors text-foreground">
-                        {item.label}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
           {/* Links after */}
           {navLinksAfter.map((link) => (
             <Link key={link.href} href={link.href}>
@@ -500,6 +500,66 @@ export function Navbar() {
         <div className="lg:hidden border-t border-border bg-background animate-in slide-in-from-top-2">
           <nav className="w-full px-4 py-4 flex flex-col space-y-2 max-h-[calc(100dvh-130px)] overflow-y-auto overscroll-contain">
             <Link href="/"><span className="block px-4 py-2 rounded-md text-base font-medium hover:bg-muted" onClick={() => setIsOpen(false)}>Home</span></Link>
+
+            {/* Mobile About Us accordion */}
+            <div>
+              <button onClick={() => setShowMobileAbout(!showMobileAbout)} className="w-full flex items-center justify-between px-4 py-2 rounded-md text-base font-medium hover:bg-muted text-left">
+                About Us <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${showMobileAbout ? "rotate-180" : ""}`} />
+              </button>
+              {showMobileAbout && (
+                <div className="pl-6 flex flex-col gap-1 mt-1 border-l border-border ml-4">
+                  {ABOUT_US.map((item) => {
+                    if (item.children) {
+                      return (
+                        <div key={item.label} className="flex flex-col gap-1">
+                          <span className="block px-4 py-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider mt-1">
+                            {item.label}
+                          </span>
+                          <div className="max-h-[250px] overflow-y-auto border-l border-border pl-4 flex flex-col gap-1">
+                            {item.children.map((sub) => (
+                              <Link key={sub.label + sub.href} href={sub.href}>
+                                <span className="block px-4 py-2 rounded-md text-sm hover:bg-muted text-foreground" onClick={() => setIsOpen(false)}>
+                                  {sub.label}
+                                </span>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    }
+                    return (
+                      <Link key={item.href} href={item.href}>
+                        <span className="block px-4 py-2 rounded-md text-sm hover:bg-muted text-foreground" onClick={() => setIsOpen(false)}>{item.label}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Mobile Admission accordion */}
+            <div>
+              <button onClick={() => setShowMobileAdmission(!showMobileAdmission)} className="w-full flex items-center justify-between px-4 py-2 rounded-md text-base font-medium hover:bg-muted text-left">
+                Admission <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${showMobileAdmission ? "rotate-180" : ""}`} />
+              </button>
+              {showMobileAdmission && (
+                <div className="pl-6 flex flex-col gap-1 mt-1 border-l border-border ml-4">
+                  {[
+                    { href: "/admissions?tab=eligibility",     label: "Eligibility Criteria" },
+                    { href: "/admissions?tab=documents",       label: "Documents Required" },
+                    { href: "/admissions?tab=process",         label: "Admission Process" },
+                    { href: "/admissions?tab=institute-level", label: "Admission at Institute Level" },
+                    { href: "/admissions?tab=tfw-code",        label: "TFW Code" },
+                    { href: "/admissions?tab=fee-structure",   label: "Fee Structure" },
+                    { href: "/admissions?tab=fra",             label: "FRA" },
+                  ].map((item) => (
+                    <Link key={item.href} href={item.href}>
+                      <span className="block px-4 py-2 rounded-md text-sm hover:bg-muted text-foreground" onClick={() => setIsOpen(false)}>{item.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Mobile Departments accordion */}
             <div>
@@ -540,38 +600,18 @@ export function Navbar() {
               )}
             </div>
 
-            {/* Mobile About Us accordion */}
+            {/* Mobile Approvals accordion */}
             <div>
-              <button onClick={() => setShowMobileAbout(!showMobileAbout)} className="w-full flex items-center justify-between px-4 py-2 rounded-md text-base font-medium hover:bg-muted text-left">
-                About Us <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${showMobileAbout ? "rotate-180" : ""}`} />
+              <button onClick={() => setShowMobileApprovals(!showMobileApprovals)} className="w-full flex items-center justify-between px-4 py-2 rounded-md text-base font-medium hover:bg-muted text-left">
+                Approvals <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${showMobileApprovals ? "rotate-180" : ""}`} />
               </button>
-              {showMobileAbout && (
+              {showMobileApprovals && (
                 <div className="pl-6 flex flex-col gap-1 mt-1 border-l border-border ml-4">
-                  {ABOUT_US.map((item) => {
-                    if (item.children) {
-                      return (
-                        <div key={item.label} className="flex flex-col gap-1">
-                          <span className="block px-4 py-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider mt-1">
-                            {item.label}
-                          </span>
-                          <div className="max-h-[250px] overflow-y-auto border-l border-border pl-4 flex flex-col gap-1">
-                            {item.children.map((sub) => (
-                              <Link key={sub.label + sub.href} href={sub.href}>
-                                <span className="block px-4 py-2 rounded-md text-sm hover:bg-muted text-foreground" onClick={() => setIsOpen(false)}>
-                                  {sub.label}
-                                </span>
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      );
-                    }
-                    return (
-                      <Link key={item.href} href={item.href}>
-                        <span className="block px-4 py-2 rounded-md text-sm hover:bg-muted text-foreground" onClick={() => setIsOpen(false)}>{item.label}</span>
-                      </Link>
-                    );
-                  })}
+                  {APPROVALS.map((item) => (
+                    <Link key={item.href} href={item.href}>
+                      <span className="block px-4 py-2 rounded-md text-sm hover:bg-muted text-foreground" onClick={() => setIsOpen(false)}>{item.label}</span>
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>
@@ -608,46 +648,6 @@ export function Navbar() {
                       </Link>
                     );
                   })}
-                </div>
-              )}
-            </div>
-
-            {/* Mobile Admission accordion */}
-            <div>
-              <button onClick={() => setShowMobileAdmission(!showMobileAdmission)} className="w-full flex items-center justify-between px-4 py-2 rounded-md text-base font-medium hover:bg-muted text-left">
-                Admission <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${showMobileAdmission ? "rotate-180" : ""}`} />
-              </button>
-              {showMobileAdmission && (
-                <div className="pl-6 flex flex-col gap-1 mt-1 border-l border-border ml-4">
-                  {[
-                    { href: "/admissions?tab=eligibility",     label: "Eligibility Criteria" },
-                    { href: "/admissions?tab=documents",       label: "Documents Required" },
-                    { href: "/admissions?tab=process",         label: "Admission Process" },
-                    { href: "/admissions?tab=institute-level", label: "Admission at Institute Level" },
-                    { href: "/admissions?tab=tfw-code",        label: "TFW Code" },
-                    { href: "/admissions?tab=fee-structure",   label: "Fee Structure" },
-                    { href: "/admissions?tab=fra",             label: "FRA" },
-                  ].map((item) => (
-                    <Link key={item.href} href={item.href}>
-                      <span className="block px-4 py-2 rounded-md text-sm hover:bg-muted text-foreground" onClick={() => setIsOpen(false)}>{item.label}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Mobile Approvals accordion */}
-            <div>
-              <button onClick={() => setShowMobileApprovals(!showMobileApprovals)} className="w-full flex items-center justify-between px-4 py-2 rounded-md text-base font-medium hover:bg-muted text-left">
-                Approvals <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${showMobileApprovals ? "rotate-180" : ""}`} />
-              </button>
-              {showMobileApprovals && (
-                <div className="pl-6 flex flex-col gap-1 mt-1 border-l border-border ml-4">
-                  {APPROVALS.map((item) => (
-                    <Link key={item.href} href={item.href}>
-                      <span className="block px-4 py-2 rounded-md text-sm hover:bg-muted text-foreground" onClick={() => setIsOpen(false)}>{item.label}</span>
-                    </Link>
-                  ))}
                 </div>
               )}
             </div>
