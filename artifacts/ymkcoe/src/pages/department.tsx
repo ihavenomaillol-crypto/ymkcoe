@@ -223,8 +223,13 @@ export default function Department() {
   const officialDeptLabel = dept?.name;
   
   const safeFaculty = Array.isArray(allFaculty) ? allFaculty : [];
-  // Filter for faculty that actually have a photo uploaded
-  const displayFaculty = safeFaculty.filter((f: any) => f.photoUrl && f.photoUrl.trim() !== "");
+  // Strictly filter for faculty with valid photos (exclude empty, nulls, and broken Google Drive links)
+  const displayFaculty = safeFaculty.filter((f: any) => {
+    const url = f.photoUrl || f.photo_url || "";
+    if (typeof url !== "string") return false;
+    const cleanUrl = url.trim();
+    return cleanUrl !== "" && cleanUrl !== "null" && cleanUrl !== "undefined" && !cleanUrl.includes("drive.google.com");
+  });
 
   useEffect(() => {
     // Reset tab when department changes
