@@ -30,7 +30,7 @@ export default function Placements() {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 items-center justify-items-center">
             {[
               { name: "Hyundai Steel", domain: "hyundaisteel.com" },
-              { name: "Hyundai Materials", domain: "hyundaimaterials.com" },
+              { name: "Hyundai Materials", domain: "hyundai-materials.com" },
               { name: "Mahindra", domain: "mahindra.com" },
               { name: "Mahindra Accelo", domain: "mahindraaccelo.com" },
               { name: "Tata Hendrickson", domain: "tata.com" },
@@ -67,8 +67,13 @@ export default function Placements() {
                   alt={company.name} 
                   className="max-h-12 max-w-full object-contain filter grayscale opacity-70 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
                   onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                    const target = e.currentTarget;
+                    if (target.src.includes('clearbit')) {
+                      target.src = `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://${company.domain}&size=128`;
+                    } else {
+                      target.style.display = 'none';
+                      target.nextElementSibling?.classList.remove('hidden');
+                    }
                   }}
                 />
                 <span className="hidden font-semibold text-sm text-foreground/80">{company.name}</span>
