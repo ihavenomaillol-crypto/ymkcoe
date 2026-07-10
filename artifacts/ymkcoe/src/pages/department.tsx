@@ -225,15 +225,7 @@ export default function Department() {
   const safeFaculty = Array.isArray(allFaculty) ? allFaculty : [];
   const departmentFaculty = safeFaculty.filter((f: any) => f.department === officialDeptLabel);
 
-  const displayFaculty = departmentFaculty.map((f: any) => {
-    const url = f.photoUrl || f.photo_url || "";
-    const cleanUrl = typeof url === "string" ? url.trim() : "";
-    const isValid = cleanUrl !== "" && cleanUrl !== "null" && cleanUrl !== "undefined" && !cleanUrl.includes("drive.google.com");
-    return {
-      ...f,
-      finalPhotoUrl: isValid ? cleanUrl : "/default-avatar.png"
-    };
-  });
+  const displayFaculty = departmentFaculty;
 
   useEffect(() => {
     // Reset tab when department changes
@@ -423,7 +415,7 @@ export default function Department() {
                         key={member.id || i}
                         name={member.name}
                         designation={member.designation}
-                        imageSrc={member.finalPhotoUrl}
+                        imageSrc={member.photoUrl || `/faculty-${(i % 3) + 1}.jpg`}
                         themeRing={theme.avatarRing}
                         badgeText={theme.badgeText}
                       />
