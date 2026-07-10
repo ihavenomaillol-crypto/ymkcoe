@@ -27,7 +27,7 @@ export function AppLayout({ children, transparentBg = false }: { children: React
           >
             {[...Array(6)].map((_, i) => (
               <span key={i} className="flex items-center gap-8">
-                <span>🎓 ADMISSIONS OPEN 2026-27 FOR B.E. PROGRAMS</span>
+                <span>🎓 ADMISSIONS OPEN 2026-27 FOR B.Tech PROGRAMS</span>
                 <span className="text-accent">•</span>
                 <span>APPLY NOW FOR CSE, AI&DS, IT, ENTC</span>
                 <span className="text-accent">•</span>

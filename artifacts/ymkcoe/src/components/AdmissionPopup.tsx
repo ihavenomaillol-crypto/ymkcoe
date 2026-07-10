@@ -50,7 +50,7 @@ export function AdmissionPopup() {
         
         <div className="p-6 bg-background space-y-6">
           <div className="grid gap-4">
-            <h3 className="font-semibold text-lg border-b pb-2">Available B.E. Programs</h3>
+            <h3 className="font-semibold text-lg border-b pb-2">Available B.Tech Programs</h3>
             
             <div className="grid gap-3">
               {[
