@@ -40,6 +40,7 @@ interface Leader {
   title: string;
   image: string;
   message: string;
+  tabLabel?: string;
 }
 
 const LEADERS: Leader[] = [
@@ -49,6 +50,7 @@ const LEADERS: Leader[] = [
     title: "President, Indrayani Vidya Mandir (IVM)",
     image: "/president.jpg",
     message: "Since 1965, Indrayani Vidya Mandir has stood as a beacon of educational transformation in the Maval region. Our mission is to democratize high-quality technical instruction, ensuring that every bright mind, regardless of economic background, has the tools to excel, innovate, and contribute to our nation's progress.",
+    tabLabel: "Ramdas Kakade",
   },
   {
     id: "secretary",
@@ -56,6 +58,7 @@ const LEADERS: Leader[] = [
     title: "Secretary, Indrayani Vidya Mandir (IVM)",
     image: "/secretary.jpg",
     message: "A modern engineering campus must bridge the gap between academic theory and industry reality. At YMKCOE, we invest in state-of-the-art laboratory infrastructure, nurture strong corporate partnerships, and foster career development to guide our students straight into top-tier tech roles.",
+    tabLabel: "Chandrakant Shete",
   },
   {
     id: "principal",
@@ -63,6 +66,7 @@ const LEADERS: Leader[] = [
     title: "Principal, YMKCOE",
     image: "/director.jpg",
     message: "Academic excellence, scientific research, and disciplined leadership form the core pillars of YMKCOE. We emphasize hands-on project experience, hackathons, and creative student societies to prepare DBATU graduates who are both technically skilled and socially responsible.",
+    tabLabel: "Prof. Dr. N. G. Narve",
   },
 ];
 
@@ -157,7 +161,7 @@ export default function About() {
                 }`}
                 onClick={() => setActiveLeader(leader.id)}
               >
-                {leader.name.split(". ")[1] || leader.name}
+                {leader.tabLabel || leader.name}
               </Button>
             ))}
           </div>
@@ -175,7 +179,8 @@ export default function About() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent md:hidden" />
                   <div className="absolute bottom-4 left-4 text-white md:hidden">
-                    <h3 className="text-xl font-bold">{selectedLeader.name}</h3>
+                    <h3 className="text-xl font-bold">{selectedLeader.
+                    name}</h3>
                     <p className="text-xs text-slate-300 font-medium">{selectedLeader.title}</p>
                   </div>
                 </div>
