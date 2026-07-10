@@ -27,9 +27,6 @@ const STUDENT_CORNER = [
       { label: "Boys' Hostel",  href: "/students/boys-hostel" },
     ]
   },
-  { label: "Clubs", href: "/students/clubs" },
-  { label: "Student Association", href: "/students/association" },
-  { label: "Alumni", href: "/students/alumni" },
 ];
 
 // ── About Us & Governance ─────────────────────────────────────────────
