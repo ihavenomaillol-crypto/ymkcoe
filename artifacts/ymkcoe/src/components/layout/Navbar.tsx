@@ -202,8 +202,8 @@ export function Navbar() {
       </div>
 
       {/* Logo + Nav */}
-      <div className="w-full px-4 h-16 md:h-20 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 md:gap-3">
+      <div className="w-full px-4 h-16 md:h-20 flex items-center justify-between" role="navigation">
+        <Link href="/" className="flex items-center gap-2 md:gap-3" aria-label="YMKCOE Home">
           <img src="/ymkcoe_logo.png" alt="YMKCOE Logo" className="h-10 w-auto md:h-12 lg:h-14 xl:h-16 object-contain" />
           <div className="flex flex-col justify-center items-start text-left select-none whitespace-nowrap">
             <span className="text-[8px] md:text-[9px] lg:text-[10px] xl:text-[11px] text-muted-foreground dark:text-slate-300 font-medium leading-none">Indrayani Vidya Mandir's</span>
