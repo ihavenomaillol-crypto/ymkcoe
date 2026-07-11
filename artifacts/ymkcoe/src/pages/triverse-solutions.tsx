@@ -62,7 +62,7 @@ export default function TriverseSolutions() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center bg-white/80 backdrop-blur-md rounded-full px-6 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
             <div className="flex items-center">
-              <img src="/triverse-logo.png?v=3" alt="Triverse Solutions Logo" className="h-10 w-auto object-contain" />
+              <img src="/triverse-logo.png?v=3" alt="Triverse Solutions Logo" className="h-14 w-auto object-contain py-1" />
             </div>
             <div className="hidden lg:flex space-x-8 text-sm font-bold text-slate-500">
               <a href="#overview" className="hover:text-[#a855f7] transition-colors">Overview</a>
@@ -137,25 +137,9 @@ export default function TriverseSolutions() {
                 {/* Grid background */}
                 <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA0MCAwIEwgMCAwIDAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Y4ZmFmYyIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-60"></div>
                 
-                {/* Custom V Logo Graphic */}
-                <div className="relative z-10 w-48 h-48 drop-shadow-xl">
-                  <svg viewBox="0 0 100 100" className="w-full h-full">
-                    <defs>
-                      <linearGradient id="logograd" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#1e3a8a" />
-                        <stop offset="50%" stopColor="#7c3aed" />
-                        <stop offset="100%" stopColor="#db2777" />
-                      </linearGradient>
-                    </defs>
-                    <g fill="url(#logograd)" style={{ filter: 'drop-shadow(0px 8px 12px rgba(124, 58, 237, 0.15))' }}>
-                      {/* Top Chevron */}
-                      <path d="M 50 48 L 32 20 L 39 15 L 50 34 L 61 15 L 68 20 Z" transform="rotate(0, 50, 50)" />
-                      {/* Bottom-Right Chevron */}
-                      <path d="M 50 48 L 32 20 L 39 15 L 50 34 L 61 15 L 68 20 Z" transform="rotate(120, 50, 50)" />
-                      {/* Bottom-Left Chevron */}
-                      <path d="M 50 48 L 32 20 L 39 15 L 50 34 L 61 15 L 68 20 Z" transform="rotate(240, 50, 50)" />
-                    </g>
-                  </svg>
+                {/* Official Logo Image */}
+                <div className="relative z-10 w-72 h-auto px-6">
+                  <img src="/triverse-logo.png?v=3" alt="Triverse Solutions" className="w-full h-auto object-contain drop-shadow-md" />
                 </div>
               </div>
             </div>
