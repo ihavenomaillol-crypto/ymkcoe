@@ -28,6 +28,7 @@ const Alumni = lazy(() => import("@/pages/alumni"));
 const GoverningBody = lazy(() => import("@/pages/governing-body"));
 const StudentCouncil = lazy(() => import("@/pages/student-council"));
 const GovernancePage = lazy(() => import("@/pages/governance-page"));
+const TriverseSolutions = lazy(() => import("@/pages/triverse-solutions"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function PageLoader() {
@@ -60,11 +61,28 @@ function Router() {
         <Route path="/media" component={Media} />
         <Route path="/contact" component={Contact} />
         <Route path="/courses" component={Courses} />
+        
+        {/* Department Pages */}
+        <Route path="/departments" component={Departments} />
+        <Route path="/department/:deptId" component={Department} />
+        <Route path="/hostel" component={HostelPage} />
+        
+        {/* Governance & Committees */}
+        <Route path="/governance" component={GovernancePage} />
+        <Route path="/governing-body" component={GoverningBody} />
+        <Route path="/student-council" component={StudentCouncil} />
+        <Route path="/associations" component={Association} />
+        
+        {/* Events & Alumni */}
+        <Route path="/clubs" component={Clubs} />
+        <Route path="/achievements" component={Achievements} />
+        <Route path="/alumni" component={Alumni} />
+
+        {/* Developer Info */}
+        <Route path="/triversesolutions" component={TriverseSolutions} />
         <Route path="/admin" component={AdminLogin} />
         <Route path="/admin/dashboard" component={AdminDashboard} />
         <Route path="/approvals" component={Approvals} />
-        <Route path="/departments" component={Departments} />
-        <Route path="/department/:deptId" component={Department} />
         <Route path="/students/hostels" component={HostelPage} />
         <Route path="/students/girls-hostel" component={HostelPage} />
         <Route path="/students/boys-hostel" component={HostelPage} />

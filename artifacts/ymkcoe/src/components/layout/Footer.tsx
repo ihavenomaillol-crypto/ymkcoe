@@ -102,6 +102,9 @@ export function Footer() {
       <div className="bg-primary/95 border-t border-primary-foreground/10 py-3">
         <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-primary-foreground/60">
           <p>&copy; {currentYear} Yashoda Mahadeo Kakade College of Engineering. All rights reserved.</p>
+          <p className="text-primary-foreground/50 text-[11px] md:text-xs">
+            Developed by <a href="/triversesolutions" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary-foreground/70 hover:text-accent transition-colors">TRIVERSE SOLUTIONS</a>
+          </p>
           <div className="flex gap-4">
             <Link href="/admin"><span className="hover:text-accent transition-colors cursor-pointer">Admin Portal</span></Link>
             <Link href="/privacy-policy"><span className="hover:text-accent transition-colors cursor-pointer">Privacy Policy</span></Link>
