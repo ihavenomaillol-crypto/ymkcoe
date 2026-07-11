@@ -61,8 +61,8 @@ export default function TriverseSolutions() {
       <nav className="absolute top-0 left-0 right-0 z-50 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center bg-white/80 backdrop-blur-md rounded-full px-6 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
-            <div className="flex items-center">
-              <img src="/triverse-logo.png?v=3" alt="Triverse Solutions Logo" className="h-14 w-auto object-contain py-1" />
+            <div className="flex items-center h-14 w-44 overflow-hidden relative justify-center">
+              <img src="/triverse-logo.png?v=3" alt="Triverse Solutions Logo" className="scale-[2.8] max-w-none object-contain h-full w-full" />
             </div>
             <div className="hidden lg:flex space-x-8 text-sm font-bold text-slate-500">
               <a href="#overview" className="hover:text-[#a855f7] transition-colors">Overview</a>
@@ -138,8 +138,8 @@ export default function TriverseSolutions() {
                 <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA0MCAwIEwgMCAwIDAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Y4ZmFmYyIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-60"></div>
                 
                 {/* Official Logo Image */}
-                <div className="relative z-10 w-72 h-auto px-6">
-                  <img src="/triverse-logo.png?v=3" alt="Triverse Solutions" className="w-full h-auto object-contain drop-shadow-md" />
+                <div className="relative z-10 w-full h-full overflow-hidden flex items-center justify-center">
+                  <img src="/triverse-logo.png?v=3" alt="Triverse Solutions" className="scale-[2.8] max-w-none object-contain h-32 w-auto drop-shadow-md" />
                 </div>
               </div>
             </div>
@@ -417,8 +417,8 @@ export default function TriverseSolutions() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-12 mb-12">
             <div>
-              <div className="flex items-center mb-6">
-                <img src="/triverse-logo.png?v=3" alt="Triverse Solutions Logo" className="h-10 w-auto object-contain" />
+              <div className="flex items-center h-14 w-44 overflow-hidden relative justify-center mb-6">
+                <img src="/triverse-logo.png?v=3" alt="Triverse Solutions Logo" className="scale-[2.8] max-w-none object-contain h-full w-full" />
               </div>
               <p className="text-slate-500 text-sm leading-relaxed mb-6 font-medium">
                 B2B Services & Enterprise Solutions.<br/>
