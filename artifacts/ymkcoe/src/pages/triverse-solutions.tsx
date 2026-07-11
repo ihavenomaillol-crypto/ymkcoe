@@ -27,7 +27,7 @@ import {
 
 export default function TriverseSolutions() {
   return (
-    <div className="min-h-screen bg-[#fafafc] font-sans selection:bg-purple-200 overflow-x-hidden">
+    <div className="min-h-screen bg-[#fafafc] font-sans selection:bg-purple-200">
       <SEO 
         title="Triverse Solutions | Digital Growth Partner" 
         description="A multidisciplinary technology and consulting company delivering digital transformation, software development, marketing, automation, and creative solutions."
@@ -35,24 +35,24 @@ export default function TriverseSolutions() {
       />
       
       {/* Custom Navbar */}
-      <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
+      <nav className="absolute top-0 left-0 right-0 z-50 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex justify-between items-center bg-white/80 backdrop-blur-md rounded-full px-6 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded bg-gradient-to-br from-purple-600 to-fuchsia-500 flex items-center justify-center text-white font-bold text-xl">V</div>
-              <span className="font-bold text-xl text-slate-900 tracking-tight">triverse<span className="text-purple-600">solutions</span></span>
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#a855f7] to-[#d946ef] flex items-center justify-center text-white font-bold text-xl leading-none">V</div>
+              <span className="font-extrabold text-xl tracking-tight text-slate-900">triverse<span className="text-[#a855f7]">solutions</span></span>
             </div>
-            <div className="hidden lg:flex space-x-8 text-sm font-semibold text-slate-500">
-              <a href="#overview" className="hover:text-slate-900 transition-colors">Overview</a>
-              <a href="#services" className="hover:text-slate-900 transition-colors">Services</a>
-              <a href="#portfolio" className="hover:text-slate-900 transition-colors">Portfolio</a>
-              <a href="#about" className="hover:text-slate-900 transition-colors">Team</a>
+            <div className="hidden lg:flex space-x-8 text-sm font-bold text-slate-500">
+              <a href="#overview" className="hover:text-[#a855f7] transition-colors">Overview</a>
+              <a href="#services" className="hover:text-[#a855f7] transition-colors">Services</a>
+              <a href="#portfolio" className="hover:text-[#a855f7] transition-colors">Portfolio</a>
+              <a href="#about" className="hover:text-[#a855f7] transition-colors">Team</a>
             </div>
             <div className="flex items-center gap-4">
-              <a href="https://wa.me/918446552477" target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 text-sm font-semibold text-slate-700 hover:bg-gray-50 transition-colors">
+              <a href="https://wa.me/918446552477" target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 text-sm font-bold text-slate-600 hover:bg-gray-50 transition-colors">
                 <MessageCircle className="w-4 h-4" /> WhatsApp
               </a>
-              <a href="mailto:headoffice@triversesolutions.in" className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500 hover:from-purple-600 hover:to-fuchsia-600 text-white text-sm font-semibold transition-all shadow-lg shadow-purple-500/20">
+              <a href="mailto:headoffice@triversesolutions.in" className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#a855f7] to-[#d946ef] hover:opacity-90 text-white text-sm font-bold transition-opacity shadow-lg shadow-purple-500/25">
                 <Phone className="w-4 h-4" /> Book a Call
               </a>
             </div>
@@ -61,76 +61,82 @@ export default function TriverseSolutions() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 relative overflow-x-hidden">
-        {/* Background Glows */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-100 rounded-full blur-[120px] opacity-60 mix-blend-multiply pointer-events-none -translate-y-1/2 translate-x-1/3"></div>
-        <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-pink-100 rounded-full blur-[100px] opacity-60 mix-blend-multiply pointer-events-none"></div>
-
+      <section className="pt-40 pb-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
+            
+            {/* Left Content */}
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 border border-purple-100 text-purple-700 text-sm font-medium mb-8">
-                <Sparkles className="w-4 h-4" /> Technology, Consulting & Creative Solutions
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f3e8ff] border border-[#e9d5ff] text-[#9333ea] text-xs font-bold mb-8 tracking-wide">
+                <Sparkles className="w-3.5 h-3.5" /> Technology, Consulting & Creative Solutions
               </div>
-              <h1 className="text-5xl md:text-7xl font-bold text-slate-900 leading-[1.1] mb-6 tracking-tight">
+              <h1 className="text-5xl md:text-7xl font-extrabold text-[#0f172a] leading-[1.1] mb-6 tracking-tight">
                 Transform Your <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-500 to-purple-600">Digital Presence</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d946ef] to-[#9333ea]">Digital Presence</span>
               </h1>
-              <div className="text-lg text-slate-500 mb-8 max-w-lg leading-relaxed">
-                From strategy to execution, we deliver <span className="font-semibold text-purple-600">end-to-end digital solutions</span> that drive measurable growth and transform businesses across Pan India.
+              <div className="text-lg text-slate-500 mb-10 max-w-lg leading-relaxed font-medium">
+                From strategy to execution, we deliver <span className="font-bold text-[#9333ea]">end-to-end digital solutions</span> that drive measurable growth and transform businesses across Pan India.
               </div>
               
               <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 bg-white/50 backdrop-blur-sm">
-                  <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600"><Zap className="w-4 h-4" /></div>
-                  <span className="text-sm font-semibold text-slate-700">Strategy-Led</span>
+                <div className="flex items-center gap-4 p-5 rounded-2xl bg-white shadow-sm border border-gray-100">
+                  <div className="w-8 h-8 rounded-full bg-[#f3e8ff] flex items-center justify-center text-[#9333ea] shrink-0"><Zap className="w-4 h-4" /></div>
+                  <span className="text-sm font-bold text-slate-700">Strategy-Led</span>
                 </div>
-                <div className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 bg-white/50 backdrop-blur-sm">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600"><Cpu className="w-4 h-4" /></div>
-                  <span className="text-sm font-semibold text-slate-700">Tech-Driven</span>
+                <div className="flex items-center gap-4 p-5 rounded-2xl bg-white shadow-sm border border-gray-100">
+                  <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 shrink-0"><Cpu className="w-4 h-4" /></div>
+                  <span className="text-sm font-bold text-slate-700">Tech-Driven</span>
                 </div>
-                <div className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 bg-white/50 backdrop-blur-sm">
-                  <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center text-pink-600"><Users className="w-4 h-4" /></div>
-                  <span className="text-sm font-semibold text-slate-700">Customer-Focused</span>
+                <div className="flex items-center gap-4 p-5 rounded-2xl bg-white shadow-sm border border-gray-100">
+                  <div className="w-8 h-8 rounded-full bg-pink-50 flex items-center justify-center text-pink-600 shrink-0"><Users className="w-4 h-4" /></div>
+                  <span className="text-sm font-bold text-slate-700">Customer-Focused</span>
                 </div>
-                <div className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 bg-white/50 backdrop-blur-sm">
-                  <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600"><Award className="w-4 h-4" /></div>
-                  <span className="text-sm font-semibold text-slate-700">End-to-End Delivery</span>
+                <div className="flex items-center gap-4 p-5 rounded-2xl bg-white shadow-sm border border-gray-100">
+                  <div className="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600 shrink-0"><Award className="w-4 h-4" /></div>
+                  <span className="text-sm font-bold text-slate-700">End-to-End Delivery</span>
                 </div>
               </div>
             </div>
 
-            {/* Graphic Right */}
-            <div className="relative hidden lg:block">
-              <div className="absolute inset-0 bg-gradient-to-tr from-purple-100 to-fuchsia-50 rounded-[3rem] transform rotate-3 scale-105"></div>
-              <div className="relative bg-white p-8 rounded-[3rem] shadow-xl shadow-purple-900/5 border border-purple-50">
-                <div className="absolute top-4 left-4 w-2 h-2 rounded-full bg-purple-300"></div>
-                <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-purple-300"></div>
-                <div className="absolute bottom-4 left-4 w-2 h-2 rounded-full bg-fuchsia-400"></div>
-                <div className="absolute bottom-4 right-4 w-2 h-2 rounded-full bg-cyan-300"></div>
+            {/* Right Graphic area */}
+            <div className="relative hidden lg:flex justify-center items-center h-full">
+              {/* Outer soft purple background block */}
+              <div className="absolute inset-0 bg-[#f9f5ff] rounded-[3rem] transform -rotate-2 scale-105 shadow-sm"></div>
+              
+              {/* Main White Card */}
+              <div className="relative bg-white w-full max-w-md aspect-square rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-50 flex items-center justify-center overflow-hidden">
+                
+                {/* 4 corner dots */}
+                <div className="absolute top-6 left-6 w-2 h-2 rounded-full bg-[#d946ef]"></div>
+                <div className="absolute top-6 right-6 w-2 h-2 rounded-full bg-[#c084fc]"></div>
+                <div className="absolute bottom-6 left-6 w-2 h-2 rounded-full bg-[#d946ef]"></div>
+                <div className="absolute bottom-6 right-6 w-2 h-2 rounded-full bg-[#2dd4bf]"></div>
                 
                 {/* Grid background */}
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA0MCAwIEwgMCAwIDAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2YxZjVmOSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] rounded-[3rem] opacity-50"></div>
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSA0MCAwIEwgMCAwIDAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Y4ZmFmYyIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-60"></div>
                 
-                <div className="relative aspect-square flex items-center justify-center">
-                  <div className="w-64 h-64 relative z-10 drop-shadow-2xl">
-                    <svg viewBox="0 0 100 100" className="w-full h-full fill-[url(#grad)]">
-                      <defs>
-                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#4f46e5" />
-                          <stop offset="50%" stopColor="#9333ea" />
-                          <stop offset="100%" stopColor="#c026d3" />
-                        </linearGradient>
-                      </defs>
-                      <path d="M50 70 L20 40 L35 40 L50 55 L65 40 L80 40 Z" />
-                      <path d="M50 30 L35 15 L20 15 L50 45 L80 15 L65 15 Z" />
-                      <path d="M20 60 L35 60 L20 75 Z" />
-                      <path d="M80 60 L65 60 L80 75 Z" />
-                    </svg>
-                  </div>
+                {/* Custom V Logo Graphic */}
+                <div className="relative z-10 w-48 h-48 drop-shadow-xl">
+                  <svg viewBox="0 0 100 100" className="w-full h-full fill-[url(#logograd)]" style={{ filter: 'drop-shadow(0px 10px 15px rgba(168, 85, 247, 0.2))' }}>
+                    <defs>
+                      <linearGradient id="logograd" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#8b5cf6" />
+                        <stop offset="50%" stopColor="#d946ef" />
+                        <stop offset="100%" stopColor="#9333ea" />
+                      </linearGradient>
+                    </defs>
+                    {/* Top chevron */}
+                    <path d="M50 65 L15 30 L30 30 L50 50 L70 30 L85 30 Z" />
+                    {/* Middle chevron */}
+                    <path d="M50 85 L15 50 L30 50 L50 70 L70 50 L85 50 Z" />
+                    {/* Bottom cutouts */}
+                    <path d="M15 70 L30 70 L15 85 Z" />
+                    <path d="M85 70 L70 70 L85 85 Z" />
+                  </svg>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
