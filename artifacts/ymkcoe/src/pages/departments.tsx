@@ -13,6 +13,7 @@ import {
 import { ArrowRight, GraduationCap } from "lucide-react";
 import { BTECH_PROGRAMS, DEPARTMENTS, DTE_CODE, getDepartmentHref } from "@/lib/departments";
 import { cn } from "@/lib/utils";
+import { SEO } from "@/components/SEO";
 
 const deptBorderMap: Record<string, string> = {
   cse: "border-l-blue-500",
@@ -27,6 +28,12 @@ export default function Departments() {
 
   return (
     <AppLayout>
+      <SEO 
+        title="Departments & B.Tech Programs" 
+        description="Explore the B.Tech programs offered at YMKCOE. We offer degrees in Computer Science, Artificial Intelligence & Data Science, IT, and E&TC Engineering."
+        keywords="btech programs, engineering departments, cse, aids, it, entc, ymkcoe"
+        canonicalUrl="/departments"
+      />
       <section data-scroll-reveal className="bg-primary text-white py-14 md:py-20">
         <div className="container mx-auto px-4 text-center">
           <p className="text-xs font-bold uppercase tracking-widest text-accent mb-3">

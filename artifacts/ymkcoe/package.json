@@ -76,6 +76,7 @@
   "dependencies": {
     "@types/three": "^0.184.1",
     "react-easy-crop": "^6.2.2",
+    "react-helmet-async": "^3.0.0",
     "three": "^0.184.0"
   }
 }
