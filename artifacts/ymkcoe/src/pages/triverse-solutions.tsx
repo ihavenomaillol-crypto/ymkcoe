@@ -61,9 +61,8 @@ export default function TriverseSolutions() {
       <nav className="absolute top-0 left-0 right-0 z-50 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center bg-white/80 backdrop-blur-md rounded-full px-6 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#a855f7] to-[#d946ef] flex items-center justify-center text-white font-bold text-xl leading-none">V</div>
-              <span className="font-extrabold text-xl tracking-tight text-slate-900">triverse<span className="text-[#a855f7]">solutions</span></span>
+            <div className="flex items-center">
+              <img src="/triverse-logo.png" alt="Triverse Solutions Logo" className="h-10 w-auto object-contain" />
             </div>
             <div className="hidden lg:flex space-x-8 text-sm font-bold text-slate-500">
               <a href="#overview" className="hover:text-[#a855f7] transition-colors">Overview</a>
@@ -140,21 +139,22 @@ export default function TriverseSolutions() {
                 
                 {/* Custom V Logo Graphic */}
                 <div className="relative z-10 w-48 h-48 drop-shadow-xl">
-                  <svg viewBox="0 0 100 100" className="w-full h-full fill-[url(#logograd)]" style={{ filter: 'drop-shadow(0px 10px 15px rgba(168, 85, 247, 0.2))' }}>
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
                     <defs>
                       <linearGradient id="logograd" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#8b5cf6" />
-                        <stop offset="50%" stopColor="#d946ef" />
-                        <stop offset="100%" stopColor="#9333ea" />
+                        <stop offset="0%" stopColor="#1e3a8a" />
+                        <stop offset="50%" stopColor="#7c3aed" />
+                        <stop offset="100%" stopColor="#db2777" />
                       </linearGradient>
                     </defs>
-                    {/* Top chevron */}
-                    <path d="M50 65 L15 30 L30 30 L50 50 L70 30 L85 30 Z" />
-                    {/* Middle chevron */}
-                    <path d="M50 85 L15 50 L30 50 L50 70 L70 50 L85 50 Z" />
-                    {/* Bottom cutouts */}
-                    <path d="M15 70 L30 70 L15 85 Z" />
-                    <path d="M85 70 L70 70 L85 85 Z" />
+                    <g fill="url(#logograd)" style={{ filter: 'drop-shadow(0px 8px 12px rgba(124, 58, 237, 0.15))' }}>
+                      {/* Top Chevron */}
+                      <path d="M 50 48 L 32 20 L 39 15 L 50 34 L 61 15 L 68 20 Z" transform="rotate(0, 50, 50)" />
+                      {/* Bottom-Right Chevron */}
+                      <path d="M 50 48 L 32 20 L 39 15 L 50 34 L 61 15 L 68 20 Z" transform="rotate(120, 50, 50)" />
+                      {/* Bottom-Left Chevron */}
+                      <path d="M 50 48 L 32 20 L 39 15 L 50 34 L 61 15 L 68 20 Z" transform="rotate(240, 50, 50)" />
+                    </g>
                   </svg>
                 </div>
               </div>
@@ -433,9 +433,8 @@ export default function TriverseSolutions() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-12 mb-12">
             <div>
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-8 h-8 rounded bg-gradient-to-br from-purple-600 to-fuchsia-500 flex items-center justify-center text-white font-bold text-xl">V</div>
-                <span className="font-bold text-xl text-slate-900 tracking-tight">triverse<span className="text-purple-600">solutions</span></span>
+              <div className="flex items-center mb-6">
+                <img src="/triverse-logo.png" alt="Triverse Solutions Logo" className="h-10 w-auto object-contain" />
               </div>
               <p className="text-slate-500 text-sm leading-relaxed mb-6 font-medium">
                 B2B Services & Enterprise Solutions.<br/>
