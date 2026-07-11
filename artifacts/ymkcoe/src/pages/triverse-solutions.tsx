@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { SEO } from "@/components/SEO";
 import { 
   Code2, 
@@ -26,6 +27,28 @@ import {
 } from "lucide-react";
 
 export default function TriverseSolutions() {
+  useEffect(() => {
+    // Save original styles
+    const origHtmlOverflow = document.documentElement.style.overflow;
+    const origHtmlHeight = document.documentElement.style.height;
+    const origBodyOverflow = document.body.style.overflow;
+    const origBodyHeight = document.body.style.height;
+
+    // Apply scroll overrides to html and body
+    document.documentElement.style.setProperty("overflow", "auto", "important");
+    document.documentElement.style.setProperty("height", "auto", "important");
+    document.body.style.setProperty("overflow", "auto", "important");
+    document.body.style.setProperty("height", "auto", "important");
+
+    return () => {
+      // Restore original styles on unmount
+      document.documentElement.style.overflow = origHtmlOverflow || "";
+      document.documentElement.style.height = origHtmlHeight || "";
+      document.body.style.overflow = origBodyOverflow || "";
+      document.body.style.height = origBodyHeight || "";
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#fafafc] font-sans selection:bg-purple-200">
       <SEO 
