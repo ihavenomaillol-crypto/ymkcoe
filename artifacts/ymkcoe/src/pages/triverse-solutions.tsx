@@ -62,7 +62,7 @@ export default function TriverseSolutions() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center bg-white/80 backdrop-blur-md rounded-full px-6 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
             <div className="flex items-center">
-              <img src="/triverse-logo.png" alt="Triverse Solutions Logo" className="h-10 w-auto object-contain" />
+              <img src="/triverse-logo.png?v=3" alt="Triverse Solutions Logo" className="h-10 w-auto object-contain" />
             </div>
             <div className="hidden lg:flex space-x-8 text-sm font-bold text-slate-500">
               <a href="#overview" className="hover:text-[#a855f7] transition-colors">Overview</a>
@@ -434,7 +434,7 @@ export default function TriverseSolutions() {
           <div className="grid md:grid-cols-3 gap-12 mb-12">
             <div>
               <div className="flex items-center mb-6">
-                <img src="/triverse-logo.png" alt="Triverse Solutions Logo" className="h-10 w-auto object-contain" />
+                <img src="/triverse-logo.png?v=3" alt="Triverse Solutions Logo" className="h-10 w-auto object-contain" />
               </div>
               <p className="text-slate-500 text-sm leading-relaxed mb-6 font-medium">
                 B2B Services & Enterprise Solutions.<br/>
