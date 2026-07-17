@@ -29,6 +29,7 @@ const GoverningBody = lazy(() => import("@/pages/governing-body"));
 const StudentCouncil = lazy(() => import("@/pages/student-council"));
 const GovernancePage = lazy(() => import("@/pages/governance-page"));
 const TriverseSolutions = lazy(() => import("@/pages/triverse-solutions"));
+const IICCell = lazy(() => import("@/pages/iic-cell"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function PageLoader() {
@@ -83,6 +84,8 @@ function Router() {
         <Route path="/admin" component={AdminLogin} />
         <Route path="/admin/dashboard" component={AdminDashboard} />
         <Route path="/approvals" component={Approvals} />
+        <Route path="/iic-cell" component={IICCell} />
+        <Route path="/others/iic-cell" component={IICCell} />
         <Route path="/students/hostels" component={HostelPage} />
         <Route path="/students/girls-hostel" component={HostelPage} />
         <Route path="/students/boys-hostel" component={HostelPage} />

@@ -29,6 +29,11 @@ const STUDENT_CORNER = [
   },
 ];
 
+// ── Others ───────────────────────────────────────────────────────────
+const OTHERS_LINKS = [
+  { label: "IIC Cell", href: "/iic-cell" },
+];
+
 // ── About Us & Governance ─────────────────────────────────────────────
 const ABOUT_US = [
   { label: "About YMKCOE", href: "/about" },
@@ -135,6 +140,7 @@ export function Navbar() {
   const [showMobileApprovals,   setShowMobileApprovals]   = useState(false);
   const [showMobileStudent,     setShowMobileStudent]     = useState(false);
   const [showMobileAbout,       setShowMobileAbout]       = useState(false);
+  const [showMobileOthers,      setShowMobileOthers]      = useState(false);
 
   const navLinksAfter = [
     { href: "/placements",  label: "Placements" },
@@ -465,6 +471,35 @@ export function Navbar() {
             )}
           </div>
 
+          {/* Others Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => openMenu('others')}
+            onMouseLeave={closeMenu}
+          >
+            <span className={linkCls(location.startsWith("/iic") || location.startsWith("/others"))}>
+              Others <ChevronDown className="h-3 w-3 md:h-3.5 md:w-3.5" />
+            </span>
+            {activeDropdown === 'others' && (
+              <div
+                onMouseEnter={() => openMenu('others')}
+                onMouseLeave={closeMenu}
+                className="absolute top-full left-1/2 -translate-x-1/2 w-[200px] z-50"
+              >
+                <div className="h-2 w-full" />
+                <div className="w-full bg-background border border-border rounded-lg shadow-lg p-2 flex flex-col gap-1 animate-in fade-in zoom-in-95 duration-200">
+                  {OTHERS_LINKS.map((item) => (
+                    <Link key={item.href} href={item.href} onClick={() => setActiveDropdown(null)}>
+                      <span className="block px-3 py-2 rounded-md text-sm hover:bg-muted hover:text-accent transition-colors text-foreground">
+                        {item.label}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
           {/* Links after */}
           {navLinksAfter.map((link) => (
             <Link key={link.href} href={link.href}>
@@ -640,6 +675,22 @@ export function Navbar() {
                       </Link>
                     );
                   })}
+                </div>
+              )}
+            </div>
+
+            {/* Mobile Others accordion */}
+            <div>
+              <button onClick={() => setShowMobileOthers(!showMobileOthers)} className="w-full flex items-center justify-between px-4 py-2 rounded-md text-base font-medium hover:bg-muted text-left">
+                Others <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${showMobileOthers ? "rotate-180" : ""}`} />
+              </button>
+              {showMobileOthers && (
+                <div className="pl-6 flex flex-col gap-1 mt-1 border-l border-border ml-4">
+                  {OTHERS_LINKS.map((item) => (
+                    <Link key={item.href} href={item.href}>
+                      <span className="block px-4 py-2 rounded-md text-sm hover:bg-muted text-foreground" onClick={() => setIsOpen(false)}>{item.label}</span>
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>
