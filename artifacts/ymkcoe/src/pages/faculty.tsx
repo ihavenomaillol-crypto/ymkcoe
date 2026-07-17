@@ -5,47 +5,45 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Award, BookOpen, Download, User, Calendar, Settings, ShieldCheck, ChevronRight } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-
-import { DEPARTMENTS } from "@/lib/departments";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export default function Faculty() {
   const [selectedFaculty, setSelectedFaculty] = useState<any | null>(null);
   const { data: FACULTY_DATA = [], isLoading } = useGetFaculty({ limit: 100 });
 
-  const hierarchyGroups = DEPARTMENTS.map(dept => {
-    // Determine a brief description based on the department
-    const description = `Distinguished faculty and researchers of the ${dept.label} department.`;
-    const targetDeptLabel = dept.id === "fe" ? "Basic Sciences & Humanities" : dept.label;
-    const members = FACULTY_DATA.filter((f: any) => f.department === targetDeptLabel);
-    
-    // Deduplicate members by name in the same department
-    const uniqueMembersMap = new Map<string, any>();
-    members.forEach((m: any) => {
-      const existing = uniqueMembersMap.get(m.name);
-      if (!existing) {
-        uniqueMembersMap.set(m.name, m);
-      } else {
-        if (existing.designation.toLowerCase().includes("assisitant") && !m.designation.toLowerCase().includes("assisitant")) {
-          uniqueMembersMap.set(m.name, m);
-        }
-      }
-    });
-    const uniqueMembers = Array.from(uniqueMembersMap.values());
-    
-    // Sort so HODs appear first
-    const sortedMembers = [...uniqueMembers].sort((a, b) => {
-      if (a.isHOD && !b.isHOD) return -1;
-      if (!a.isHOD && b.isHOD) return 1;
-      return 0;
-    });
+  const rawMembers = Array.isArray(FACULTY_DATA) ? FACULTY_DATA : [];
 
-    return {
-      title: dept.label,
-      description,
-      members: sortedMembers,
-    };
-  }).filter(group => group.members.length > 0);
+  // Global Deduplication by Name
+  const uniqueMembersMap = new Map<string, any>();
+  rawMembers.forEach((m: any) => {
+    const existing = uniqueMembersMap.get(m.name);
+    if (!existing) {
+      uniqueMembersMap.set(m.name, m);
+    } else {
+      const existingIsTypo = existing.designation.toLowerCase().includes("assisitant");
+      const mIsTypo = m.designation.toLowerCase().includes("assisitant");
+      if (existingIsTypo && !mIsTypo) {
+        uniqueMembersMap.set(m.name, m);
+      }
+    }
+  });
+
+  const uniqueMembers = Array.from(uniqueMembersMap.values());
+
+  // Sorting: Principal first, then HODs, then by name
+  const sortedMembers = [...uniqueMembers].sort((a, b) => {
+    const isPrincipalA = (a.designation || "").toLowerCase().includes("principal");
+    const isPrincipalB = (b.designation || "").toLowerCase().includes("principal");
+    if (isPrincipalA && !isPrincipalB) return -1;
+    if (!isPrincipalA && isPrincipalB) return 1;
+
+    const isHODA = !!a.isHOD;
+    const isHODB = !!b.isHOD;
+    if (isHODA && !isHODB) return -1;
+    if (!isHODA && isHODB) return 1;
+
+    return (a.name || "").localeCompare(b.name || "");
+  });
 
   return (
     <AppLayout>
@@ -66,7 +64,7 @@ export default function Faculty() {
             Meet the Experts
           </Badge>
           <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70 leading-tight drop-shadow-sm">
-            Engineering Faculty
+            Our Faculty
           </h1>
           <p className="text-lg md:text-xl text-primary-foreground/90 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-sm">
             Learn from distinguished professors, industry veterans, and dedicated researchers committed to your academic and professional success at YMKCOE.
@@ -78,28 +76,24 @@ export default function Faculty() {
       </section>
 
       {/* Main Faculty Grid by Hierarchy */}
-      <section data-scroll-reveal className="py-20 bg-background min-h-[50vh] relative z-20 -mt-8 space-y-24">
-        {hierarchyGroups.map((group, groupIdx) => (
-          <div key={groupIdx} className="container mx-auto px-4">
-            
-            <div className="mb-10 border-b border-border/50 pb-4">
-              <h2 className="text-3xl font-extrabold text-foreground tracking-tight">{group.title}</h2>
-              <p className="text-muted-foreground mt-2">{group.description}</p>
-            </div>
-
+      <section data-scroll-reveal className="py-20 bg-background min-h-[50vh] relative z-20 -mt-8">
+        <div className="container mx-auto px-4">
+          {isLoading ? (
+            <div className="text-center py-12 text-muted-foreground">Loading faculty directory...</div>
+          ) : sortedMembers.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {group.members.map((faculty: any, index) => {
+              {sortedMembers.map((faculty: any, index) => {
                 const isHOD = faculty.isHOD;
-                const isPrincipal = faculty.designation.toLowerCase().includes("principal");
+                const isPrincipal = (faculty.designation || "").toLowerCase().includes("principal");
                 const badgeText = isPrincipal ? "PRINCIPAL" : isHOD ? "HOD" : "";
-                const delay = `${index * 100}ms`;
+                const delay = `${index * 50}ms`;
                 
                 return (
                   <Card 
                     key={faculty.id} 
                     data-scroll-reveal
                     style={{ transitionDelay: delay }}
-                    className={`bg-white rounded-3xl border ${isPrincipal || isHOD ? 'border-amber-200' : 'border-slate-100'} shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] transition-all duration-500 p-6 flex flex-col h-full cursor-pointer group`}
+                    className={`bg-white rounded-3xl border ${isPrincipal || isHOD ? 'border-amber-200 shadow-amber-500/5' : 'border-slate-100'} shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] transition-all duration-500 p-6 flex flex-col h-full cursor-pointer group`}
                     onClick={() => setSelectedFaculty(faculty)}
                   >
                     {/* Top Row: Avatar & Badge */}
@@ -137,24 +131,28 @@ export default function Faculty() {
                         {faculty.designation}
                       </p>
                       <div className="inline-block bg-slate-50 text-slate-500 text-[11px] font-medium px-3 py-1 rounded-md border border-slate-100">
-                        {faculty.institution || "Engineering"}
+                        {faculty.department || "Engineering"}
                       </div>
                     </div>
                     
-                    {/* Details: Qualification & Email/Experience */}
+                    {/* Details: Qualification & Email */}
                     <div className="space-y-3 mb-6">
-                      <div className="flex items-start gap-3">
-                        <Award className="h-4 w-4 text-slate-400 shrink-0 mt-0.5" />
-                        <span className="text-sm font-medium text-slate-600 leading-snug">
-                          {faculty.qualification || "Not Specified"}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Mail className="h-4 w-4 text-slate-400 shrink-0" />
-                        <span className="text-sm font-medium text-slate-600 truncate">
-                          {faculty.email}
-                        </span>
-                      </div>
+                      {faculty.qualification && (
+                        <div className="flex items-start gap-3">
+                          <Award className="h-4 w-4 text-slate-400 shrink-0 mt-0.5" />
+                          <span className="text-sm font-medium text-slate-600 leading-snug">
+                            {faculty.qualification}
+                          </span>
+                        </div>
+                      )}
+                      {faculty.email && (
+                        <div className="flex items-center gap-3">
+                          <Mail className="h-4 w-4 text-slate-400 shrink-0" />
+                          <span className="text-sm font-medium text-slate-600 truncate">
+                            {faculty.email}
+                          </span>
+                        </div>
+                      )}
                     </div>
                     
                     {/* Footer Link */}
@@ -167,8 +165,10 @@ export default function Faculty() {
                 );
               })}
             </div>
-          </div>
-        ))}
+          ) : (
+            <div className="text-center py-12 text-muted-foreground">No faculty members found.</div>
+          )}
+        </div>
       </section>
 
       {/* Faculty Details Premium Dialog */}
@@ -203,12 +203,14 @@ export default function Faculty() {
                     </Badge>
                     <DialogTitle className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">{selectedFaculty.name}</DialogTitle>
                     <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6 text-sm text-primary-foreground/80 mt-2">
-                      <p className="flex items-center gap-2">
-                        <Mail className="h-4 w-4 opacity-70" />
-                        <a href={`mailto:${selectedFaculty.email}`} className="hover:text-accent hover:underline transition-colors">
-                          {selectedFaculty.email}
-                        </a>
-                      </p>
+                      {selectedFaculty.email && (
+                        <p className="flex items-center gap-2">
+                          <Mail className="h-4 w-4 opacity-70" />
+                          <a href={`mailto:${selectedFaculty.email}`} className="hover:text-accent hover:underline transition-colors">
+                            {selectedFaculty.email}
+                          </a>
+                        </p>
+                      )}
                       {selectedFaculty.createdAt && (
                         <p className="flex items-center gap-2">
                           <Calendar className="h-4 w-4 opacity-70" />
@@ -230,14 +232,18 @@ export default function Faculty() {
                     Academic Background
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pl-12">
-                    <div className="bg-muted/40 p-4 rounded-xl border border-border/50 hover:border-accent/30 transition-colors">
-                      <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5">Highest Qualification</p>
-                      <p className="font-semibold text-foreground text-sm">{selectedFaculty.qualification}</p>
-                    </div>
-                    <div className="bg-muted/40 p-4 rounded-xl border border-border/50 hover:border-accent/30 transition-colors">
-                      <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5">Department</p>
-                      <p className="font-semibold text-foreground text-sm">{selectedFaculty.department}</p>
-                    </div>
+                    {selectedFaculty.qualification && (
+                      <div className="bg-muted/40 p-4 rounded-xl border border-border/50 hover:border-accent/30 transition-colors">
+                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5">Highest Qualification</p>
+                        <p className="font-semibold text-foreground text-sm">{selectedFaculty.qualification}</p>
+                      </div>
+                    )}
+                    {selectedFaculty.department && (
+                      <div className="bg-muted/40 p-4 rounded-xl border border-border/50 hover:border-accent/30 transition-colors">
+                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5">Department</p>
+                        <p className="font-semibold text-foreground text-sm">{selectedFaculty.department}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
 

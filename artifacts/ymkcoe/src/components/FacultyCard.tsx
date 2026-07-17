@@ -80,16 +80,8 @@ export function FacultyCard({
   email,
   awards
 }: FacultyCardProps) {
-  // Fallbacks
-  const displayQualification = qualification || "Ph.D. / M.Tech in Engineering";
-  const displayExperience = experience || "6+ Years of Experience";
-  const displayExpertise = expertise || "Machine Learning & IoT";
-  const displayPublications = publications || "Journal Papers (5+)";
-  const displayEmail = email || `${name.toLowerCase().replace(/^(mr\.|ms\.|dr\.|prof\.)\s+/g, "").replace(/\s+/g, ".")}@ymkcoe.edu.in`;
-  const displayAwards = awards || (name.includes("Surana") || name.includes("Ghodake") ? "Best Educator Award" : null);
-
   // Parse research interests
-  const interestsList = displayExpertise
+  const interestsList = (expertise || "")
     .split(",")
     .map(s => s.trim())
     .filter(Boolean)
@@ -148,72 +140,82 @@ export function FacultyCard({
         {/* Metadata Details */}
         <div className="space-y-2.5 text-left mb-5">
           {/* Qualification */}
-          <div className="flex items-start gap-2.5 group/row">
-            <div className="flex items-center justify-center w-6 h-6 rounded-md bg-[#EEF4FF] text-[#0B5ED7] shrink-0 group-hover/row:bg-[#0B5ED7] group-hover/row:text-white transition-colors duration-200">
-              <GraduationIcon />
+          {qualification && (
+            <div className="flex items-start gap-2.5 group/row">
+              <div className="flex items-center justify-center w-6 h-6 rounded-md bg-[#EEF4FF] text-[#0B5ED7] shrink-0 group-hover/row:bg-[#0B5ED7] group-hover/row:text-white transition-colors duration-200">
+                <GraduationIcon />
+              </div>
+              <div className="min-w-0 flex-1 leading-snug">
+                <span className="font-bold text-slate-400 text-[8.5px] uppercase tracking-wider block mb-0.5">Qualification</span>
+                <span className="text-[#16213E] text-[11.5px] font-semibold block truncate" title={qualification}>{qualification}</span>
+              </div>
             </div>
-            <div className="min-w-0 flex-1 leading-snug">
-              <span className="font-bold text-slate-400 text-[8.5px] uppercase tracking-wider block mb-0.5">Qualification</span>
-              <span className="text-[#16213E] text-[11.5px] font-semibold block truncate" title={displayQualification}>{displayQualification}</span>
-            </div>
-          </div>
+          )}
 
           {/* Experience */}
-          <div className="flex items-start gap-2.5 group/row">
-            <div className="flex items-center justify-center w-6 h-6 rounded-md bg-[#EEF4FF] text-[#0B5ED7] shrink-0 group-hover/row:bg-[#0B5ED7] group-hover/row:text-white transition-colors duration-200">
-              <BriefcaseIcon />
+          {experience && (
+            <div className="flex items-start gap-2.5 group/row">
+              <div className="flex items-center justify-center w-6 h-6 rounded-md bg-[#EEF4FF] text-[#0B5ED7] shrink-0 group-hover/row:bg-[#0B5ED7] group-hover/row:text-white transition-colors duration-200">
+                <BriefcaseIcon />
+              </div>
+              <div className="min-w-0 flex-1 leading-snug">
+                <span className="font-bold text-slate-400 text-[8.5px] uppercase tracking-wider block mb-0.5">Experience</span>
+                <span className="text-[#16213E] text-[11.5px] font-semibold block truncate" title={experience}>{experience}</span>
+              </div>
             </div>
-            <div className="min-w-0 flex-1 leading-snug">
-              <span className="font-bold text-slate-400 text-[8.5px] uppercase tracking-wider block mb-0.5">Experience</span>
-              <span className="text-[#16213E] text-[11.5px] font-semibold block truncate" title={displayExperience}>{displayExperience}</span>
-            </div>
-          </div>
+          )}
 
           {/* Research Area */}
-          <div className="flex items-start gap-2.5 group/row">
-            <div className="flex items-center justify-center w-6 h-6 rounded-md bg-[#EEF4FF] text-[#0B5ED7] shrink-0 group-hover/row:bg-[#0B5ED7] group-hover/row:text-white transition-colors duration-200">
-              <ScienceIcon />
+          {expertise && (
+            <div className="flex items-start gap-2.5 group/row">
+              <div className="flex items-center justify-center w-6 h-6 rounded-md bg-[#EEF4FF] text-[#0B5ED7] shrink-0 group-hover/row:bg-[#0B5ED7] group-hover/row:text-white transition-colors duration-200">
+                <ScienceIcon />
+              </div>
+              <div className="min-w-0 flex-1 leading-snug">
+                <span className="font-bold text-slate-400 text-[8.5px] uppercase tracking-wider block mb-0.5">Research Area</span>
+                <span className="text-[#16213E] text-[11.5px] font-semibold block truncate" title={expertise}>{expertise}</span>
+              </div>
             </div>
-            <div className="min-w-0 flex-1 leading-snug">
-              <span className="font-bold text-slate-400 text-[8.5px] uppercase tracking-wider block mb-0.5">Research Area</span>
-              <span className="text-[#16213E] text-[11.5px] font-semibold block truncate" title={displayExpertise}>{displayExpertise}</span>
-            </div>
-          </div>
+          )}
 
           {/* Publications */}
-          <div className="flex items-start gap-2.5 group/row">
-            <div className="flex items-center justify-center w-6 h-6 rounded-md bg-[#EEF4FF] text-[#0B5ED7] shrink-0 group-hover/row:bg-[#0B5ED7] group-hover/row:text-white transition-colors duration-200">
-              <BookIcon />
+          {publications && (
+            <div className="flex items-start gap-2.5 group/row">
+              <div className="flex items-center justify-center w-6 h-6 rounded-md bg-[#EEF4FF] text-[#0B5ED7] shrink-0 group-hover/row:bg-[#0B5ED7] group-hover/row:text-white transition-colors duration-200">
+                <BookIcon />
+              </div>
+              <div className="min-w-0 flex-1 leading-snug">
+                <span className="font-bold text-slate-400 text-[8.5px] uppercase tracking-wider block mb-0.5">Publications</span>
+                <span className="text-[#16213E] text-[11.5px] font-semibold block truncate" title={publications}>{publications}</span>
+              </div>
             </div>
-            <div className="min-w-0 flex-1 leading-snug">
-              <span className="font-bold text-slate-400 text-[8.5px] uppercase tracking-wider block mb-0.5">Publications</span>
-              <span className="text-[#16213E] text-[11.5px] font-semibold block truncate" title={displayPublications}>{displayPublications}</span>
-            </div>
-          </div>
+          )}
 
           {/* Awards */}
-          {displayAwards && (
+          {awards && (
             <div className="flex items-start gap-2.5 group/row">
               <div className="flex items-center justify-center w-6 h-6 rounded-md bg-[#EEF4FF] text-[#0B5ED7] shrink-0 group-hover/row:bg-[#0B5ED7] group-hover/row:text-white transition-colors duration-200">
                 <TrophyIcon />
               </div>
               <div className="min-w-0 flex-1 leading-snug">
                 <span className="font-bold text-slate-400 text-[8.5px] uppercase tracking-wider block mb-0.5">Awards</span>
-                <span className="text-[#16213E] text-[11.5px] font-semibold block truncate" title={displayAwards}>{displayAwards}</span>
+                <span className="text-[#16213E] text-[11.5px] font-semibold block truncate" title={awards}>{awards}</span>
               </div>
             </div>
           )}
 
           {/* Email */}
-          <div className="flex items-start gap-2.5 group/row">
-            <div className="flex items-center justify-center w-6 h-6 rounded-md bg-[#EEF4FF] text-[#0B5ED7] shrink-0 group-hover/row:bg-[#0B5ED7] group-hover/row:text-white transition-colors duration-200">
-              <MailIcon />
+          {email && (
+            <div className="flex items-start gap-2.5 group/row">
+              <div className="flex items-center justify-center w-6 h-6 rounded-md bg-[#EEF4FF] text-[#0B5ED7] shrink-0 group-hover/row:bg-[#0B5ED7] group-hover/row:text-white transition-colors duration-200">
+                <MailIcon />
+              </div>
+              <div className="min-w-0 flex-1 leading-snug">
+                <span className="font-bold text-slate-400 text-[8.5px] uppercase tracking-wider block mb-0.5">Email Address</span>
+                <a href={`mailto:${email}`} className="text-[#0B5ED7] hover:underline text-[11.5px] font-semibold block truncate">{email}</a>
+              </div>
             </div>
-            <div className="min-w-0 flex-1 leading-snug">
-              <span className="font-bold text-slate-400 text-[8.5px] uppercase tracking-wider block mb-0.5">Email Address</span>
-              <a href={`mailto:${displayEmail}`} className="text-[#0B5ED7] hover:underline text-[11.5px] font-semibold block truncate">{displayEmail}</a>
-            </div>
-          </div>
+          )}
         </div>
 
         {/* Areas of Interest Pills */}

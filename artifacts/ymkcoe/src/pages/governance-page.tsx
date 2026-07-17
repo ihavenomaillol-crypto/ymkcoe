@@ -58,33 +58,7 @@ export default function GovernancePage() {
             </div>
           )}
 
-          {/* Members Section (if any) */}
-          {data.members && data.members.length > 0 && (
-            <div className="space-y-6">
-              <div className="flex items-center gap-3 border-b-2 border-primary/10 pb-4">
-                <Users className="h-6 w-6 text-accent" />
-                <h2 className="text-2xl font-bold text-primary">Committee Members</h2>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {data.members.map((member, i) => (
-                  <Card key={i} className="hover:shadow-md transition-all duration-300 border-border group overflow-hidden">
-                    <CardContent className="p-0">
-                      <div className="bg-primary/5 p-4 border-b border-border group-hover:bg-primary/10 transition-colors">
-                        <h3 className="font-bold text-primary text-base line-clamp-1">{member.name}</h3>
-                        <p className="text-xs text-accent font-semibold uppercase tracking-wider mt-1">{member.role}</p>
-                      </div>
-                      <div className="p-4 bg-card">
-                        <p className="text-sm font-medium text-foreground">{member.designation}</p>
-                        {member.organization && (
-                          <p className="text-xs text-muted-foreground mt-1 line-clamp-1">{member.organization}</p>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          )}
+
 
           {/* Form/Link Special Section */}
           {data.type === "form" && (
