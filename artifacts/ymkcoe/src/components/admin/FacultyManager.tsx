@@ -3,7 +3,7 @@ import { useGetFaculty, getGetFacultyQueryKey, useCreateFacultyMember, useDelete
 import { useQueryClient } from "@tanstack/react-query";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Plus, Edit, Trash2 } from "lucide-react";
+import { Plus, Edit, Trash2, Search } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
@@ -42,11 +42,22 @@ const facultySchema = z.object({
 export function FacultyManager() {
   const { data: facultyData, isLoading } = useGetFaculty({ limit: 100 });
   const faculty = Array.isArray(facultyData) ? facultyData : [];
+  const [searchQuery, setSearchQuery] = useState("");
   const queryClient = useQueryClient();
   const { toast } = useToast();
   const deleteFaculty = useDeleteFacultyMember();
   const createFaculty = useCreateFacultyMember();
   const updateFaculty = useUpdateFacultyMember();
+
+  const filteredFaculty = faculty.filter(member => {
+    const query = searchQuery.toLowerCase().trim();
+    if (!query) return true;
+    return (
+      (member.name || "").toLowerCase().includes(query) ||
+      (member.department || "").toLowerCase().includes(query) ||
+      (member.designation || "").toLowerCase().includes(query)
+    );
+  });
   const [open, setOpen] = useState(false);
   const [editingFaculty, setEditingFaculty] = useState<any>(null);
 
@@ -323,6 +334,16 @@ export function FacultyManager() {
         </Dialog>
       </div>
 
+      <div className="relative max-w-sm">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Input
+          placeholder="Search by name, department or designation..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="pl-9 bg-white"
+        />
+      </div>
+
       <div className="border rounded-md">
         <Table>
           <TableHeader>
@@ -345,8 +366,8 @@ export function FacultyManager() {
                   <TableCell><Skeleton className="h-8 w-20 ml-auto" /></TableCell>
                 </TableRow>
               ))
-            ) : faculty.length > 0 ? (
-              faculty.map((member, index) => (
+            ) : filteredFaculty.length > 0 ? (
+              filteredFaculty.map((member, index) => (
                 <TableRow key={member.id}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell className="font-medium">
