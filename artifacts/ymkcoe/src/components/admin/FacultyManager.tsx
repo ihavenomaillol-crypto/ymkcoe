@@ -243,8 +243,12 @@ export function FacultyManager() {
                             {DEPARTMENTS.map((dept) => (
                               <SelectItem key={dept.id} value={dept.label}>{dept.label}</SelectItem>
                             ))}
+                            <SelectItem value="Basic Sciences & Humanities">Basic Sciences & Humanities</SelectItem>
                             <SelectItem value="Non-Technical">Non-Technical</SelectItem>
                             <SelectItem value="Administration">Administration</SelectItem>
+                            <SelectItem value="Library">Library</SelectItem>
+                            <SelectItem value="Civil Engineering">Civil Engineering</SelectItem>
+                            <SelectItem value="Mechanical Engineering">Mechanical Engineering</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage/>

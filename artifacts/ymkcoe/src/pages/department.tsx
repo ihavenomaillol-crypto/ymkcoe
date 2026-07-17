@@ -277,9 +277,16 @@ export default function Department() {
   const safeFaculty = Array.isArray(allFaculty) ? allFaculty : [];
   // Filter for faculty belonging to this department
   const filteredDeptFaculty = safeFaculty.filter((f: any) => {
-    // FE page is called "First Year Engineering" or has ID "fe", but its faculty are stored under "Basic Sciences & Humanities" in DB
-    const targetDeptLabel = deptId === "fe" ? "Basic Sciences & Humanities" : officialDeptLabel;
-    if (f.department !== targetDeptLabel) return false;
+    const deptLower = (f.department || "").toLowerCase().trim();
+    if (deptId === "fe") {
+      if (deptLower !== "basic sciences & humanities" && deptLower !== "first year engineering") {
+        return false;
+      }
+    } else {
+      if (deptLower !== (officialDeptLabel || "").toLowerCase().trim()) {
+        return false;
+      }
+    }
     
     // Check if there is an invalid drive link, but still allow empty/null
     const url = f.photoUrl || f.photo_url || "";
@@ -305,7 +312,59 @@ export default function Department() {
       }
     }
   });
-  const displayFaculty = Array.from(uniqueDeptFacultyMap.values());
+
+  const getHierarchyWeight = (f: any) => {
+    const des = (f.designation || "").toLowerCase();
+    const dept = (f.department || "").toLowerCase();
+    
+    // 1. Principal (strictly principal, not vice principal)
+    if (des.includes("principal") && !des.includes("vice")) {
+      return 1;
+    }
+    // 2. Vice-Principal
+    if (des.includes("vice-principal") || des.includes("vice principal") || des.includes("vice-principle") || des.includes("vice principle")) {
+      return 2;
+    }
+    // 3. Administrator / Administration
+    if (des.includes("administrator") || des.includes("administration") || dept === "administration" || des.includes("accountant") || des.includes("clerk") || des.includes("registrar") || des.includes("office superintendent")) {
+      return 3;
+    }
+    // 4. HOD
+    if (f.isHOD || des.includes("head of department") || des.includes("hod")) {
+      return 4;
+    }
+    // 5. Associate Professor
+    if (des.includes("associate professor")) {
+      return 5;
+    }
+    // 6. Assistant Professor
+    if (des.includes("assistant professor")) {
+      return 6;
+    }
+    // 7. Lecturer
+    if (des.includes("lecturer")) {
+      return 7;
+    }
+    // 8. Non-Teaching Staff
+    if (des.includes("librarian") || des.includes("library") || dept === "library" || des.includes("programmer") || des.includes("instructor") || des.includes("technical") || dept === "non-technical" || des.includes("lab assistant") || des.includes("assistant")) {
+      return 8;
+    }
+    // 9. Peon, Supervisor, Store Keeper
+    if (des.includes("peon") || des.includes("supervisor") || des.includes("superviser") || des.includes("store keeper") || des.includes("storekeeper") || des.includes("attendant") || des.includes("helper")) {
+      return 9;
+    }
+    return 8;
+  };
+
+  const displayFaculty = Array.from(uniqueDeptFacultyMap.values()).sort((a, b) => {
+    const weightA = getHierarchyWeight(a);
+    const weightB = getHierarchyWeight(b);
+    
+    if (weightA !== weightB) {
+      return weightA - weightB;
+    }
+    return (a.name || "").localeCompare(b.name || "");
+  });
 
   useEffect(() => {
     // Reset tab when department changes

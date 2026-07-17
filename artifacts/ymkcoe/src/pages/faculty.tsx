@@ -48,36 +48,48 @@ export default function Faculty() {
 
   const uniqueMembers = Array.from(uniqueMembersMap.values());
 
-  // Sorting: Principal first, then Vice-Principal, then HODs, then by academic hierarchy and name
+  // Sorting hierarchy weight function
   const getHierarchyWeight = (f: any) => {
     const des = (f.designation || "").toLowerCase();
+    const dept = (f.department || "").toLowerCase();
     
     // 1. Principal (strictly principal, not vice principal)
     if (des.includes("principal") && !des.includes("vice")) {
       return 1;
     }
     // 2. Vice-Principal
-    if (des.includes("vice-principal") || des.includes("vice principal")) {
+    if (des.includes("vice-principal") || des.includes("vice principal") || des.includes("vice-principle") || des.includes("vice principle")) {
       return 2;
     }
-    // 3. HOD
-    if (f.isHOD) {
+    // 3. Administrator / Administration
+    if (des.includes("administrator") || des.includes("administration") || dept === "administration" || des.includes("accountant") || des.includes("clerk") || des.includes("registrar") || des.includes("office superintendent")) {
       return 3;
     }
-    // 4. Associate Professor
-    if (des.includes("associate professor")) {
+    // 4. HOD
+    if (f.isHOD || des.includes("head of department") || des.includes("hod")) {
       return 4;
     }
-    // 5. Assistant Professor
-    if (des.includes("assistant professor")) {
+    // 5. Associate Professor
+    if (des.includes("associate professor")) {
       return 5;
     }
-    // 6. Lecturer
-    if (des.includes("lecturer")) {
+    // 6. Assistant Professor
+    if (des.includes("assistant professor")) {
       return 6;
     }
-    // 7. Other staff members
-    return 7;
+    // 7. Lecturer
+    if (des.includes("lecturer")) {
+      return 7;
+    }
+    // 8. Non-Teaching Staff
+    if (des.includes("librarian") || des.includes("library") || dept === "library" || des.includes("programmer") || des.includes("instructor") || des.includes("technical") || dept === "non-technical" || des.includes("lab assistant") || des.includes("assistant")) {
+      return 8;
+    }
+    // 9. Peon, Supervisor, Store Keeper
+    if (des.includes("peon") || des.includes("supervisor") || des.includes("superviser") || des.includes("store keeper") || des.includes("storekeeper") || des.includes("attendant") || des.includes("helper")) {
+      return 9;
+    }
+    return 8;
   };
 
   const sortedMembers = [...uniqueMembers].sort((a, b) => {
