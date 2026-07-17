@@ -13,7 +13,7 @@ interface GoverningBodyMember {
 const MEMBERS: GoverningBodyMember[] = [
   { name: "Hon. Mr. Ramdas Kakade", designation: "President", image: "https://ymkcoe.com/upload/Gov/1.PNG" },
   { name: "Hon. Mr. Shailesh Shah", designation: "Vice President", image: "https://ymkcoe.com/upload/Gov/2.PNG" },
-  { name: "Hon. Mr. Sanjay Sane", designation: "Vice President", image: "https://ymkcoe.com/upload/Gov/sanjaysir.jpeg" },
+  { name: "Hon. Mr. Sanjay Sane", designation: "Vice President", image: "/vice_president.png" },
   { name: "Hon. Mr. Chandrakant Shete", designation: "Secretary", image: "https://ymkcoe.com/upload/Gov/4.PNG" },
   { name: "Hon. Mrs. Nirupa Kanitkar", designation: "Treasurer", image: "https://ymkcoe.com/upload/Gov/5.PNG" },
   { name: "Hon. Mr. Gorakhnath Kalokhe", designation: "Trustee", image: "https://ymkcoe.com/upload/Gov/3.PNG" },
