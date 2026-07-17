@@ -261,7 +261,7 @@ export default function Department() {
   
   const safeFaculty = Array.isArray(allFaculty) ? allFaculty : [];
   // Filter for faculty belonging to this department
-  const displayFaculty = safeFaculty.filter((f: any) => {
+  const filteredDeptFaculty = safeFaculty.filter((f: any) => {
     // FE page is called "First Year Engineering" or has ID "fe", but its faculty are stored under "Basic Sciences & Humanities" in DB
     const targetDeptLabel = deptId === "fe" ? "Basic Sciences & Humanities" : officialDeptLabel;
     if (f.department !== targetDeptLabel) return false;
@@ -274,6 +274,20 @@ export default function Department() {
     
     return true;
   });
+
+  // Deduplicate display faculty by name
+  const uniqueDeptFacultyMap = new Map<string, any>();
+  filteredDeptFaculty.forEach((m: any) => {
+    const existing = uniqueDeptFacultyMap.get(m.name);
+    if (!existing) {
+      uniqueDeptFacultyMap.set(m.name, m);
+    } else {
+      if (existing.designation.toLowerCase().includes("assisitant") && !m.designation.toLowerCase().includes("assisitant")) {
+        uniqueDeptFacultyMap.set(m.name, m);
+      }
+    }
+  });
+  const displayFaculty = Array.from(uniqueDeptFacultyMap.values());
 
   useEffect(() => {
     // Reset tab when department changes

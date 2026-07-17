@@ -19,8 +19,22 @@ export default function Faculty() {
     const targetDeptLabel = dept.id === "fe" ? "Basic Sciences & Humanities" : dept.label;
     const members = FACULTY_DATA.filter((f: any) => f.department === targetDeptLabel);
     
+    // Deduplicate members by name in the same department
+    const uniqueMembersMap = new Map<string, any>();
+    members.forEach((m: any) => {
+      const existing = uniqueMembersMap.get(m.name);
+      if (!existing) {
+        uniqueMembersMap.set(m.name, m);
+      } else {
+        if (existing.designation.toLowerCase().includes("assisitant") && !m.designation.toLowerCase().includes("assisitant")) {
+          uniqueMembersMap.set(m.name, m);
+        }
+      }
+    });
+    const uniqueMembers = Array.from(uniqueMembersMap.values());
+    
     // Sort so HODs appear first
-    const sortedMembers = [...members].sort((a, b) => {
+    const sortedMembers = [...uniqueMembers].sort((a, b) => {
       if (a.isHOD && !b.isHOD) return -1;
       if (!a.isHOD && b.isHOD) return 1;
       return 0;
