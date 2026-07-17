@@ -30,18 +30,45 @@ export default function Faculty() {
 
   const uniqueMembers = Array.from(uniqueMembersMap.values());
 
-  // Sorting: Principal first, then HODs, then by name
+  // Sorting: Principal first, then Vice-Principal, then HODs, then by academic hierarchy and name
+  const getHierarchyWeight = (f: any) => {
+    const des = (f.designation || "").toLowerCase();
+    
+    // 1. Principal (strictly principal, not vice principal)
+    if (des.includes("principal") && !des.includes("vice")) {
+      return 1;
+    }
+    // 2. Vice-Principal
+    if (des.includes("vice-principal") || des.includes("vice principal")) {
+      return 2;
+    }
+    // 3. HOD
+    if (f.isHOD) {
+      return 3;
+    }
+    // 4. Associate Professor
+    if (des.includes("associate professor")) {
+      return 4;
+    }
+    // 5. Assistant Professor
+    if (des.includes("assistant professor")) {
+      return 5;
+    }
+    // 6. Lecturer
+    if (des.includes("lecturer")) {
+      return 6;
+    }
+    // 7. Other staff members
+    return 7;
+  };
+
   const sortedMembers = [...uniqueMembers].sort((a, b) => {
-    const isPrincipalA = (a.designation || "").toLowerCase().includes("principal");
-    const isPrincipalB = (b.designation || "").toLowerCase().includes("principal");
-    if (isPrincipalA && !isPrincipalB) return -1;
-    if (!isPrincipalA && isPrincipalB) return 1;
-
-    const isHODA = !!a.isHOD;
-    const isHODB = !!b.isHOD;
-    if (isHODA && !isHODB) return -1;
-    if (!isHODA && isHODB) return 1;
-
+    const weightA = getHierarchyWeight(a);
+    const weightB = getHierarchyWeight(b);
+    
+    if (weightA !== weightB) {
+      return weightA - weightB;
+    }
     return (a.name || "").localeCompare(b.name || "");
   });
 
@@ -83,9 +110,19 @@ export default function Faculty() {
           ) : sortedMembers.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {sortedMembers.map((faculty: any, index) => {
+                const des = (faculty.designation || "").toLowerCase();
+                const isVP = des.includes("vice-principal") || des.includes("vice principal");
+                const isPrincipal = des.includes("principal") && !isVP;
                 const isHOD = faculty.isHOD;
-                const isPrincipal = (faculty.designation || "").toLowerCase().includes("principal");
-                const badgeText = isPrincipal ? "PRINCIPAL" : isHOD ? "HOD" : "";
+                
+                const badgeText = isPrincipal 
+                  ? "PRINCIPAL" 
+                  : isVP 
+                    ? "VICE PRINCIPAL" 
+                    : isHOD 
+                      ? "HOD" 
+                      : "";
+                const isFeatured = isPrincipal || isVP || isHOD;
                 const delay = `${index * 50}ms`;
                 
                 return (
@@ -93,7 +130,7 @@ export default function Faculty() {
                     key={faculty.id} 
                     data-scroll-reveal
                     style={{ transitionDelay: delay }}
-                    className={`bg-white rounded-3xl border ${isPrincipal || isHOD ? 'border-amber-200 shadow-amber-500/5' : 'border-slate-100'} shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] transition-all duration-500 p-6 flex flex-col h-full cursor-pointer group`}
+                    className={`bg-white rounded-3xl border ${isFeatured ? 'border-amber-200 shadow-amber-500/5' : 'border-slate-100'} shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_40px_rgba(0,0,0,0.08)] transition-all duration-500 p-6 flex flex-col h-full cursor-pointer group`}
                     onClick={() => setSelectedFaculty(faculty)}
                   >
                     {/* Top Row: Avatar & Badge */}
