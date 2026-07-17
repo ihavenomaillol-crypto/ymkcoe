@@ -18,6 +18,21 @@ import { motion } from "framer-motion";
 import { useGetFaculty } from "@workspace/api-client-react";
 import { DEPARTMENTS } from "@/lib/departments";
 
+const getCombinedName = (title: string | null | undefined, name: string) => {
+  if (!title) return name;
+  const cleanTitle = title.trim();
+  const cleanName = name.trim();
+  if (!cleanTitle) return cleanName;
+  
+  const titleLower = cleanTitle.toLowerCase().replace(/\.$/, "");
+  const nameLower = cleanName.toLowerCase();
+  
+  if (nameLower.startsWith(titleLower)) {
+    return cleanName;
+  }
+  return `${cleanTitle} ${cleanName}`;
+};
+
 const DEPT_CONFIG: Record<
   string,
   {
@@ -278,12 +293,15 @@ export default function Department() {
   // Deduplicate display faculty by name
   const uniqueDeptFacultyMap = new Map<string, any>();
   filteredDeptFaculty.forEach((m: any) => {
+    const combinedName = getCombinedName(m.title, m.name);
+    const memberWithCombinedName = { ...m, name: combinedName };
+
     const existing = uniqueDeptFacultyMap.get(m.name);
     if (!existing) {
-      uniqueDeptFacultyMap.set(m.name, m);
+      uniqueDeptFacultyMap.set(m.name, memberWithCombinedName);
     } else {
       if (existing.designation.toLowerCase().includes("assisitant") && !m.designation.toLowerCase().includes("assisitant")) {
-        uniqueDeptFacultyMap.set(m.name, m);
+        uniqueDeptFacultyMap.set(m.name, memberWithCombinedName);
       }
     }
   });

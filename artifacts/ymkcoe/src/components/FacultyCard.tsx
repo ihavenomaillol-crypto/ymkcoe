@@ -80,12 +80,7 @@ export function FacultyCard({
   email,
   awards
 }: FacultyCardProps) {
-  // Parse research interests
-  const interestsList = (expertise || "")
-    .split(",")
-    .map(s => s.trim())
-    .filter(Boolean)
-    .slice(0, 4);
+
 
   return (
     <div className="relative bg-white border border-black/5 rounded-[20px] shadow-[0_12px_30px_rgba(0,0,0,0.02),0_4px_12px_rgba(0,0,0,0.01)] hover:shadow-[0_20px_40px_rgba(11,94,215,0.06)] hover:-translate-y-1.5 transition-all duration-400 ease-out flex flex-col group h-full overflow-hidden">
@@ -216,64 +211,6 @@ export function FacultyCard({
               </div>
             </div>
           )}
-        </div>
-
-        {/* Areas of Interest Pills */}
-        {interestsList.length > 0 && (
-          <div className="text-left mt-1.5 mb-3">
-            <span className="font-bold text-slate-400 text-[8.5px] uppercase tracking-wider block mb-1.5">Areas of Interest</span>
-            <div className="flex flex-wrap gap-1.5">
-              {interestsList.map((interest, idx) => (
-                <span 
-                  key={idx} 
-                  className="px-2 py-0.5 bg-[#EEF4FF] hover:bg-[#0B5ED7] hover:text-white transition-all duration-300 text-[#0B5ED7] text-[10px] font-bold rounded-full border border-blue-100/50 hover:scale-105 cursor-default"
-                >
-                  {interest}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Footer */}
-      <div className="border-t border-slate-100 px-5 md:px-6 py-3 bg-slate-50/50 flex items-center justify-between mt-auto">
-        <a 
-          href="#" 
-          onClick={(e) => e.preventDefault()}
-          className="flex items-center gap-1.5 text-[#0B5ED7] hover:text-blue-700 text-[11.5px] font-bold tracking-wide transition-colors duration-300"
-        >
-          <span>View Full Profile</span>
-          <svg className="w-3 h-3 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </a>
-
-        <div className="flex items-center gap-2 text-slate-400">
-          <a 
-            href="#" 
-            onClick={(e) => e.preventDefault()}
-            title="LinkedIn Profile"
-            className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-[#EEF4FF] hover:text-[#0B5ED7] transition-all duration-200"
-          >
-            <LinkedInLogo />
-          </a>
-          <a 
-            href="#" 
-            onClick={(e) => e.preventDefault()}
-            title="Google Scholar"
-            className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-[#EEF4FF] hover:text-[#0B5ED7] transition-all duration-200"
-          >
-            <ScholarLogo />
-          </a>
-          <a 
-            href="#" 
-            onClick={(e) => e.preventDefault()}
-            title="ResearchGate"
-            className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-[#EEF4FF] hover:text-[#0B5ED7] transition-all duration-200 text-xs text-center leading-none"
-          >
-            <ResearchGateLogo />
-          </a>
         </div>
       </div>
     </div>

@@ -7,6 +7,21 @@ import { Badge } from "@/components/ui/badge";
 import { Mail, Award, BookOpen, Download, User, Calendar, Settings, ShieldCheck, ChevronRight } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
+const getCombinedName = (title: string | null | undefined, name: string) => {
+  if (!title) return name;
+  const cleanTitle = title.trim();
+  const cleanName = name.trim();
+  if (!cleanTitle) return cleanName;
+  
+  const titleLower = cleanTitle.toLowerCase().replace(/\.$/, "");
+  const nameLower = cleanName.toLowerCase();
+  
+  if (nameLower.startsWith(titleLower)) {
+    return cleanName;
+  }
+  return `${cleanTitle} ${cleanName}`;
+};
+
 export default function Faculty() {
   const [selectedFaculty, setSelectedFaculty] = useState<any | null>(null);
   const { data: FACULTY_DATA = [], isLoading } = useGetFaculty({ limit: 100 });
@@ -16,14 +31,17 @@ export default function Faculty() {
   // Global Deduplication by Name
   const uniqueMembersMap = new Map<string, any>();
   rawMembers.forEach((m: any) => {
+    const combinedName = getCombinedName(m.title, m.name);
+    const memberWithCombinedName = { ...m, name: combinedName };
+
     const existing = uniqueMembersMap.get(m.name);
     if (!existing) {
-      uniqueMembersMap.set(m.name, m);
+      uniqueMembersMap.set(m.name, memberWithCombinedName);
     } else {
       const existingIsTypo = existing.designation.toLowerCase().includes("assisitant");
       const mIsTypo = m.designation.toLowerCase().includes("assisitant");
       if (existingIsTypo && !mIsTypo) {
-        uniqueMembersMap.set(m.name, m);
+        uniqueMembersMap.set(m.name, memberWithCombinedName);
       }
     }
   });
