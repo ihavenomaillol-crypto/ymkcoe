@@ -21,7 +21,7 @@ const fmt = (n: typeof newsTable.$inferSelect) => ({
 router.get("/news", async (req, res) => {
   const query = GetNewsQueryParams.safeParse(req.query);
   const { category, limit, offset } = query.success ? query.data : { category: undefined, limit: 10, offset: 0 };
-  let items = db.select().from(newsTable).orderBy(desc(newsTable.publishedAt));
+  let items = db.select().from(newsTable).orderBy(desc(newsTable.publishedAt)).$dynamic();
   if (category) {
     items = items.where(eq(newsTable.category, category));
   }

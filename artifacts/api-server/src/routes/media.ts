@@ -12,7 +12,7 @@ const router = Router();
 router.get("/media", async (req, res) => {
   const query = GetMediaItemsQueryParams.safeParse(req.query);
   const { category, limit, offset } = query.success ? query.data : { category: undefined, limit: 12, offset: 0 };
-  let items = db.select().from(mediaTable).orderBy(desc(mediaTable.createdAt));
+  let items = db.select().from(mediaTable).orderBy(desc(mediaTable.createdAt)).$dynamic();
   if (category) {
     items = items.where(eq(mediaTable.category, category));
   }

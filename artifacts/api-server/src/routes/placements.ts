@@ -19,7 +19,7 @@ const fmt = (p: typeof placementsTable.$inferSelect) => ({
 router.get("/placements", async (req, res) => {
   const query = GetPlacementsQueryParams.safeParse(req.query);
   const { year, department, limit, offset } = query.success ? query.data : { year: undefined, department: undefined, limit: 12, offset: 0 };
-  let items = db.select().from(placementsTable).orderBy(desc(placementsTable.year));
+  let items = db.select().from(placementsTable).orderBy(desc(placementsTable.year)).$dynamic();
   if (year) {
     items = items.where(eq(placementsTable.year, year));
   }

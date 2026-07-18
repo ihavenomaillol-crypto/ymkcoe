@@ -15,7 +15,7 @@ const router = Router();
 router.get("/courses", async (req, res) => {
   const query = GetCoursesQueryParams.safeParse(req.query);
   const { department, type, limit, offset } = query.success ? query.data : { department: undefined, type: undefined, limit: 12, offset: 0 };
-  let courses = db.select().from(coursesTable).orderBy(coursesTable.department);
+  let courses = db.select().from(coursesTable).orderBy(coursesTable.department).$dynamic();
   if (department) {
     courses = courses.where(eq(coursesTable.department, department));
   }
