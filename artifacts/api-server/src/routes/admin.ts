@@ -21,7 +21,7 @@ router.post("/admin/login", async (req, res) => {
   }
 
   req.session.adminId = admin.id;
-  res.json({ id: admin.id, username: admin.username, isAdmin: admin.isAdmin });
+  res.json({ id: admin.id, username: admin.username, isAdmin: admin.isAdmin, token: req.sessionID });
 });
 
 router.post("/admin/logout", (req, res) => {

@@ -8,9 +8,13 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   const logout = useAdminLogout();
 
   const handleLogout = () => {
+    localStorage.removeItem("admin_token");
     logout.mutate(undefined, {
       onSuccess: () => {
         window.location.href = "/admin"; // Redirect to login
+      },
+      onError: () => {
+        window.location.href = "/admin"; // Fallback redirect
       }
     });
   };

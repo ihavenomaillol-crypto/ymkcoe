@@ -37,6 +37,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// Extract Bearer token from Authorization header and inject into signedCookies for express-session compatibility
+app.use((req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    const sessionId = authHeader.substring(7);
+    req.signedCookies = req.signedCookies || {};
+    req.signedCookies["connect.sid"] = sessionId;
+  }
+  next();
+});
+
 import path from "path";
 import { fileURLToPath } from "url";
 

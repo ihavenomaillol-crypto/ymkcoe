@@ -32,7 +32,11 @@ export default function AdminLogin() {
 
   const onSubmit = (data: LoginFormValues) => {
     login.mutate({ data }, {
-      onSuccess: () => {
+      onSuccess: (res) => {
+        const session = res as any;
+        if (session && session.token) {
+          localStorage.setItem("admin_token", session.token);
+        }
         setLocation("/admin/dashboard");
       },
       onError: () => {
