@@ -43,8 +43,8 @@ export function useScrollReveal() {
         });
       },
       {
-        root,
-        threshold: 0.08,
+        root: null, // Use viewport instead of custom root for reliability
+        threshold: 0.05,
         rootMargin,
       },
     );
