@@ -70,6 +70,7 @@ export function MediaManager() {
           const uploadRes = await fetch(`${import.meta.env.VITE_API_URL || ''}/api/upload`, {
             method: "POST",
             body: formData,
+            credentials: "include",
           });
 
           if (!uploadRes.ok) {
