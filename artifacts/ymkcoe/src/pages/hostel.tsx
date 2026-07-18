@@ -20,6 +20,7 @@ const HOSTEL_CONFIG = {
     pronoun: "Girls'",
     icon: "🏠",
     heroColor: "from-pink-700 to-primary",
+    bgImage: "https://images.unsplash.com/photo-1527891751199-7225231a68dd?q=80&w=2070&auto=format&fit=crop",
     capacity: "Accommodation for girl students of YMKCOE",
     description:
       "YMKCOE's Girls' Hostel provides a safe, comfortable, and conducive residential facility for female engineering students. Located within close proximity of the college campus, the hostel ensures a secure and supportive environment.",
@@ -50,6 +51,7 @@ const HOSTEL_CONFIG = {
     pronoun: "Boys'",
     icon: "🏠",
     heroColor: "from-blue-800 to-primary",
+    bgImage: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=2069&auto=format&fit=crop",
     capacity: "Accommodation for boy students of YMKCOE",
     description:
       "YMKCOE's Boys' Hostel offers a comfortable and disciplined residential environment for male engineering students. The hostel is designed to foster academic excellence while providing all essential amenities.",
@@ -84,16 +86,20 @@ export default function HostelPage() {
     return (
       <AppLayout>
         {/* Portal Hero */}
-        <section className="relative bg-gradient-to-br from-primary/95 to-slate-900 text-white py-20 overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(120,119,198,0.15),transparent)] pointer-events-none" />
+        <section className="relative text-white py-24 overflow-hidden">
+          <div 
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1595113316349-9fa4eb24f884?q=80&w=2072&auto=format&fit=crop')" }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/95 to-slate-900/90 opacity-90" />
           <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
             <span className="px-3 py-1 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-4 inline-block">
               Accommodation
             </span>
-            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 drop-shadow-sm">
               Residential Hostels
             </h1>
-            <p className="text-slate-300 text-lg">
+            <p className="text-slate-200 text-lg leading-relaxed drop-shadow-sm">
               YMKCOE offers secure, clean, and comfortable living spaces for students. Our hostels provide a supportive community that helps transition smoothly into engineering studies.
             </p>
           </div>
@@ -167,15 +173,20 @@ export default function HostelPage() {
   return (
     <AppLayout>
       {/* Hero */}
-      <section data-scroll-reveal className={`bg-gradient-to-br ${hostel.heroColor} text-white py-16 md:py-20 relative overflow-hidden`}>
-        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle at 70% 30%, white 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+      <section data-scroll-reveal className="relative text-white py-20 md:py-24 overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url('${hostel.bgImage}')` }}
+        />
+        <div className={`absolute inset-0 bg-gradient-to-br ${hostel.heroColor} opacity-90 mix-blend-multiply`} />
+        <div className="absolute inset-0 bg-primary/40" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex items-center gap-3 mb-4">
             <div className="text-4xl">{hostel.icon}</div>
             <span className="text-sm font-semibold bg-white/20 px-3 py-1 rounded-full">Student's Corner</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">{hostel.type}</h1>
-          <p className="text-base md:text-lg text-white/80 max-w-2xl leading-relaxed">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-sm">{hostel.type}</h1>
+          <p className="text-base md:text-lg text-white/95 max-w-2xl leading-relaxed drop-shadow-sm font-medium">
             {hostel.description}
           </p>
         </div>
