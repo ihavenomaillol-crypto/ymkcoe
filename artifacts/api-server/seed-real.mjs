@@ -20,7 +20,7 @@ async function seed() {
     await client.query("DELETE FROM admins");
 
     // ── ADMIN ──────────────────────────────────────────────────────────────
-    const secret = process.env.SESSION_SECRET || "dev-secret";
+    const secret = process.env.SESSION_SECRET || "ymkcoe-secret-key";
     const hash = createHash("sha256").update("admin123" + secret).digest("hex");
     await client.query(
       "INSERT INTO admins (username, password_hash) VALUES ($1, $2)",

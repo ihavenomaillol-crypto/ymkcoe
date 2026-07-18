@@ -3,6 +3,7 @@ import app from "./app";
 import { logger } from "./lib/logger";
 import { db } from "@workspace/db";
 import { sql } from "drizzle-orm";
+import { createHash } from "crypto";
 
 const rawPort = process.env["PORT"];
 
@@ -30,4 +31,11 @@ app.listen(port, (err) => {
   db.execute(sql`UPDATE media SET url = CONCAT('https://ymkcoe.onrender.com', url) WHERE url LIKE '/api/uploads/%'`)
     .then(() => logger.info("Migrated relative media URLs successfully"))
     .catch((err) => logger.error({ err }, "Error migrating media URLs"));
+
+  // Align remote DB admin hash with the server's current secret fallback
+  const secret = process.env.SESSION_SECRET || "ymkcoe-secret-key";
+  const newHash = createHash("sha256").update("admin123" + secret).digest("hex");
+  db.execute(sql`UPDATE admins SET password_hash = ${newHash} WHERE username = 'admin'`)
+    .then(() => logger.info("Aligned admin user password hash in DB successfully"))
+    .catch((err) => logger.error({ err }, "Error aligning admin password hash"));
 });
